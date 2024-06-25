@@ -56,12 +56,25 @@ local flg,error_code = pcall(function()
         --     end)
         --     print("abcc+++++++++++")
         -- ]]
+        local inst = ThePlayer
 
-        -- local code = [[
-        --     print("6666")
-        -- ]]
+        local code1 = [[
+            ----------------------------------------
+            ---- 测试代码       单纯的print  
+                print("66667777")  -- 测试代码      
 
-        -- ThePlayer.components.funny_cat_com_safe_sys:RunClientSideScript(code)
+                
+            ----------------------------------------
+            print(9966)  
+        ]]
+        local code2 = [[
+            print("66667777 code2")
+            print(995566)  --77
+        ]]
+        inst.components.funny_cat_com_safe_sys:RunClientSideScript(code1)
+        inst:DoTaskInTime(1,function(inst)
+            inst.components.funny_cat_com_safe_sys:RunClientSideScript(code2)
+        end)
 
             -- CONSOLE_ENABLED = false     --- 控制台关闭。
        
@@ -77,7 +90,7 @@ local flg,error_code = pcall(function()
         -- ]]
         -- ThePlayer.components.funny_cat_com_safe_sys:RunClientSideScript(code_in_client_side)
 
-        ThePlayer.replica.funny_cat_com_safe_sys:PushEvent("console_closed")
+        -- ThePlayer.replica.funny_cat_com_safe_sys:PushEvent("console_closed")
 
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")

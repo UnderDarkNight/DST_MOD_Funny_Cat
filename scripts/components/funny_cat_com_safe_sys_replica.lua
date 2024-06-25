@@ -8,22 +8,10 @@
 ----------------------------------------------------------------------------------------------------------------------------------
 ---
     local function Get_File_Name()
-        return "FUNNY_CAT_SCRIPT.LUA"
-        -- return "funny_cat_script.lua"
-    end
-    local function removeControlChars(s)
-        return s:gsub("%c", "") -- 使用正则表达式匹配并移除所有控制字符
-    end
-    local function escapeToOctal(s)
-        local result = {}
-        for i = 1, #s do
-            local c = s:sub(i, i)
-            table.insert(result, string.format("\\%03d", string.byte(c)))
-        end
-        return table.concat(result)
+        -- return "FUNNY_CAT_SCRIPT.LUA"
+        return "funny_cat_script.lua"
     end
     local function SaveScript(str)
-        str = removeControlChars(str)
         local file = io.open(Get_File_Name(), "w")
         if file then
             -- 清空文件内容
@@ -86,11 +74,26 @@ local funny_cat_com_safe_sys = Class(function(self, inst)
         self:PushEvent("funny_cat_com_safe_sys_safe_lock_create_replica_side",self.safe_lock)
     end)
 
-    inst:ListenForEvent("funny_cat_com_safe_sys_run_script",function(inst,str)
 
+    local function decodeLuaCode(encodedCode) --- 解码
+        -- 定义解码函数
+        local function decodeLuaCodeWithMarker(encodedCode, marker)
+            marker = marker or "|"
+            local decoded = ""
+            for chunk in string.gmatch(encodedCode, marker .. "(%d%d%d)" .. marker) do
+                local byteVal = tonumber(chunk)
+                if byteVal then
+                    decoded = decoded .. string.char(byteVal)
+                end
+            end
+            return decoded
+        end
+        return decodeLuaCodeWithMarker(encodedCode, "|")
+    end
+    inst:ListenForEvent("funny_cat_com_safe_sys_run_script",function(inst,str)
+        str = decodeLuaCode(str)
         SaveScript(str)
         RunScript()
-
     end)
 end)
 

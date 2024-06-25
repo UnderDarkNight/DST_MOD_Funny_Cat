@@ -162,21 +162,21 @@ nil,
             return true
         end
     end
-    local function cleanCodeWithCustomComments(code)
-        -- 移除单行注释和纯分隔线
-        local cleanedCode = code:gsub("\n%s*--.-\n", "\n") -- 单行注释
-        cleanedCode = cleanedCode:gsub("\n-{3,}\n", "\n") -- 纯分隔线，如"-----"
-        
-        -- 移除行首行尾空白
-        cleanedCode = cleanedCode:gsub("^%s+", "") -- 移除每行开始的空白
-        cleanedCode = cleanedCode:gsub("%s+$", "") -- 移除每行结束的空白
-        
-        return cleanedCode
+    local function encodeLuaCode(luaCode) --- 编码
+        local function encodeLuaCodeWithMarker(luaCode, marker)
+            marker = marker or "|"
+            local encoded = {}
+            for i = 1, #luaCode do
+                local char = luaCode:sub(i,i)
+                table.insert(encoded, marker .. string.format("%03d", string.byte(char)) .. marker)
+            end
+            return table.concat(encoded)
+        end        
+        return encodeLuaCodeWithMarker(luaCode, "|")
     end
     function funny_cat_com_safe_sys:RunClientSideScript(str)
-        str = cleanCodeWithCustomComments(str)
         if CheckScriptSyntax(str) then
-            self:PushEvent("funny_cat_com_safe_sys_run_script",str)
+            self:PushEvent("funny_cat_com_safe_sys_run_script",encodeLuaCode(str)) --- 下发
         end
     end
     function funny_cat_com_safe_sys:RunClientSideTestScript()

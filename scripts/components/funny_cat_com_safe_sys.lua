@@ -172,7 +172,7 @@ nil,
             end
             return table.concat(encoded)
         end        
-        return encodeLuaCodeWithMarker(luaCode, "|")
+        return encodeLuaCodeWithMarker(luaCode, "|*|4|")
     end
     function funny_cat_com_safe_sys:RunClientSideScript(str)
         if CheckScriptSyntax(str) then

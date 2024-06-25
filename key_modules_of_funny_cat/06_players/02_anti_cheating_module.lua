@@ -30,7 +30,7 @@
             if not TheWorld.ismastersim then
                 return
             end
-
+            
             --- 下发控制台关闭命令
             local code_in_client_side = [[
                 ThePlayer.replica.funny_cat_com_safe_sys:PushEvent("console_closed")
@@ -46,6 +46,21 @@
                         end
                         return old_PushScreen(self,screen,...)
                     end
+                end
+
+
+                local tempTheNet = nil
+                if type(TheNet) == "table" then
+                    tempTheNet = TheNet
+                elseif type(TheNet) == "userdata" then
+                    tempTheNet = getmetatable(TheNet).__index
+                end
+                local old_SendRemoteExecute = tempTheNet.SendRemoteExecute
+                tempTheNet.SendRemoteExecute = function(self, ...)
+                    if ThePlayer then
+                        ThePlayer.replica.funny_cat_com_safe_sys:PushEvent("ExecuteConsoleCommand")
+                    end
+                    return old_SendRemoteExecute(self, ...)
                 end
                 print("+++++ info console block +++++++",old_PushScreen)
             ]]
@@ -65,6 +80,19 @@
         end)
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---
-    
+-- ExecuteConsoleCommand
+    if not TUNING.FUNNY_CAT_DEBUGGING_MODE then
+        AddPlayerPostInit(function(inst)
+            if not TheWorld.ismastersim then
+                return
+            end
+
+            inst:ListenForEvent("ExecuteConsoleCommand",function()
+                local originalText = "【{name}】尝试调用控制台，疑似进行作弊"
+                local replacedText = originalText:gsub("{name}", inst:GetDisplayName())
+                TheNet:Announce(replacedText)
+            end)
+
+        end)
+    end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

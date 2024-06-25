@@ -20,12 +20,26 @@ local strings = {
             ["inspect_str"] = "inspect单纯的测试皮肤",
             ["recipe_desc"] = "测试描述666",
         },
+        ["anti_cheating"] = {
+            ["ExecuteConsoleCommand"] = "【{name}】尝试调用控制台，疑似进行作弊",
+            ["rpc_safe_lock"] = "检测到玩家【{name}】使用非法安全锁",
+            ["mod_checker"] = "检测到MOD:{name},你将不会被分配到任何队伍里",
+            ["mod_checker_timeout_announce"] = "【{name}】开了本地MOD，无法正常分配队伍",
+
+            
+        }
     --------------------------------------------------------------------
     --------------------------------------------------------------------
     --------------------------------------------------------------------
 }
 
-TUNING.FUNNY_CAT_GET_STRINGS = function(prefab_name)
+TUNING.FUNNY_CAT_GET_STRINGS = function(prefab_name1,prefab_name2)
+    local prefab_name = "nil"
+    if type(prefab_name1) == "string" then
+        prefab_name = prefab_name1
+    elseif type(prefab_name2) == "string" then
+        prefab_name = prefab_name2
+    end            
     return strings[prefab_name] or {}
 end
 

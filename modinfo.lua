@@ -128,19 +128,7 @@ priority = -10  -- MOD加载优先级 影响某些功能的兼容性，比如官
       }, 
   ----------------------------------------------------------------------------------------------------------
   
-  ----------------------------------------------------------------------------------------------------------
-  --- 
-      {name = "AAAAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,},
-      {
-        name = "WEBBER_SPAWN_GIFT",
-        label = "送生蜘蛛包",
-        hover = "送生蜘蛛包",
-        options ={
-          {description = "ON", data = true},
-          {description = "OFF", data = false},
-        }
-        ,default = false,
-      },
+
   ----------------------------------------------------------------------------------------------------------
   --- 
       {name = "AAAAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,},

@@ -25,7 +25,13 @@ local strings = {
     --------------------------------------------------------------------
 }
 
-TUNING.FUNNY_CAT_GET_STRINGS = function(prefab_name)
+TUNING.FUNNY_CAT_GET_STRINGS = function(prefab_name1,prefab_name2)
+    local prefab_name = "nil"
+    if type(prefab_name1) == "string" then
+        prefab_name = prefab_name1
+    elseif type(prefab_name2) == "string" then
+        prefab_name = prefab_name2
+    end            
     return strings[prefab_name] or {}
 end
 

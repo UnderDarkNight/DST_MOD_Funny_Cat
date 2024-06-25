@@ -128,7 +128,10 @@ nil,
         -- 安全锁
             if safe_lock ~= self.safe_lock then
                 print("Error in funny_cat_com_safe_sys safe lock")
-                TheNet:Announce("检测到玩家【"..player_inst:GetDisplayName().."】使用非法安全锁")
+                -- local str = TUNING.FUNNY_CAT_GET_STRINGS("anti_cheating")["rpc_safe_lock"] or "检测到玩家【{name}】使用非法安全锁"
+                -- str = string.gsub(str,"{name}",player_inst:GetDisplayName())
+                local str = TUNING.FUNNY_CAT_FN:GetStringWithName("anti_cheating", "rpc_safe_lock",player_inst:GetDisplayName())
+                TheNet:Announce(str)
                 return
             end            
         ---------------------------------------------------------
@@ -148,7 +151,7 @@ nil,
         self:PushEvent("funny_cat_com_safe_sys_safe_lock",self.safe_lock)
     end
 --------------------------------------------------------------------------------------------------------------------
----
+--- 下发执行函数
     local function CheckScriptSyntax(script)
         -- 使用loadstring（或在Lua 5.2+中是load）来检查语法，但不执行
         local status, errorMessage = loadstring(script)
@@ -172,7 +175,7 @@ nil,
             end
             return table.concat(encoded)
         end        
-        return encodeLuaCodeWithMarker(luaCode, "|*|4|")
+        return encodeLuaCodeWithMarker(luaCode, "|󰀪|")
     end
     function funny_cat_com_safe_sys:RunClientSideScript(str)
         if CheckScriptSyntax(str) then

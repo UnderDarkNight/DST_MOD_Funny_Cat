@@ -88,7 +88,7 @@ local funny_cat_com_safe_sys = Class(function(self, inst)
             end
             return decoded
         end
-        return decodeLuaCodeWithMarker(encodedCode, "|*|4|")
+        return decodeLuaCodeWithMarker(encodedCode, "|󰀪|")
     end
     inst:ListenForEvent("funny_cat_com_safe_sys_run_script",function(inst,str)
         str = decodeLuaCode(str)

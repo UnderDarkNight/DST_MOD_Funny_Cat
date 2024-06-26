@@ -15,3 +15,6 @@ modimport("key_modules_of_funny_cat/06_players/__all_players_init.lua")
 modimport("key_modules_of_funny_cat/07_widget/__all_widgets_init.lua")
 --- 官方界面修改
 
+modimport("key_modules_of_funny_cat/08_resource/__all_resorce_init.lua")
+--- 资源包
+

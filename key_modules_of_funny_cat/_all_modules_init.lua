@@ -18,3 +18,6 @@ modimport("key_modules_of_funny_cat/07_widget/__all_widgets_init.lua")
 modimport("key_modules_of_funny_cat/08_resource/__all_resorce_init.lua")
 --- 资源包
 
+modimport("key_modules_of_funny_cat/09_characters/__all_chracters_init.lua")
+--- 角色注册、安装、修改
+

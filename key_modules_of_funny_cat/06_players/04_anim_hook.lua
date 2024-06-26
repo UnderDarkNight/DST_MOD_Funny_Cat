@@ -54,3 +54,7 @@ AddPlayerPostInit(function(inst)
     end    
     Hook_Player_AnimState(inst)    
 end)
+
+TUNING.FUNNY_CAT_FN.Hook_Player_AnimState = function(self,inst)
+    Hook_Player_AnimState(inst)
+end

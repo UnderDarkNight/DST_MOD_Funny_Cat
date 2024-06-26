@@ -9,6 +9,7 @@ local file_folders = {
     "01_items",                                  -- 物品
     "02_resource",                               -- 自然资源
     "03_sfx",                                    -- fx特效
+    "04_characters",                             -- 玩家角色
 
 }
 

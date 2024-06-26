@@ -139,7 +139,7 @@
                         if not white_list[modname] and KnownModIndex:IsModEnabled(modname) then
                             table.insert(ClientSideMods, modname)
                         end
-                    end                    
+                    end
                     for _, mod_id in pairs(ClientSideMods) do
                         local mod_info = KnownModIndex:GetModInfo(mod_id) or {}
                         local mod_name = mod_info.name
@@ -164,5 +164,23 @@
 
 
         end)
+    end
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 服务器MOD屏蔽
+    if not TUNING.FUNNY_CAT_DEBUGGING_MODE then
+        if TUNING.FUNNY_CAT_CONFIG.ALLOW_SERVER_MODS then
+            local old_GetEnabledModNames = ModManager.GetEnabledModNames
+            AddPlayerPostInit(function(inst)
+                if not TheWorld.ismastersim then
+                    return
+                end
+                inst:DoTaskInTime(3,function()
+                    local ret_mods = old_GetEnabledModNames(ModManager) or {}
+                    if #ret_mods > 1 then
+                        TheNet:Announce(TUNING.FUNNY_CAT_FN:GetStrings("anti_cheating","server_mods_checker_announce"))
+                    end
+                end)
+            end)
+        end
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

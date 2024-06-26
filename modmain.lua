@@ -31,6 +31,7 @@ GLOBAL.setmetatable(env,{__index=function(t,k) return GLOBAL.rawget(GLOBAL,k) en
 ---
 	TUNING.FUNNY_CAT_DEBUGGING_MODE = GetModConfigData("DEBUGGING_MODE") --- 开发者模式
 	TUNING.FUNNY_CAT_CONFIG = {}
+	TUNING.FUNNY_CAT_CONFIG.modname = modname
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 控制台屏蔽的另外一种形式
 	-- if not TUNING.FUNNY_CAT_DEBUGGING_MODE then

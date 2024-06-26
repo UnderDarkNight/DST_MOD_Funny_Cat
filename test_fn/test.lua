@@ -157,11 +157,10 @@ local flg,error_code = pcall(function()
 
     ----------------------------------------------------------------------------------------------------------------
     ---
-            local ret = GetSelectableCharacterList()
-            -- print(ret)
-            for k, v in pairs(ret) do
-                print(k,v)
-            end
+        local ret_table = ModManager:GetEnabledModNames()
+        for k, v in pairs(ret_table) do
+            print(k,v)
+        end
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

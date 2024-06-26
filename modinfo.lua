@@ -1,15 +1,78 @@
 author = "幕夜之下"
 -- from stringutil.lua
+local the_version = "0.00.01.00"
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 语言相关的基础API  ---- 参数表： loc.lua 里面的localizations 表，code 为 这里用的index
+  local function IsChinese()
+    if locale == nil then
+      return true
+    else
+      return locale == "zh" or locate == "zht" or locate == "zhr" or false
+    end
+  end
+  local function ChooseTranslationTable_Test(_table)
+    if ChooseTranslationTable then
+      return ChooseTranslationTable(_table)
+    else
+      return _table["zh"]
+    end
+  end
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+-- from stringutil.lua
+  local function tostring(arg)
+    if arg == true then
+      return "true"
+    elseif arg == false then
+      return "false"
+    elseif arg == nil then
+      return "nil"
+    end    
+    return arg .. ""
+  end
+  local function ipairs(tbl)
+    return function(tbl, index)
+      index = index + 1
+      local next = tbl[index]
+      if next then
+        return index, next
+      end
+    end, tbl, 0
+  end
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+local function GetName()  
+  local temp_table = {
+      "󰀢 hide and seek (game) 󰀢",                               ----- 默认情况下(英文)
+      ["zh"] = "󰀢躲猫猫󰀢",                                 ----- 中文
+  }
+  return ChooseTranslationTable_Test(temp_table)
+end
 
-name = "躲猫猫"
-description = [[
+local function GetDesc()
+  local temp_table = {
+    [[
 
-  躲猫猫
+      󰀭󰀭󰀭 󰀭󰀭󰀭󰀭
+      󰀢 hide and seek (game) 󰀢
+      󰀭󰀭󰀭 󰀭󰀭󰀭󰀭
 
-]]
+    ]],
+    ["zh"] = [[
 
-version = 0.1 ------ MOD版本，上传的时候必须和已经在工坊的版本不一样
+      󰀭󰀭󰀭 󰀭󰀭󰀭󰀭
+      󰀭      躲猫猫        󰀭
+      󰀭󰀭󰀭 󰀭󰀭󰀭󰀭
+
+    ]]
+  }
+  local ret = the_version .. "  \n\n"..ChooseTranslationTable_Test(temp_table)
+  return ret
+end
+
+name = GetName() or "躲猫猫"
+description = GetDesc() or "躲猫猫"
+
+version = the_version or 0.1 ------ MOD版本，上传的时候必须和已经在工坊的版本不一样
 
 api_version = 10
 icon_atlas = "modicon.xml"
@@ -19,28 +82,9 @@ dont_starve_compatible = true
 dst_compatible = true
 all_clients_require_mod = true
 
-priority = -10  -- MOD加载优先级 影响某些功能的兼容性，比如官方Com 的 Hook
+priority = 100000000000000  -- MOD加载优先级 影响某些功能的兼容性，比如官方Com 的 Hook
   ----------------------------------------------------------------------------------------------------------
-  -- from stringutil.lua
-    local function tostring(arg)
-      if arg == true then
-        return "true"
-      elseif arg == false then
-        return "false"
-      elseif arg == nil then
-        return "nil"
-      end    
-      return arg .. ""
-    end
-    local function ipairs(tbl)
-      return function(tbl, index)
-        index = index + 1
-        local next = tbl[index]
-        if next then
-          return index, next
-        end
-      end, tbl, 0
-    end
+
   ----------------------------------------------------------------------------------------------------------
   --- options
     local function Create_Number_Setting(start_num,stop_num,delta_num)
@@ -134,15 +178,24 @@ priority = -10  -- MOD加载优先级 影响某些功能的兼容性，比如官
       {name = "AAAAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,},
       {
         name = "DEBUGGING_MODE",
-        label = "开发者模式",
-        hover = "开发者模式",
+        label = IsChinese() and "开发者模式" or "Debugging Mode",
+        hover = IsChinese() and "开发者模式" or "Debugging Mode",
         options ={
           {description = "ON", data = true},
           {description = "OFF", data = false},
         }
         ,default = false,
       },
-  
+      {
+        name = "ALLOW_SERVER_MODS",
+        label = IsChinese() and "允许服务器MOD" or "Allow Server MOD",
+        hover = IsChinese() and "允许服务器MOD" or "Allow Server MOD",
+        options ={
+          {description = "ON", data = true},
+          {description = "OFF", data = false},
+        },
+        default = false,
+      }, 
   ----------------------------------------------------------------------------------------------------------
   ----------------------------------------------------------------------------------------------------------
   

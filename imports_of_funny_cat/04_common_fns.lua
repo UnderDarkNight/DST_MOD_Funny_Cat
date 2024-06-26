@@ -15,8 +15,13 @@ TUNING.FUNNY_CAT_FN = {}
         local replacedText = str:gsub("{name}",tostring(player_name))
         return replacedText
     end
-    function TUNING.FUNNY_CAT_FN:GetStrings(prefab)
-        return TUNING.FUNNY_CAT_GET_STRINGS(prefab) or {}
+    function TUNING.FUNNY_CAT_FN:GetStrings(prefab,index)
+        local prefab_table = TUNING.FUNNY_CAT_GET_STRINGS(prefab) or {}
+        if index then
+            return prefab_table[index]
+        else
+            return prefab_table
+        end
     end
     function TUNING.FUNNY_CAT_FN:GetAllStrings()
         return TUNING.FUNNY_CAT_GET_ALL_STRINGS()

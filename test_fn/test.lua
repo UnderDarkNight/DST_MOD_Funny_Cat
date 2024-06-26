@@ -95,38 +95,38 @@ local flg,error_code = pcall(function()
 
     ----------------------------------------------------------------------------------------------------------------
     ---- MOD屏蔽
-        local code = [[
+        -- local code = [[
         
             
-            local white_list = {
-                ["workshop-2896126381"] = true
-            }
-            local all_mods = KnownModIndex:GetClientModNamesTable() or {}
+        --     local white_list = {
+        --         ["workshop-2896126381"] = true
+        --     }
+        --     local all_mods = KnownModIndex:GetClientModNamesTable() or {}
 
-            local ClientSideMods = {}
-            for _, _table in pairs(all_mods) do
-                local modname = _table.modname
-                if not white_list[modname] then
-                    table.insert(ClientSideMods, modname)
-                end
-            end
+        --     local ClientSideMods = {}
+        --     for _, _table in pairs(all_mods) do
+        --         local modname = _table.modname
+        --         if not white_list[modname] then
+        --             table.insert(ClientSideMods, modname)
+        --         end
+        --     end
             
-            for _, mod_id in pairs(ClientSideMods) do
-                local mod_info = KnownModIndex:GetModInfo(mod_id) or {}
-                local mod_name = mod_info.name
-                if ThePlayer then
-                    ThePlayer:PushEvent("funny_cat_event.whisper",{
-                        message = "检测到MOD: " .. mod_name .. ",你将不会被分配到任何队伍里",
-                        m_colour = {255/255,0/255,0/255},
-                    })
-                end
-            end
-            ThePlayer.replica.funny_cat_com_safe_sys:PushEvent("client_side_mod_checker_start",{
-                safe_lock = {safe_lock},
-                mod_num = #ClientSideMods,
-            })
+        --     for _, mod_id in pairs(ClientSideMods) do
+        --         local mod_info = KnownModIndex:GetModInfo(mod_id) or {}
+        --         local mod_name = mod_info.name
+        --         if ThePlayer then
+        --             ThePlayer:PushEvent("funny_cat_event.whisper",{
+        --                 message = "检测到MOD: " .. mod_name .. ",你将不会被分配到任何队伍里",
+        --                 m_colour = {255/255,0/255,0/255},
+        --             })
+        --         end
+        --     end
+        --     ThePlayer.replica.funny_cat_com_safe_sys:PushEvent("client_side_mod_checker_start",{
+        --         safe_lock = {safe_lock},
+        --         mod_num = #ClientSideMods,
+        --     })
 
-        ]]
+        -- ]]
 
 
         -- local white_list = {
@@ -155,6 +155,13 @@ local flg,error_code = pcall(function()
     
         -- code = code:gsub("{mod_num}", tostring(safe_lock))
 
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            local ret = GetSelectableCharacterList()
+            -- print(ret)
+            for k, v in pairs(ret) do
+                print(k,v)
+            end
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

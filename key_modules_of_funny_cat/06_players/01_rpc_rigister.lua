@@ -53,7 +53,8 @@ if TUNING.FUNNY_CAT_DEBUGGING_MODE then
 
 
         inst:DoTaskInTime(3,function()
-            TheNet:Announce("󰀭躲猫猫󰀭        测试模式 ON")
+            local str = TUNING.FUNNY_CAT_FN:GetStrings("anti_cheating")["debugging_mode_announce"] or "󰀭躲猫猫󰀭        测试模式 ON"
+            TheNet:Announce(str)
         end)
     
     end)

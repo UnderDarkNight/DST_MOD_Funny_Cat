@@ -99,6 +99,7 @@
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- 检测客户端的MOD
     if not TUNING.FUNNY_CAT_DEBUGGING_MODE then
+        local MOD_CHEKER_TIMEOUT = 15
         AddPlayerPostInit(function(inst)
 
             if not TheWorld.ismastersim then
@@ -106,7 +107,7 @@
             end
 
             local safe_lock = tostring(math.random(10000,9999999))
-            local timeout_task = inst:DoTaskInTime(15,function()
+            local timeout_task = inst:DoTaskInTime(MOD_CHEKER_TIMEOUT,function()
                 print("client_side_mod_checker error timeout")
                 local str = TUNING.FUNNY_CAT_FN:GetStringWithName("anti_cheating", "mod_checker_timeout_announce",inst:GetDisplayName())
                 TheNet:Announce(str)

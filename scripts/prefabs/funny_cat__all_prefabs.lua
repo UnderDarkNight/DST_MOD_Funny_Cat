@@ -8,6 +8,7 @@ local file_folders = {
     "00_others",                                 -- 其他物品
     "01_items",                                  -- 物品
     "02_resource",                               -- 自然资源
+    "03_sfx",                                    -- fx特效
 
 }
 

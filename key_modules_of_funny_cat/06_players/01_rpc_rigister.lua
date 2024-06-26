@@ -7,13 +7,25 @@
 
 
 AddPlayerPostInit(function(inst)
+    
+    if inst.components.funny_cat_com_player_rotation == nil then
+        inst:AddComponent("funny_cat_com_player_rotation")
+    end
+
     if not TheWorld.ismastersim then
         return
     end
 
+    if inst.components.funny_cat_com_rpc_event == nil then
+        inst:AddComponent("funny_cat_com_rpc_event")
+    end
+    if inst.components.funny_cat_com_safe_sys == nil then
+        inst:AddComponent("funny_cat_com_safe_sys")
+    end
 
-    inst:AddComponent("funny_cat_com_rpc_event")
-    inst:AddComponent("funny_cat_com_safe_sys")
+
+
+
 
 end)
 

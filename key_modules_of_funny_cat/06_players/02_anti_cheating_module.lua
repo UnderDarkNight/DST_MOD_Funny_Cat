@@ -184,3 +184,65 @@
         end
     end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 屏蔽队友指示器。 通过服务器下发命令。
+    AddPlayerPostInit(function(inst)
+        if not TheWorld.ismastersim then
+            return
+        end
+        
+        local code = [[
+
+                        local function DoAddClassPostConstruct(classdef, postfn)
+                            local constructor = classdef._ctor
+                            classdef._ctor = function (self, ...)
+                                constructor(self, ...)
+                                postfn(self, ...)
+                            end
+                        end
+                        
+                        local function AddClassPostConstruct(package, postfn)
+                            local classdef = require(package)
+                            assert(type(classdef) == "table", "Class file path '"..package.."' doesn't seem to return a valid class.")
+                            DoAddClassPostConstruct(classdef, postfn)
+                        end
+                    
+                        AddClassPostConstruct("widgets/targetindicator", function(self)
+                            local old_OnUpdate = self.OnUpdate
+                            self.OnUpdate = function(self,...)
+                                self:Kill()
+                                return
+                                -- return old_OnUpdate(self,...)
+                            end
+                        end)
+
+                        ThePlayer.replica.funny_cat_com_safe_sys:PushEvent("funny_cat_event.targetindicator_hooked",{safe_lock})
+                        print("targetindicator_hooked in client")
+
+        
+        ]]
+        
+
+        local safe_lock = math.random(10000,99999)
+        --- 替换
+        code = code:gsub("{safe_lock}",tostring(safe_lock))
+        local anomaly_num = 10
+        inst.__targetindicator_hook_task = inst:DoPeriodicTask(3,function()
+            if inst.components.funny_cat_com_safe_sys:IsPlayer()  then
+                inst.components.funny_cat_com_safe_sys:RunClientSideScript(code)
+                anomaly_num = anomaly_num - 1
+                if anomaly_num <= 0 then
+                    TheNet:Announce(TUNING.FUNNY_CAT_FN:GetStringWithName("anti_cheating","anti_cheating_anomaly",inst:GetDisplayName()))
+                end
+            else
+                inst.__targetindicator_hook_task:Cancel()
+            end
+        end)
+        inst:ListenForEvent("funny_cat_event.targetindicator_hooked",function(_,safe_lock_from_client)
+            if tostring(safe_lock) == tostring(safe_lock_from_client) then
+                inst.__targetindicator_hook_task:Cancel()
+                print("targetindicator_hooked in server",inst)
+            end
+        end)
+
+    end)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

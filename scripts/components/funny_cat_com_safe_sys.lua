@@ -52,7 +52,7 @@ nil,
             return
         end
 
-        if self.inst.userid == nil or self.inst.components.playercontroller == nil then
+        if not self:IsPlayer() then
             return
         end
 
@@ -146,9 +146,15 @@ nil,
 --------------------------------------------------------------------------------------------------------------------
 ---
     function funny_cat_com_safe_sys:CreateSafeLock()
+        if not self:IsPlayer() then
+            return
+        end
         self.safe_lock = self.safe_lock or tostring(math.random(10000,9999999))
         print("funny_cat_com_safe_sys safe lock create: "..self.safe_lock)
         self:PushEvent("funny_cat_com_safe_sys_safe_lock",self.safe_lock)
+    end
+    function funny_cat_com_safe_sys:IsPlayer()
+        return self.inst.userid ~= nil and self.inst.components.playercontroller ~= nil
     end
 --------------------------------------------------------------------------------------------------------------------
 --- 下发执行函数

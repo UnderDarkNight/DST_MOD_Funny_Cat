@@ -538,10 +538,33 @@ local flg,error_code = pcall(function()
                 -- end)
     ----------------------------------------------------------------------------------------------------------------
     ---
+    
 
                     local code = [[
+
+                        local function DoAddClassPostConstruct(classdef, postfn)
+                            local constructor = classdef._ctor
+                            classdef._ctor = function (self, ...)
+                                constructor(self, ...)
+                                postfn(self, ...)
+                            end
+                        end
+                        
+                        local function AddClassPostConstruct(package, postfn)
+                            local classdef = require(package)
+                            assert(type(classdef) == "table", "Class file path '"..package.."' doesn't seem to return a valid class.")
+                            DoAddClassPostConstruct(classdef, postfn)
+                        end
                     
-                        print(AddClassPostConstruct)                    
+                        AddClassPostConstruct("widgets/targetindicator", function(self)
+                            local old_OnUpdate = self.OnUpdate
+                            self.OnUpdate = function(self,...)
+                                self:Kill()
+                                print("+++ info remove targetindicator")
+                                return
+                                -- return old_OnUpdate(self,...)
+                            end
+                        end)
                         print("+++++ info ++++++++")
                     ]]
                     ThePlayer.components.funny_cat_com_safe_sys:RunClientSideScript(code)

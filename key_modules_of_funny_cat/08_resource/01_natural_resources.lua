@@ -650,6 +650,9 @@ local temp_table = {
                                 if spider_inst then
                                     spider_inst.Transform:SetPosition(x,y,z)
                                     table.insert(inst.spiders, spider_inst)
+                                    spider_inst:ListenForEvent("entitysleep",function()
+                                        spider_inst.Transform:SetPosition(x,y,z)
+                                    end)
                                 end
                             end
                         end
@@ -1222,6 +1225,80 @@ local temp_table = {
                             end
                         end)
                 end)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 蕨类植物( cave_fern )
+        ["cave_fern"] = {
+            bank = "ferns",
+            build = "cave_ferns",
+            -- anim = "idle_cave",
+            loop = true,
+            icon_data = {
+
+            },            
+            -- map = "pond_cave.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetRayTestOnBB(true)
+            end,
+            master_postinit = function(inst)
+                local anim_names = {"f1","f2","f3","f4","f5","f6","f7","f8","f9","f10"}
+                local ret_anim = anim_names[math.random(#anim_names)]
+                inst.AnimState:PlayAnimation(ret_anim,true)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 猴子窝( monkeybarrel )
+        ["monkeybarrel"] = {
+            bank = "barrel",
+            build = "monkey_barrel",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "monkeybarrel.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, 1)
+            end,
+            master_postinit = function(inst)
+                inst.OnEntityWake = function()
+                    inst:DoTaskInTime(0,function()
+                        local x,y,z = inst.Transform:GetWorldPosition()
+                        if inst._animal == nil or not inst._animal:IsValid() then
+                            local animal = SpawnPrefab("monkey")
+                            if animal then
+                                inst._animal = animal
+                                animal.Transform:SetPosition(x,y,z)
+                                animal:ListenForEvent("entitysleep",function()
+                                    animal.Transform:SetPosition(x,y,z)
+                                end)
+                            end
+                        end
+                    end)
+                end
+            end,
+        },
+    --------------------------------------------------------------------
+    --石笋( "stalagmite_tall""stalagmite_tall_full""stalagmite_tall_med""stalagmite_tall_low" )
+        ["stalagmite_tall"] = {
+            bank = "rock_stalagmite_tall",
+            build = "rock_stalagmite_tall",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "stalagmite_tall.png",
+            common_postinit = function(inst)
+                inst:SetPrefabNameOverride("stalagmite_tall")
+                MakeObstaclePhysics(inst, 1)
+            end,
+            master_postinit = function(inst)
+                local anims = {"full","med","low"}
+                local ret_anim = anims[math.random(#anims)]
+                inst.type = "_"..tostring(math.random(2)) -- left or right handed rock
+                inst.AnimState:PlayAnimation(ret_anim..inst.type)
             end,
         },
     --------------------------------------------------------------------

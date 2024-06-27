@@ -512,11 +512,11 @@ local flg,error_code = pcall(function()
     ----------------------------------------------------------------------------------------------------------------
     ---
 
-            -- for i = 1, 30, 1 do
-            --     ThePlayer:DoTaskInTime(i,function(inst)
-            --         SpawnPrefab("fc_flower").Transform:SetPosition(inst.Transform:GetWorldPosition())
-            --     end)
-            -- end
+            for i = 1, 30, 1 do
+                ThePlayer:DoTaskInTime(i,function(inst)
+                    SpawnPrefab("fc_stalagmite_tall").Transform:SetPosition(inst.Transform:GetWorldPosition())
+                end)
+            end
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

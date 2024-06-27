@@ -23,7 +23,11 @@ AddPlayerPostInit(function(inst)
         inst:AddComponent("funny_cat_com_safe_sys")
     end
 
-
+    inst:DoTaskInTime(1,function()
+        if inst.MiniMapEntity then
+            inst.MiniMapEntity:SetEnabled(false)
+        end
+    end)
 
 
 

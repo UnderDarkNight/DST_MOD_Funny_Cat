@@ -158,20 +158,29 @@ priority = 100000000000000  -- MOD加载优先级 影响某些功能的兼容性
   {
   ----------------------------------------------------------------------------------------------------------
   ---
+      {
+        name = "LANGUAGE",
+        label = "Language/语言",
+        hover = "Set Language/设置语言",
+        options =
         {
-          name = "LANGUAGE",
-          label = "Language/语言",
-          hover = "Set Language/设置语言",
-          options =
-          {
-            {description = "Auto/自动", data = "auto"},
-            {description = "English", data = "en"},
-            {description = "中文", data = "ch"},
-          },
-          default = "auto",
+          {description = "Auto/自动", data = "auto"},
+          {description = "English", data = "en"},
+          {description = "中文", data = "ch"},
+        },
+        default = "auto",
       }, 
   ----------------------------------------------------------------------------------------------------------
-  
+  ---
+      {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,},
+      {
+        name = "EMOJI_HOT_KEY",
+        label = IsChinese() and "表情快捷键" or "Emoji Hot Key",
+        hover = IsChinese() and "表情快捷键" or "Emoji Hot Key",
+        options = keys_option,
+        default = "KEY_K",
+
+      },
 
   ----------------------------------------------------------------------------------------------------------
   --- 

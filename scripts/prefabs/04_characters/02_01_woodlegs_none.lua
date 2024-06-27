@@ -27,24 +27,24 @@
 
 local assets =
 {
-	Asset( "ANIM", "anim/wagstaff.zip" ),
-	Asset( "ANIM", "anim/ghost_wagstaff_build.zip" ),
+	Asset( "ANIM", "anim/woodlegs.zip" ),
+	Asset( "ANIM", "anim/ghost_woodlegs_build.zip" ),
 	Asset( "ANIM", "anim/ghost_build.zip" ),
 }
 local skin_fns = {
 
 	-----------------------------------------------------
-		CreatePrefabSkin("wagstaff_none",{
-			base_prefab = "wagstaff",			---- 角色prefab
+		CreatePrefabSkin("woodlegs_none",{
+			base_prefab = "woodlegs",			---- 角色prefab
 			skins = {
-					normal_skin = "wagstaff",					--- 正常外观
+					normal_skin = "woodlegs",					--- 正常外观
 					-- ghost_skin = "ghost_build",			--- 幽灵外观
-					ghost_skin = "ghost_wagstaff_build",			--- 幽灵外观
+					ghost_skin = "ghost_woodlegs_build",			--- 幽灵外观
 			}, 								
 			assets = assets,
 			skin_tags = {"BASE" ,"CHARACTER"},		--- 皮肤对应的tag
 			
-			build_name_override = "wagstaff",
+			build_name_override = "woodlegs",
 			rarity = "Character",
 		}),
 	-----------------------------------------------------

@@ -4,7 +4,7 @@ local MakePlayerCharacter = require "prefabs/player_common"
 
 local assets = {
     Asset("SCRIPT", "scripts/prefabs/player_common.lua"),
-    Asset( "ANIM", "anim/player_notes.zip" ),
+    -- Asset( "ANIM", "anim/player_notes.zip" ),
 }
 local prefabs = {}
 
@@ -43,7 +43,7 @@ end
 --一般用于添加小地图标签等动画文件或者需要主客机都执行的组件（少数）
 local common_postinit = function(inst) 
 	-- Minimap icon
-	-- inst.MiniMapEntity:SetIcon( "wagstaff.tex" )
+	-- inst.MiniMapEntity:SetIcon( "wilba.tex" )
 
 
 
@@ -53,14 +53,16 @@ end
 -- 这里的的函数只在主机执行  一般组件之类的都写在这里
 local master_postinit = function(inst)
 	-- 人物音效
-	inst.soundsname = "wagstaff"
-    inst.talksoundoverride = "moonstorm/characters/wagstaff/talk_LP"
+	-- inst.soundsname = "wilba"
+    -- inst.talksoundoverride = "moonstorm/characters/wilba/talk_LP"
 
+	inst.soundsname = "winona"
+    -- inst.talk_sound = "dontstarve/characters/winona/talk_LP"
 	
 	-- 三维	
-	inst.components.health:SetMaxHealth(TUNING[string.upper("wagstaff").."_HEALTH"])
-	inst.components.hunger:SetMax(TUNING[string.upper("wagstaff").."_HUNGER"])
-	inst.components.sanity:SetMax(TUNING[string.upper("wagstaff").."_SANITY"])
+	inst.components.health:SetMaxHealth(TUNING[string.upper("wilba").."_HEALTH"])
+	inst.components.hunger:SetMax(TUNING[string.upper("wilba").."_HUNGER"])
+	inst.components.sanity:SetMax(TUNING[string.upper("wilba").."_SANITY"])
 	
 	-- 伤害系数
     inst.components.combat.damagemultiplier = 1
@@ -80,4 +82,4 @@ local master_postinit = function(inst)
 	
 end
 
-return MakePlayerCharacter("wagstaff", prefabs, assets, common_postinit, master_postinit, start_inv)
+return MakePlayerCharacter("wilba", prefabs, assets, common_postinit, master_postinit, start_inv)

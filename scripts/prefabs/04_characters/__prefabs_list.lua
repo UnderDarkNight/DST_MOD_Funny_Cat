@@ -28,6 +28,14 @@ local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 
 local prefabs_name_list = {
     "01_01_wagstaff_none",      --- 瓦格斯塔夫 皮肤
     "01_02_wagstaff",                      --- 瓦格斯塔夫 基础本体
+
+    "02_01_woodlegs_none",                      --- 木腿船长 基础本体
+    "02_02_woodlegs",                      --- 木腿船长 基础本体
+
+    "03_01_wilba_none",                      --- 薇尔芭 基础本体
+    "03_02_wilba",                      --- 薇尔芭 基础本体
+
+
 }
 
 

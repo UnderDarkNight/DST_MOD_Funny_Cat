@@ -8,6 +8,9 @@ modimport("key_modules_of_funny_cat/00_others/__all_others_init.lua")
 modimport("key_modules_of_funny_cat/03_components/__all_com_init.lua")
 --- 官方component 修改
 
+modimport("key_modules_of_funny_cat/04_prefabs/__all_prefabs_init.lua")
+--- 官方prefab 修改
+
 
 modimport("key_modules_of_funny_cat/06_players/__all_players_init.lua")
 --- 玩家通用模块修改

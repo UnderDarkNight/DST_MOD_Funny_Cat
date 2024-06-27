@@ -692,6 +692,539 @@ local temp_table = {
             end,
         },
     --------------------------------------------------------------------
+    -- 杀人蜂巢穴( wasphive )
+        ["wasphive"] = {
+            bank = "wasphive",
+            build = "wasphive",
+            anim = "cocoon_small",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "wasphive.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, 0.5)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                inst.bees = {}
+                local MAX_BEES = 6
+                inst.OnEntityWake = function()
+                    inst:DoTaskInTime(0,function()
+                                local x,y,z = inst.Transform:GetWorldPosition()
+                                local new_table = {}
+                                for k, v in pairs(inst.bees) do
+                                    if v and v:IsValid() then
+                                        table.insert(new_table,v)
+                                    end
+                                end
+                                inst.bees = new_table
+                                local need_spawn_num = MAX_BEES - #inst.bees
+                                if need_spawn_num > 0 then
+                                    for i = 1, need_spawn_num, 1 do
+                                        local bee = SpawnPrefab("killerbee")
+                                        bee.Transform:SetPosition(x,y,z)
+                                        table.insert(inst.bees,bee)
+                                        bee:ListenForEvent("entitysleep",function()
+                                            bee.Transform:SetPosition(x,y,z)
+                                        end)
+                                    end
+                                end
+                    end)
+                end
+                inst.OnEntitySleep = function()
+                   local x,y,z = inst.Transform:GetWorldPosition()
+                   for k, v in pairs(inst.bees) do
+                        if v and v:IsValid() and v:IsAsleep() then
+                            v.Transform:SetPosition(x,y,z)
+                        end
+                   end
+                end
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 蜂巢穴( beehive )
+        ["beehive"] = {
+            bank = "beehive",
+            build = "beehive",
+            anim = "cocoon_small",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "beehive.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .5)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                inst.bees = {}
+                local MAX_BEES = 6
+                inst.OnEntityWake = function()
+                    inst:DoTaskInTime(0,function()
+                                local x,y,z = inst.Transform:GetWorldPosition()
+                                local new_table = {}
+                                for k, v in pairs(inst.bees) do
+                                    if v and v:IsValid() then
+                                        table.insert(new_table,v)
+                                    end
+                                end
+                                inst.bees = new_table
+                                local need_spawn_num = MAX_BEES - #inst.bees
+                                if need_spawn_num > 0 then
+                                    for i = 1, need_spawn_num, 1 do
+                                        local bee = SpawnPrefab(math.random()<0.4 and "killerbee" or "bee")
+                                        bee.Transform:SetPosition(x,y,z)
+                                        table.insert(inst.bees,bee)
+                                        bee:ListenForEvent("entitysleep",function()
+                                            bee.Transform:SetPosition(x,y,z)
+                                        end)
+                                    end
+                                end
+                    end)
+                end
+                inst.OnEntitySleep = function()
+                   local x,y,z = inst.Transform:GetWorldPosition()
+                   for k, v in pairs(inst.bees) do
+                        if v and v:IsValid() and v:IsAsleep() then
+                            v.Transform:SetPosition(x,y,z)
+                        end
+                   end
+                end
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 曼德拉草( mandrake_planted )
+        ["mandrake_planted"] = {
+            bank = "mandrake",
+            build = "mandrake",
+            anim = "ground",
+            loop = true,
+            icon_data = {
+
+            },            
+            -- map = "beehive.png",
+            common_postinit = function(inst)
+                MakeInventoryPhysics(inst)
+            end,
+            master_postinit = function(inst)
+                
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 浆果( berrybush )
+        ["berrybush"] = {
+            bank = "berrybush",
+            build = "berrybush",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "berrybush.png",
+            common_postinit = function(inst)
+                MakeSmallObstaclePhysics(inst, .1)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 三叶浆果( berrybush2 )
+        ["berrybush2"] = {
+            bank = "berrybush2",
+            build = "berrybush2",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "berrybush2.png",
+            common_postinit = function(inst)
+                MakeSmallObstaclePhysics(inst, .1)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                inst.components.inspectable.GetDescription = function()
+                    return STRINGS.CHARACTERS.GENERIC.DESCRIBE.BERRYBUSH.GENERIC
+                end
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 多汁浆果( berrybush_juicy )
+        ["berrybush_juicy"] = {
+            bank = "berrybush_juicy",
+            build = "berrybush_juicy",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "berrybush_juicy.png",
+            common_postinit = function(inst)
+                MakeSmallObstaclePhysics(inst, .1)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 红蘑菇( red_mushroom )
+        ["red_mushroom"] = {
+            bank = "mushrooms",
+            build = "mushrooms",
+            anim = "red",
+            loop = true,
+            icon_data = {
+
+            },            
+            -- map = "berrybush_juicy.png",
+            common_postinit = function(inst)
+
+            end,
+            master_postinit = function(inst)
+
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 蓝蘑菇( blue_mushroom )
+        ["blue_mushroom"] = {
+            bank = "mushrooms",
+            build = "mushrooms",
+            anim = "blue",
+            loop = true,
+            icon_data = {
+
+            },            
+            -- map = "berrybush_juicy.png",
+            common_postinit = function(inst)
+
+            end,
+            master_postinit = function(inst)
+
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 绿蘑菇( green_mushroom )
+        ["green_mushroom"] = {
+            bank = "mushrooms",
+            build = "mushrooms",
+            anim = "green",
+            loop = true,
+            icon_data = {
+
+            },            
+            -- map = "berrybush_juicy.png",
+            common_postinit = function(inst)
+
+            end,
+            master_postinit = function(inst)
+
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 花( flower )
+        ["flower"] = {
+            bank = "flowers",
+            build = "flowers",
+            -- anim = "green",
+            loop = true,
+            icon_data = {
+
+            },            
+            -- map = "berrybush_juicy.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetRayTestOnBB(true)
+            end,
+            master_postinit = function(inst)
+                local names = {"f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","rose"}
+                local ret_name = names[math.random(#names)]
+                inst.AnimState:PlayAnimation(ret_name,true)
+
+                inst:AddComponent("playerprox")
+                inst.components.playerprox:SetDist(6, 8)
+                inst.components.playerprox:SetOnPlayerNear(function()
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if inst.butterfly == nil or not inst.butterfly:IsValid() then
+                        local new_inst = SpawnPrefab("butterfly")
+                        new_inst.Transform:SetPosition(x,y,z)
+                        inst.butterfly = new_inst
+                        new_inst:ListenForEvent("entitysleep",function()
+                            new_inst:Remove()
+                        end)
+                    end
+                end)
+                -- inst.components.playerprox:SetOnPlayerFar(onfar)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 芦苇( reeds )
+        ["reeds"] = {
+            bank = "grass",
+            build = "reeds",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "reeds.png",
+            common_postinit = function(inst)
+                
+            end,
+            master_postinit = function(inst)
+
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 普通池塘草( marsh_plant )
+        ["marsh_plant"] = {
+            bank = "marsh_plant",
+            build = "marsh_plant",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "idle_mos.png",
+            common_postinit = function(inst)
+            end,
+            master_postinit = function(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 珊瑚池塘( marsh_plant )
+        ["pond_algae"] = {
+            bank = "pond_rock",
+            build = "pond_plant_cave",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "idle_mos.png",
+            common_postinit = function(inst)
+            end,
+            master_postinit = function(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 沼泽池塘( pond_mos )
+        ["pond_mos"] = {
+            bank = "marsh_tile",
+            build = "marsh_tile",
+            anim = "idle_mos",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "pond_mos.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+                inst.AnimState:SetLayer(LAYER_BACKGROUND)
+                inst.AnimState:SetSortOrder(3)
+                MakePondPhysics(inst, 1.95)
+            end,
+            master_postinit = function(inst)
+                inst:DoTaskInTime(0,function()                    
+                        inst.plant_ents = {}
+                        local MAX_PANTS_NUM = math.random(3,7)
+                        local points = TUNING.FUNNY_CAT_FN:GetSurroundPoints({
+                            target = inst,
+                            range = 1.95,
+                            num = 20,
+                        })
+                        for i = 1, MAX_PANTS_NUM, 1 do
+                            local plant = SpawnPrefab("fc_marsh_plant")
+                            if plant ~= nil then
+                                local pt = points[math.random(#points)]
+                                plant.Transform:SetPosition(pt.x, pt.y, pt.z)
+                                table.insert(inst.plant_ents, plant)
+                            end
+                        end
+                        inst:ListenForEvent("onremove",function()
+                            for k, v in pairs(inst.plant_ents) do
+                                v:Remove()
+                            end
+                        end)
+                end)
+                --------------------------------------------------------
+                --- 动物相关
+                    inst._animals = {}
+                    local MAX_ANIMAL_NUM = math.random(1,3)
+                    inst.OnEntityWake = function()
+                        inst:DoTaskInTime(0,function()
+                            local x,y,z = inst.Transform:GetWorldPosition()
+                            local new_table = {}
+                            for k, v in pairs(inst._animals) do
+                                if v and v:IsValid() then
+                                    table.insert(new_table, v)
+                                end
+                            end
+                            inst._animals = new_table
+                            local need_2_spawn_num = MAX_ANIMAL_NUM - #inst._animals
+                            if need_2_spawn_num > 0 then
+                                for i = 1, need_2_spawn_num, 1 do
+                                    local animal = SpawnPrefab("mosquito")
+                                    if animal ~= nil then
+                                        animal.Transform:SetPosition(x, y, z)
+                                        table.insert(inst._animals, animal)
+                                        animal:ListenForEvent("entitysleep",function()
+                                            animal.Transform:SetPosition(x, y, z)
+                                        end)
+                                    end
+                                end
+                            end
+
+                        end)
+                    end
+                    inst.OnEntitySleep = function()
+                        local x,y,z = inst.Transform:GetWorldPosition()
+                        for k, v in pairs(inst._animals) do
+                            if v and v:IsValid() and v:IsAsleep() then
+                                v.Transform:SetPosition(x, y, z)
+                            end
+                        end
+                    end
+                    inst:ListenForEvent("onremove",function()
+                        for k, v in pairs(inst._animals) do
+                            v:Remove()
+                        end
+                    end)
+                --------------------------------------------------------
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 普通池塘( pond )
+        ["pond"] = {
+            bank = "marsh_tile",
+            build = "marsh_tile",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "pond.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+                inst.AnimState:SetLayer(LAYER_BACKGROUND)
+                inst.AnimState:SetSortOrder(3)
+                MakePondPhysics(inst, 1.95)
+            end,
+            master_postinit = function(inst)
+                inst:DoTaskInTime(0,function()                    
+                        inst.plant_ents = {}
+                        local MAX_PANTS_NUM = math.random(3,7)
+                        local points = TUNING.FUNNY_CAT_FN:GetSurroundPoints({
+                            target = inst,
+                            range = 1.95,
+                            num = 20,
+                        })
+                        for i = 1, MAX_PANTS_NUM, 1 do
+                            local plant = SpawnPrefab("fc_marsh_plant")
+                            if plant ~= nil then
+                                local pt = points[math.random(#points)]
+                                plant.Transform:SetPosition(pt.x, pt.y, pt.z)
+                                table.insert(inst.plant_ents, plant)
+                            end
+                        end
+                        inst:ListenForEvent("onremove",function()
+                            for k, v in pairs(inst.plant_ents) do
+                                v:Remove()
+                            end
+                        end)
+                end)
+                --------------------------------------------------------
+                --- 动物相关
+                    inst._animals = {}
+                    local MAX_ANIMAL_NUM = math.random(1,3)
+                    inst.OnEntityWake = function()
+                        inst:DoTaskInTime(0,function()
+                            local x,y,z = inst.Transform:GetWorldPosition()
+                            local new_table = {}
+                            for k, v in pairs(inst._animals) do
+                                if v and v:IsValid() then
+                                    table.insert(new_table, v)
+                                end
+                            end
+                            inst._animals = new_table
+                            local need_2_spawn_num = MAX_ANIMAL_NUM - #inst._animals
+                            if need_2_spawn_num > 0 then
+                                for i = 1, need_2_spawn_num, 1 do
+                                    local animal = SpawnPrefab("frog")
+                                    if animal ~= nil then
+                                        animal.Transform:SetPosition(x, y, z)
+                                        table.insert(inst._animals, animal)
+                                        animal:ListenForEvent("entitysleep",function()
+                                            animal.Transform:SetPosition(x, y, z)
+                                        end)
+                                    end
+                                end
+                            end
+
+                        end)
+                    end
+                    inst.OnEntitySleep = function()
+                        local x,y,z = inst.Transform:GetWorldPosition()
+                        for k, v in pairs(inst._animals) do
+                            if v and v:IsValid() and v:IsAsleep() then
+                                v.Transform:SetPosition(x, y, z)
+                            end
+                        end
+                    end
+                    inst:ListenForEvent("onremove",function()
+                        for k, v in pairs(inst._animals) do
+                            v:Remove()
+                        end
+                    end)
+                --------------------------------------------------------
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 珊瑚池塘( pond_cave )
+        ["pond_cave"] = {
+            bank = "marsh_tile",
+            build = "marsh_tile",
+            anim = "idle_cave",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "pond_cave.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+                inst.AnimState:SetLayer(LAYER_BACKGROUND)
+                inst.AnimState:SetSortOrder(3)
+                MakePondPhysics(inst, 1.95)
+            end,
+            master_postinit = function(inst)
+                inst:DoTaskInTime(0,function()                    
+                        inst.plant_ents = {}
+                        local MAX_PANTS_NUM = math.random(3,7)
+                        local points = TUNING.FUNNY_CAT_FN:GetSurroundPoints({
+                            target = inst,
+                            range = 1.95,
+                            num = 20,
+                        })
+                        for i = 1, MAX_PANTS_NUM, 1 do
+                            local plant = SpawnPrefab("fc_pond_algae")
+                            if plant ~= nil then
+                                local pt = points[math.random(#points)]
+                                plant.Transform:SetPosition(pt.x, pt.y, pt.z)
+                                table.insert(inst.plant_ents, plant)
+                            end
+                        end
+                        inst:ListenForEvent("onremove",function()
+                            for k, v in pairs(inst.plant_ents) do
+                                v:Remove()
+                            end
+                        end)
+                end)
+            end,
+        },
+    --------------------------------------------------------------------
 
 }
 

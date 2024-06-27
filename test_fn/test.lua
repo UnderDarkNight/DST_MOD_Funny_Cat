@@ -504,11 +504,19 @@ local flg,error_code = pcall(function()
         -- print("num: ",num)
     ----------------------------------------------------------------------------------------------------------------
 
-        local EmoteButton = require "widgets/emote_button"
-        -- for k, v in pairs(EmoteButton) do
-        --     print(k,v)
-        -- end
-        print(EmoteButton:GetData())
+        -- local EmoteButton = require "widgets/emote_button"
+        -- -- for k, v in pairs(EmoteButton) do
+        -- --     print(k,v)
+        -- -- end
+        -- print(EmoteButton:GetData())
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+
+            -- for i = 1, 30, 1 do
+            --     ThePlayer:DoTaskInTime(i,function(inst)
+            --         SpawnPrefab("fc_flower").Transform:SetPosition(inst.Transform:GetWorldPosition())
+            --     end)
+            -- end
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

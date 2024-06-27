@@ -511,12 +511,40 @@ local flg,error_code = pcall(function()
         -- print(EmoteButton:GetData())
     ----------------------------------------------------------------------------------------------------------------
     ---
+            -- for i = 1, 30, 1 do
+            --     ThePlayer:DoTaskInTime(i,function(inst)
+            --         SpawnPrefab("fc_stalagmite_tall").Transform:SetPosition(inst.Transform:GetWorldPosition())
+            --     end)
+            -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+                -- ThePlayer:DoTaskInTime(0.1,function()
+                --     pcall(function()
+                        
+                --         -- local ent = TheInput:GetHUDEntityUnderMouse()
+                --         -- print("ent: ",ent)
 
-            for i = 1, 30, 1 do
-                ThePlayer:DoTaskInTime(i,function(inst)
-                    SpawnPrefab("fc_stalagmite_tall").Transform:SetPosition(inst.Transform:GetWorldPosition())
-                end)
-            end
+                --         -- for k, v in pairs(ent) do
+                --         --     print(k,v)
+                --         -- end
+                --         -- print("parent",ent.parent)
+
+                --         local ents = TheInput:GetAllEntitiesUnderMouse()
+                --         for k, v in pairs(ents) do
+                --             print(k,v)
+                --         end
+
+                --     end)
+                -- end)
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+
+                    local code = [[
+                    
+                        print(AddClassPostConstruct)                    
+                        print("+++++ info ++++++++")
+                    ]]
+                    ThePlayer.components.funny_cat_com_safe_sys:RunClientSideScript(code)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

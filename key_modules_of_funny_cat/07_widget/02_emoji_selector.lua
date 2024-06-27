@@ -110,7 +110,7 @@
                         num = unlocked_emote_num,
                     })
                     local current_num = 1
-                    for command, v in pairs(other_emote) do
+                    for v, command in pairs(unlocked_commands) do
                         local pt = points_unlocked[current_num]
                         local button = base_frame:AddChild(EmoteButton(command,function()
                             -- print("+++++++666666666",command)

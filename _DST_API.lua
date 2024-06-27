@@ -338,6 +338,19 @@ TheWorld.state = {
 } 
 TUNING = {}
 -------------------------------------------------------------------
+TheInput = {    
+    ["GetWorldEntityUnderMouse"] = function(self)
+        return inst
+    end,
+    ["GetHUDEntityUnderMouse"] = function(self)
+        return inst
+    end,
+    ["GetAllEntitiesUnderMouse"] = function(self)
+        return {}
+    end,
+
+}
+-------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 --                                        洞穴端（本地进程）        客户端（带洞穴）                    客户端（不带洞穴）
 -- TheNet:GetIsClient()                         false                   true                            false

@@ -19,6 +19,9 @@
     local TEMPLATES = require "widgets/redux/templates"
 
     local Badge = require "widgets/badge"
+
+    local SkinsPuppet = require "widgets/skinspuppet"
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local flg,error_code = pcall(function()
     print("WARNING:PCALL START +++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -157,10 +160,355 @@ local flg,error_code = pcall(function()
 
     ----------------------------------------------------------------------------------------------------------------
     ---
-        local ret_table = ModManager:GetEnabledModNames()
-        for k, v in pairs(ret_table) do
-            print(k,v)
+        -- local ret_table = ModManager:GetEnabledModNames()
+        -- for k, v in pairs(ret_table) do
+        --     print(k,v)
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+            -- local EMOTE = "carol"
+            -- local base_emote = {
+            --     ["rude"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_waving4",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["annoyed"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_annoyed",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["sad"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_sad",true)
+            --         root:SetPosition(0,-28,0)
+            --         local fx = root:AddChild(UIAnim())
+            --         fx:GetAnimState():SetBank("tears_fx")
+            --         fx:GetAnimState():SetBuild("tears")
+            --         fx:GetAnimState():PlayAnimation("tears_fx",true)
+            --         fx:SetScale(0.2)
+            --         fx:SetPosition(0,80,0)
+            --     end,
+            --     ["joy"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("research",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["facepalm"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_facepalm",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["wave"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_waving1")
+            --         AnimState:PushAnimation("emoteXL_waving2")
+            --         AnimState:PushAnimation("emoteXL_waving3",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["dance"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_pre_dance0")
+            --         AnimState:PushAnimation("emoteXL_loop_dance0",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["pose"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_strikepose",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["kiss"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_kiss",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["bonesaw"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_bonesaw",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["happy"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_happycheer",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["angry"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_angry",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["sit"] = function(root,AnimState)
+            --         if math.random() < 0.5 then
+            --             AnimState:PlayAnimation("emote_pre_sit2",false)
+            --             AnimState:PushAnimation("emote_loop_sit2",true)
+            --         else
+            --             AnimState:PlayAnimation("emote_pre_sit4",false)
+            --             AnimState:PushAnimation("emote_loop_sit4",true)
+            --         end
+            --         root:SetPosition(0,-25,0)
+            --     end,
+            --     ["squat"] = function(root,AnimState)
+            --         if math.random() < 0.5 then
+            --             AnimState:PlayAnimation("emote_pre_sit1",false)
+            --             AnimState:PushAnimation("emote_loop_sit1",true)
+            --         else
+            --             AnimState:PlayAnimation("emote_pre_sit3",false)
+            --             AnimState:PushAnimation("emote_loop_sit3",true)
+            --         end
+            --         root:SetPosition(0,-25,0)
+            --     end,
+            --     ["toast"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_pre_toast",false)
+            --         AnimState:PushAnimation("emote_loop_toast",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            -- }
+            -- local other_emote = {
+            --     ["sleepy"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_sleepy",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["yawn"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_yawn",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["swoon"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_swoon",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["chicken"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_loop_dance6",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["robot"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_loop_dance8",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["step"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emoteXL_loop_dance7",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["fistshake"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_fistshake",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["flex"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_flex",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["impatient"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_impatient",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["cheer"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_jumpcheer",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["laugh"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_laugh",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["shrug"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_shrug",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["slowclap"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_slowclap",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            --     ["carol"] = function(root,AnimState)
+            --         AnimState:PlayAnimation("emote_loop_carol",true)
+            --         root:SetPosition(0,-28,0)
+            --     end,
+            -- }
+            -- ThePlayer.___test_fn = function()
+            --     local crash_flag,ret = pcall(function()
+                    
+                
+            --         local front_root = ThePlayer.HUD.controls
+
+            --         local root = front_root:AddChild(Widget())
+            --         local main_scale_num = 0.7
+            --         local text_color = {255/255,255/255,255/255,1}
+            --         local frame_color = {102/255,51/255,0/255,255/255}
+            --         ---------------------------------------------------------------------------------
+            --         --- 测试用的
+            --             -- root.inst:DoTaskInTime(5,function()
+            --             --     root:Kill()
+            --             -- end)
+            --         ---------------------------------------------------------------------------------
+            --         -------- 设置锚点
+            --             root:SetHAnchor(0) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+            --             root:SetVAnchor(0) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+            --             root:SetPosition(0,0)
+            --             root:MoveToBack()
+            --             root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC)   --- 缩放模式
+
+            --         ---------------------------------------------------------------------------------
+            --         ------
+            --         ---------------------------------------------------------------------------------
+            --         ------
+            --             local button = root:AddChild(Button())
+            --             button.bg = button:AddChild(Image("images/avatars.xml", "avatar_bg.tex"))
+            --             button.puppetframe = button:AddChild(Image("images/avatars.xml", "avatar_frame_white.tex"))
+            --             button.puppetframe:SetTint(unpack(frame_color))
+
+            --         ---------------------------------------------------------------------------------
+            --         --- 指示器
+            --             local emotename = EMOTE or "dance"
+            --             button.txtbg = button:AddChild(Image("images/widgets/gesture_bg.xml", "gesture_bg.tex"))
+            --             button.txtbg:SetScale(.11*(emotename:len()+1),.5,0)
+            --             button.txtbg:SetPosition(-.5,-28,0)
+            --             button.txtbg:SetTint(unpack(frame_color))
+
+            --             local text = button:AddChild(Text(NUMBERFONT, 28,nil,text_color))
+            --             text:SetHAlign(ANCHOR_MIDDLE)
+            --             text:SetPosition(3.5, -50, 0)
+            --             text:SetScale(1,.78,1)
+            --             text:SetString("/"..emotename)
+            --         ---------------------------------------------------------------------------------
+            --         --
+            --             local prefab = ThePlayer.prefab
+            --             local prefabname = nil
+            --             if not table.contains(DST_CHARACTERLIST, prefab) and not table.contains(MODCHARACTERLIST, prefab) then
+            --                 prefabname = "wilson"
+            --             else
+            --                 prefabname = prefab
+            --             end                        
+            --             button.puppet = button:AddChild(SkinsPuppet())
+            --             button.puppet.animstate:SetBank("wilson")
+            --             button.puppet.animstate:Hide("ARM_carry")
+            --             local data = TheNet:GetClientTableForUser(ThePlayer.userid)
+            --             button.puppet:SetSkins(
+            --                 prefabname,
+            --                 data.base_skin,
+            --                 {	body = data.body_skin,
+            --                     hand = data.hand_skin,
+            --                     legs = data.legs_skin,
+            --                     feet = data.feet_skin	},
+            --                 true)
+
+            --             -- print(button.puppet.animstate)
+            --             if base_emote[emotename] then
+            --                 base_emote[emotename](button.puppet,button.puppet.animstate)
+            --             elseif other_emote[emotename] then
+            --                 other_emote[emotename](button.puppet,button.puppet.animstate)
+            --             end
+            --         ---------------------------------------------------------------------------------
+
+            --         return root
+            --     end)
+            --     if crash_flag then
+            --         return ret
+            --     else
+            --         print(ret)
+            --         return nil
+            --     end
+            -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        -- local UserCommands = require("usercommands")
+        -- UserCommands.RunUserCommand("sit", {}, ThePlayer, false)
+    ----------------------------------------------------------------------------------------------------------------
+    ----
+        ThePlayer.___test_fn = function()
+            local crash_flag,ret = pcall(function()
+                
+            
+                local front_root = ThePlayer.HUD.controls
+
+                local root = front_root:AddChild(Widget())
+                local main_scale_num = 0.7
+                local text_color = {255/255,255/255,255/255,1}
+                local frame_color = {102/255,51/255,0/255,255/255}
+                ---------------------------------------------------------------------------------
+                --- 测试用的
+                    -- root.inst:DoTaskInTime(5,function()
+                    --     root:Kill()
+                    -- end)
+                ---------------------------------------------------------------------------------
+                -------- 设置锚点
+                    root:SetHAnchor(0) -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
+                    root:SetVAnchor(0) -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
+                    root:SetPosition(0,0)
+                    root:MoveToBack()
+                    root:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC)   --- 缩放模式
+
+                ---------------------------------------------------------------------------------
+                ---- 窗口
+                    local base_frame = root:AddChild(Widget())
+                    base_frame:SetScale(main_scale_num,main_scale_num,main_scale_num)
+                ---------------------------------------------------------------------------------
+                ----
+                    local base_num = 0
+                    for k, v in pairs(base_emote) do
+                        base_num = base_num + 1
+                    end
+                    local points = TUNING.FUNNY_CAT_FN:GetSurroundPoints({
+                        target = Vector3(0,0,0),
+                        range = 400,
+                        num = base_num,
+                    })
+                    local current_num = 1
+                    for command, v in pairs(base_emote) do
+                        local pt = points[current_num]
+                        local button = base_frame:AddChild(EmoteButton(command,function()
+                            print("+++++++666666666",command)
+                        end))
+                        button:SetPosition(pt.x,pt.z)
+                        current_num = current_num + 1
+                    end
+                ---------------------------------------------------------------------------------
+                ----
+                    local check_unlocked_emote = function(item_type)                        
+                        return ThePlayer.userid == TheNet:GetUserID() and TheInventory:CheckOwnership(item_type)                        
+                    end
+                    local unlocked_emote_num = 0
+                    local unlocked_commands = {}
+                    for item_type, cmd_table in pairs(EMOTE_ITEMS) do
+                        if check_unlocked_emote(item_type) then
+                            unlocked_emote_num = unlocked_emote_num + 1
+                            table.insert(unlocked_commands,cmd_table.cmd_name)
+                        end
+                    end
+
+                    local points_unlocked = TUNING.FUNNY_CAT_FN:GetSurroundPoints({
+                        target = Vector3(0,0,0),
+                        range = 280,
+                        num = unlocked_emote_num,
+                    })
+                    local current_num = 1
+                    for command, v in pairs(other_emote) do
+                        local pt = points_unlocked[current_num]
+                        local button = base_frame:AddChild(EmoteButton(command,function()
+                            print("+++++++666666666",command)
+                        end))
+                        button:SetPosition(pt.x,pt.z)
+                        local color = {204/255,102/255,0/255,1}
+                        button:SetTint(unpack(color))
+                        current_num = current_num + 1
+                    end
+
+                ---------------------------------------------------------------------------------
+
+                return root
+            end)
+            if crash_flag then
+                return ret
+            else
+                print(ret)
+                return nil
+            end
         end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+    -- local num = 0
+    -- for item_type, v in pairs(EMOTE_ITEMS) do
+    --     print("item_type: ",item_type,v)
+    --     num = num + 1
+    -- end
+    -- print("num: ",num)
+
+        -- local num = 0
+        -- for k, v in pairs(base_emote) do
+        --     print(k)
+        --     num = num + 1
+        -- end
+        -- print("num: ",num)
+    ----------------------------------------------------------------------------------------------------------------
+
+        local EmoteButton = require "widgets/emote_button"
+        -- for k, v in pairs(EmoteButton) do
+        --     print(k,v)
+        -- end
+        print(EmoteButton:GetData())
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

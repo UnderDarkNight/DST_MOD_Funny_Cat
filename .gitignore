@@ -1,4 +1,5 @@
 /exported
+# /scripts/cd_key_creater
 /exported+
 /exported++
 /.vscode
@@ -11,6 +12,7 @@ luac.out
 # *.zip
 *.tar.gz
 anim/*.autosave.zip
+scripts/cd_key_creater/codebook.lua
 
 # Object files
 *.o

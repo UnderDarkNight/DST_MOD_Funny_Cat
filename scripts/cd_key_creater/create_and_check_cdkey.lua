@@ -36,8 +36,14 @@ local function validate_cdkey(cdkey, stored_check_value)
     return calculated_check_value == stored_check_value
 end
 
+local function format_check_value(check_value)
+    -- 将校验值格式化为两位数的字符串
+    return string.format("%02d", check_value)
+end
+
 local function final_create_one_cdkey()
     local cdkey, check_value = generate_cdkey_and_check_value()
+    check_value = format_check_value(check_value)
     return cdkey .. tostring(check_value)
 end
 

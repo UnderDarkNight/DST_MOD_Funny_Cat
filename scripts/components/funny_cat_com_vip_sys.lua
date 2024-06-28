@@ -35,6 +35,7 @@ local funny_cat_com_vip_sys = Class(function(self, inst)
     self._one_time_callback_fns = {}
     self.data = {}
     self.cd_key = ""
+    self.cd_key_check_param = nil
 end,
 nil,
 {
@@ -122,6 +123,24 @@ nil,
             fn()
         end
         -- self._link_server_fail_callback_fns = {}
+    end
+--------------------------------------------------------------------------------------------------------------------
+--- 
+    function funny_cat_com_vip_sys:GetParam()
+        local year = tonumber(os.date("%Y"))
+        local month = tonumber(os.date("%m"))
+        local day = tonumber(os.date("%d"))
+        local ret_num = year*10000+month*100+day
+        return ret_num
+    end
+    function funny_cat_com_vip_sys:IsVIP()
+        if self.data["vip"] == true then
+            return true
+        end
+        if self.cd_key_check_param == self:GetParam() then
+            return true
+        end
+        return false
     end
 --------------------------------------------------------------------------------------------------------------------
 

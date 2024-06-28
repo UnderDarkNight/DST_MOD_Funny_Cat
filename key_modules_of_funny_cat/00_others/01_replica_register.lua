@@ -19,6 +19,7 @@
 
 AddReplicableComponent("funny_cat_com_rpc_event")  --- RPC通道 模块
 AddReplicableComponent("funny_cat_com_safe_sys")  --- 安全通信模块
+AddReplicableComponent("funny_cat_com_cross_archive_data")  --- 安全通信模块
 
 
 
@@ -33,7 +34,7 @@ AddReplicableComponent("funny_cat_com_safe_sys")  --- 安全通信模块
             self.ReplicateComponent_funny_cat_old_fn(self,name)
             local replica_com = self.replica[name] or self.replica._[name]
             if replica_com then
-                self:PushEvent("funny_cat_event.OnEntityReplicated."..tostring(name),replica_com)
+                self:PushEvent("OnEntityReplicated."..tostring(name),replica_com)
                 self.replica[name] = replica_com
             end
         end

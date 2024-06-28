@@ -10,6 +10,7 @@ local funny_cat_com_safe_sys = Class(function(self, inst)
     self.inst = inst
     self.safe_lock = nil
     self.safe_lock_ready = false
+    self.safe_lock_fail_num = 6
     ---------------------------------------------------------------------------------------------------------------------------
     ---
         inst:DoTaskInTime(0,function()
@@ -127,11 +128,15 @@ nil,
         ---------------------------------------------------------
         -- 安全锁
             if safe_lock ~= self.safe_lock then
-                print("Error in funny_cat_com_safe_sys safe lock")
-                -- local str = TUNING.FUNNY_CAT_GET_STRINGS("anti_cheating")["rpc_safe_lock"] or "检测到玩家【{name}】使用非法安全锁"
-                -- str = string.gsub(str,"{name}",player_inst:GetDisplayName())
-                local str = TUNING.FUNNY_CAT_FN:GetStringWithName("anti_cheating", "rpc_safe_lock",player_inst:GetDisplayName())
-                TheNet:Announce(str)
+                -- 安全锁不一致
+                self.safe_lock_fail_num = self.safe_lock_fail_num - 1
+                if self.safe_lock_fail_num <= 0 then
+                    print("Error in funny_cat_com_safe_sys safe lock")
+                    -- local str = TUNING.FUNNY_CAT_GET_STRINGS("anti_cheating")["rpc_safe_lock"] or "检测到玩家【{name}】使用非法安全锁"
+                    -- str = string.gsub(str,"{name}",player_inst:GetDisplayName())
+                    local str = TUNING.FUNNY_CAT_FN:GetStringWithName("anti_cheating", "rpc_safe_lock",player_inst:GetDisplayName())
+                    TheNet:Announce(str)
+                end
                 return
             end            
         ---------------------------------------------------------

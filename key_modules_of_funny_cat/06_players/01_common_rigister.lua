@@ -22,6 +22,9 @@ AddPlayerPostInit(function(inst)
     if inst.components.funny_cat_com_safe_sys == nil then
         inst:AddComponent("funny_cat_com_safe_sys")
     end
+    if inst.components.funny_cat_com_cross_archive_data == nil then
+        inst:AddComponent("funny_cat_com_cross_archive_data")
+    end
 
     inst:DoTaskInTime(1,function()
         if inst.MiniMapEntity then

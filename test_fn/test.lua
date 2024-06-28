@@ -570,8 +570,14 @@ local flg,error_code = pcall(function()
     --                 ThePlayer.components.funny_cat_com_safe_sys:RunClientSideScript(code)
     ----------------------------------------------------------------------------------------------------------------
     -- 
-        local cmd_table = require "cd_key_creater/create_and_check_cdkey"
-        print(cmd_table.create_cd_key())
+        -- local cmd_table = require "cd_key_creater/create_and_check_cdkey"
+        -- print(cmd_table.create_cd_key())
+    ----------------------------------------------------------------------------------------------------------------
+    -- 
+        ThePlayer.components.funny_cat_com_cross_archive_data:Set("cd_key","AAA6666")
+        -- ThePlayer.components.funny_cat_com_cross_archive_data:Force_Client_Upload_Data()
+        -- print( ThePlayer.components.funny_cat_com_cross_archive_data:Get("test") )
+
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

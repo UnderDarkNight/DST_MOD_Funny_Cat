@@ -9,3 +9,5 @@ modimport("key_modules_of_funny_cat/06_players/03_values_lock.lua") --- 多维�
 modimport("key_modules_of_funny_cat/06_players/04_anim_hook.lua") --- 动画hook
 
 modimport("key_modules_of_funny_cat/06_players/05_character_blocker.lua") --- 屏蔽角色
+
+modimport("key_modules_of_funny_cat/06_players/06_vip_sys.lua") --- VIP系统

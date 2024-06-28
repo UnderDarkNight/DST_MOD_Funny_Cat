@@ -943,6 +943,7 @@ local temp_table = {
             -- map = "berrybush_juicy.png",
             common_postinit = function(inst)
                 inst.AnimState:SetRayTestOnBB(true)
+                inst:AddTag("flower")
             end,
             master_postinit = function(inst)
                 local names = {"f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","rose"}
@@ -1299,6 +1300,529 @@ local temp_table = {
                 local ret_anim = anims[math.random(#anims)]
                 inst.type = "_"..tostring(math.random(2)) -- left or right handed rock
                 inst.AnimState:PlayAnimation(ret_anim..inst.type)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 完全正常的树( livingtree )
+        ["livingtree"] = {
+            bank = "evergreen_living_wood",
+            build = "evergreen_living_wood",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            map = "livingtree.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .75)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 树枝( sapling )
+        ["sapling"] = {
+            bank = "sapling",
+            build = "sapling",
+            anim = "sway",
+            loop = true,
+            icon_data = {
+            },            
+            map = "sapling.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetRayTestOnBB(true)
+                inst:SetPrefabNameOverride("sapling")
+            end,
+            master_postinit = function(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 月岛树枝( sapling_moon )
+        ["sapling_moon"] = {
+            bank = "sapling_moon",
+            build = "sapling_moon",
+            anim = "sway",
+            loop = true,
+            icon_data = {
+            },            
+            map = "sapling.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetRayTestOnBB(true)
+                inst:SetPrefabNameOverride("sapling")
+            end,
+            master_postinit = function(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 多支树（ twiggytree ）
+        ["twiggytree"] = {
+            bank = "twiggy",
+            build = "twiggy_build",
+            -- anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            map = "twiggy.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .25)
+                inst.MiniMapEntity:SetPriority(-1)                
+                MakeSnowCoveredPristine(inst)
+                inst:SetPrefabNameOverride("twiggytree")
+            end,
+            master_postinit = function(inst)
+                local color = .5 + math.random() * .5
+                inst.AnimState:SetMultColour(color, color, color, 1)
+                MakeSnowCovered(inst)
+                local anims = {"idle_short","idle_tall","idle_normal"}
+                local ret_anim = anims[math.random(#anims)]
+                inst.AnimState:PlayAnimation(ret_anim, true)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 常青树（ evergreen ）
+        ["evergreen"] = {
+            bank = "evergreen_short",
+            build = "evergreen_new",
+            -- anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            map = "evergreen.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .25)
+                inst.MiniMapEntity:SetPriority(-1)                
+                MakeSnowCoveredPristine(inst)
+                inst:SetPrefabNameOverride("evergreen")
+            end,
+            master_postinit = function(inst)
+                local color = .5 + math.random() * .5
+                inst.AnimState:SetMultColour(color, color, color, 1)
+                MakeSnowCovered(inst)
+                local anims = {"idle_short","idle_tall","idle_normal"}
+                local ret_anim = anims[math.random(#anims)]
+                inst.AnimState:PlayAnimation(ret_anim, true)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 常青树（ evergreen_sparse ）
+        ["evergreen_sparse"] = {
+            bank = "evergreen_short",
+            build = "evergreen_new_2",
+            -- anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            map = "evergreen_lumpy.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .25)
+                inst.MiniMapEntity:SetPriority(-1)                
+                MakeSnowCoveredPristine(inst)
+                inst:SetPrefabNameOverride("evergreen")
+            end,
+            master_postinit = function(inst)
+                local color = .5 + math.random() * .5
+                inst.AnimState:SetMultColour(color, color, color, 1)
+                MakeSnowCovered(inst)
+                local anims = {"idle_short","idle_tall","idle_normal"}
+                local ret_anim = anims[math.random(#anims)]
+                inst.AnimState:PlayAnimation(ret_anim, true)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 针刺树 ( marsh_tree ）
+        ["marsh_tree"] = {
+            bank = "marsh_tree",
+            build = "tree_marsh",
+            -- anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            map = "marshtree.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .25)
+                inst.MiniMapEntity:SetPriority(-1)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                local ret_anim = "sway"..math.random(4).."_loop"
+                inst.AnimState:SetPercent(ret_anim, math.random())
+                inst.AnimState:PlayAnimation(ret_anim, true)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 桦树( deciduoustree )
+        ["deciduoustree"] = {
+            bank = "tree_leaf",
+            build = "tree_leaf_trunk_build",
+            -- anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            map = "tree_leaf.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .25)
+                inst.MiniMapEntity:SetPriority(-1)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                local leaves_build = {"tree_leaf_green_build","nil","tree_leaf_red_build","tree_leaf_orange_build","tree_leaf_yellow_build","tree_leaf_poison_build"}
+                local ret_build = leaves_build[math.random(#leaves_build)]
+                if ret_build ~= "nil" then
+                    inst.AnimState:OverrideSymbol("swap_leaves",ret_build, "swap_leaves")
+                end
+                local anims = {"sway1_loop_short","sway1_loop_tall","sway1_loop_normal","sway2_loop_short","sway2_loop_tall","sway2_loop_normal"}
+                local ret_anim = anims[math.random(#anims)]
+                inst.AnimState:SetPercent(ret_anim, math.random())
+                inst.AnimState:PlayAnimation(ret_anim, true)
+
+                local snow_over_init = function(inst)
+                    if TheWorld.state.issnowcovered then
+                        inst.AnimState:HideSymbol("swap_leaves")
+                    else                            
+                        inst.AnimState:ShowSymbol("swap_leaves")
+                    end   
+                end
+                inst:WatchWorldState("issnowcovered",snow_over_init)
+                snow_over_init(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 猫窝( catcoonden )
+        ["catcoonden"] = {
+            bank = "catcoon_den",
+            build = "catcoon_den",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            map = "catcoonden.png",
+            common_postinit = function(inst)
+                MakeSmallObstaclePhysics(inst, .5)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 格罗姆雕像( statueglommer )
+        ["statueglommer"] = {
+            bank = "glommer_statue",
+            build = "glommer_statue",
+            anim = "full",
+            loop = true,
+            icon_data = {
+            },            
+            map = "statueglommer.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .75)
+                inst.MiniMapEntity:SetPriority(5)
+            end,
+            master_postinit = function(inst)
+                if math.random() < 0.5 then
+                    inst.AnimState:OverrideSymbol("swap_flower", "glommer_swap_flower", "swap_flower")
+                    inst.AnimState:Show("swap_flower")
+                end
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 绿蘑菇树( mushtree_small )
+        ["mushtree_small"] = {
+            bank = "mushroom_tree_small",
+            build = "mushroom_tree_small",
+            anim = "idle_loop",
+            loop = true,
+            icon_data = {
+            },            
+            map = "mushroom_tree_small.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .25)
+            end,
+            master_postinit = function(inst)
+
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 蓝蘑菇树( mushtree_tall )
+        ["mushtree_tall"] = {
+            bank = "mushroom_tree",
+            build = "mushroom_tree_tall",
+            anim = "idle_loop",
+            loop = true,
+            icon_data = {
+            },            
+            map = "mushroom_tree.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .25)
+            end,
+            master_postinit = function(inst)
+
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 红蘑菇树( mushtree_medium )
+        ["mushtree_medium"] = {
+            bank = "mushroom_tree_med",
+            build = "mushroom_tree_med",
+            anim = "idle_loop",
+            loop = true,
+            icon_data = {
+            },            
+            map = "mushroom_tree_med.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .25)
+            end,
+            master_postinit = function(inst)
+
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 月亮蘑菇树( mushtree_moon )
+        ["mushtree_moon"] = {
+            bank = "mushroom_tree",
+            build = "mutatedmushroom_tree_build",
+            anim = "idle_loop",
+            loop = true,
+            icon_data = {
+            },            
+            map = "mushtree_moon.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .25)
+                inst:SetPrefabName("mushtree_moon")
+            end,
+            master_postinit = function(inst)
+
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 墓碑( gravestone )
+        ["gravestone"] = {
+            bank = "gravestone",
+            build = "gravestones",
+            -- anim = "idle_loop",
+            loop = true,
+            icon_data = {
+            },            
+            map = "gravestones.png",
+            common_postinit = function(inst)
+                inst.AnimState:PlayAnimation("grave" .. tostring(math.random(4)))
+                inst:SetPrefabNameOverride("gravestone")
+            end,
+            master_postinit = function(inst)
+                inst:DoTaskInTime(0,function()
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    local offst_x,offst_y,offst_z = (TheCamera:GetDownVec()*.5):Get()
+                    SpawnPrefab("mound").Transform:SetPosition(x+offst_x,y+offst_y,z+offst_z)
+                end)
+                inst.components.inspectable:SetDescription(STRINGS.EPITAPHS[math.random(#STRINGS.EPITAPHS)])
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 坟墓( mound )
+        ["mound"] = {
+            bank = "gravestone",
+            build = "gravestones",
+            anim = "gravedirt",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "gravestones.png",
+            common_postinit = function(inst)
+            end,
+            master_postinit = function(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 恶魔花( flower_evil )
+        ["flower_evil"] = {
+            bank = "flowers_evil",
+            build = "flowers_evil",
+            -- anim = "gravedirt",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "gravestones.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetRayTestOnBB(true)
+                inst:AddTag("flower")
+            end,
+            master_postinit = function(inst)
+                local names = {"f1","f2","f3","f4","f5","f6","f7","f8"}
+                inst.animname = names[math.random(#names)]
+                inst.AnimState:PlayAnimation(inst.animname)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 海蚀柱 ( seastack )
+        ["seastack"] = {
+            bank = "water_rock01",
+            build = "water_rock_01",
+            anim = "1_full",
+            -- loop = true,
+            icon_data = {
+            },            
+            map = "seastack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "med", 0.1, {1.1, 0.9, 1.1})
+                inst.components.floater.bob_percent = 0
+            
+                local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+                inst:DoTaskInTime(land_time, function(inst)
+                    inst.components.floater:OnLandedServer()
+                end)
+            end,
+            master_postinit = function(inst)
+                local function updateart(inst)
+                    local workleft = math.random(10)
+                    inst.AnimState:PlayAnimation(
+                        (workleft > 6 and inst.stackid.."_full") or
+                        (workleft > 3 and inst.has_medium_state and inst.stackid.."_med") or inst.stackid.."_low"
+                    )
+                end
+                local NUM_STACK_TYPES = 5
+                inst.stackid = inst.stackid or math.random(NUM_STACK_TYPES)
+                updateart(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 盐( saltstack )
+        ["saltstack"] = {
+            bank = "salt_pillar",
+            build = "salt_pillar",
+            anim = "full",
+            loop = true,
+            icon_data = {
+            },            
+            map = "saltstack.png",
+            common_postinit = function(inst)
+                inst:SetPhysicsRadiusOverride(2.35)
+                MakeWaterObstaclePhysics(inst, 0.80, 2, 0.75)
+                MakeInventoryFloatable(inst, "med", nil, 0.85)
+                inst.components.floater.bob_percent = 0
+            end,
+            master_postinit = function(inst)
+                local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+                inst:DoTaskInTime(land_time, function(inst)
+                    inst.components.floater:OnLandedServer()
+                end)
+                
+                local anims = {"empty","low","med","full"}
+                inst.AnimState:PlayAnimation(anims[math.random(#anims)])
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 海草( waterplant )
+        ["waterplant"] = {
+            bank = "barnacle_plant",
+            build = "barnacle_plant_colour_swaps",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            map = "barnacle_plant.png",
+            common_postinit = function(inst)
+                inst:SetPhysicsRadiusOverride(2.35)
+                MakeWaterObstaclePhysics(inst, 0.80, 2, 0.75)
+                inst.Transform:SetSixFaced()            
+                inst.AnimState:SetFinalOffset(1)            
+                MakeInventoryFloatable(inst, "med", 0.1, {1.1, 0.9, 1.1})
+                inst.components.floater.bob_percent = 0
+                inst.components.floater.splash = false
+            end,
+            master_postinit = function(inst)
+                local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+                inst:DoTaskInTime(land_time, function(inst)
+                    inst.components.floater:OnLandedServer()
+                end)
+
+                local FLOWER_COLOURS = {"", "white_", "yellow_"}
+                inst._colour = FLOWER_COLOURS[math.random(#FLOWER_COLOURS)]
+                inst.AnimState:OverrideSymbol("bc_bud", "barnacle_plant_colour_swaps", inst._colour.."bc_bud")
+                inst.AnimState:OverrideSymbol("bc_face", "barnacle_plant_colour_swaps", inst._colour.."bc_face")
+                inst.AnimState:OverrideSymbol("bc_flower_petal", "barnacle_plant_colour_swaps", inst._colour.."bc_flower_petal")
+
+                inst:DoTaskInTime(0,function()
+                    if math.random() < 0.5 then
+                        inst.AnimState:PlayAnimation("growth3", false)
+                    end
+                    -- 设置角度  -180 ~ 180
+                    inst.Transform:SetRotation(math.random(-180, 180))
+                end)
+                inst:DoPeriodicTask(10,function()
+                    -- 设置角度  -180 ~ 180
+                    inst.Transform:SetRotation(math.random(-180, 180))
+
+                    if inst.AnimState:IsCurrentAnimation("idle") then
+                        inst.AnimState:PlayAnimation("growth3", false)
+                    else
+                        inst.AnimState:PlayAnimation("growth2", false)
+                        inst.AnimState:PushAnimation("idle", true)
+                    end
+                end,5)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 漂流瓶( messagebottle )
+        ["messagebottle"] = {
+            bank = "bottle",
+            build = "bottle",
+            -- anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "barnacle_plant.png",
+            common_postinit = function(inst)
+                -- MakeInventoryPhysics(inst)
+                MakeInventoryFloatable(inst, "small", -0.04, 1)
+            end,
+            master_postinit = function(inst)
+
+                
+                    local function play_water_anim(inst)
+                        if math.random() < 0.5 then
+                            inst.AnimState:PlayAnimation("idle_empty_water")
+                        else
+                            inst.AnimState:PlayAnimation("idle_water")
+                        end
+                        inst.components.floater:OnLandedServer()
+                    end
+                    inst:DoTaskInTime(0,play_water_anim)
+                
+
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 海带 （ bullkelp_plant ）
+        ["bullkelp_plant"] = {
+            bank = "bullkelp",
+            build = "bullkelp",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            map = "bullkelp_plant.png",
+            common_postinit = function(inst)
+                -- MakeInventoryPhysics(inst, nil, 0.7)
+                inst.AnimState:SetFinalOffset(1)
+                AddDefaultRippleSymbols(inst, true, false)
+            end,
+            master_postinit = function(inst)
+                ---------------------
+                inst.underwater = SpawnPrefab("bullkelp_plant_leaves")
+                inst.underwater.entity:SetParent(inst.entity)
+                inst.underwater.Transform:SetPosition(0,0,0)
+                ---------------------
+                local start_frame = math.random(inst.AnimState:GetCurrentAnimationNumFrames()) - 1
+                inst.AnimState:SetFrame(start_frame)
+                inst.underwater.AnimState:SetFrame(start_frame)
+
+                inst:ListenForEvent("onremove",function()
+                    inst.underwater:Remove()
+                end)
+
             end,
         },
     --------------------------------------------------------------------

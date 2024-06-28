@@ -3,7 +3,7 @@
 
     VIP系统
 
-    懒得加密了，反正丢给AI都能解密。
+    懒得加密了，反正丢给AI都能解密。即便转换成 ASCII 也能被AI 解密。
      
 ]]--
 ----------------------------------------------------------------------------------------------------------------------------------
@@ -65,6 +65,7 @@ nil,
                             self:Acitve_VIP_One_Time_Callback()
                         else
                             print("error in funny_cat_com_vip_sys _table is not a table")
+                            self:Acitve_Joson_Decode_Fail_Callback()
                         end
                     ----------------------------------
                 else

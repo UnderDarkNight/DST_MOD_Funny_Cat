@@ -574,9 +574,16 @@ local flg,error_code = pcall(function()
         -- print(cmd_table.create_cd_key())
     ----------------------------------------------------------------------------------------------------------------
     -- 
-        ThePlayer.components.funny_cat_com_cross_archive_data:Set("cd_key","AAA6666")
+        -- ThePlayer.components.funny_cat_com_cross_archive_data:Set("cd_key","AAA6666")
         -- ThePlayer.components.funny_cat_com_cross_archive_data:Force_Client_Upload_Data()
         -- print( ThePlayer.components.funny_cat_com_cross_archive_data:Get("test") )
+        local offset_x = 5
+        local offset_y = 5
+        local offset_z = 5
+        SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x+offset_x,0,z+offset_z)
+        SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x-offset_x,0,z+offset_z)
+        SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x+offset_x,0,z-offset_z)
+        SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x-offset_x,0,z-offset_z)
 
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")

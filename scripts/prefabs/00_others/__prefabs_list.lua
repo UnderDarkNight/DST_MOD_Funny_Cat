@@ -24,7 +24,7 @@ local temp_str_index2 = string.find(temp_addr,"/__prefabs_list.lua")
 local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 得到最终文件夹路径
 
 ---------------------------------------------------------------------------
--- local Prefabs_addr_base = "scripts/prefabs/01_fwd_in_pdt_items/"               --- 文件夹路径
+-- local Prefabs_addr_base = "scripts/prefabs/01_funny_cat_items/"               --- 文件夹路径
 local prefabs_name_list = {
     -- "whip",
 }

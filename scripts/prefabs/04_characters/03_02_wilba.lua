@@ -16,13 +16,13 @@ local start_inv = {}
 -- 当人物复活的时候
 local function onbecamehuman(inst)
 	-- 设置人物的移速（1表示1倍于wilson）
-	-- inst.components.locomotor:SetExternalSpeedMultiplier(inst, "fwd_in_pdt_carl_speed_mod", 1.25)
+	-- inst.components.locomotor:SetExternalSpeedMultiplier(inst, "funny_cat_carl_speed_mod", 1.25)
 
 end
 --当人物死亡的时候
 local function onbecameghost(inst)
 	-- 变成鬼魂的时候移除速度修正
---    inst.components.locomotor:RemoveExternalSpeedMultiplier(inst, "fwd_in_pdt_carl_speed_mod")
+--    inst.components.locomotor:RemoveExternalSpeedMultiplier(inst, "funny_cat_carl_speed_mod")
 
 end
 

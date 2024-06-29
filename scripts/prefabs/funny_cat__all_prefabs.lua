@@ -10,6 +10,7 @@ local file_folders = {
     "02_resource",                               -- 自然资源
     "03_sfx",                                    -- fx特效
     "04_characters",                             -- 玩家角色
+    "05_map_room",                               -- 地图块
 
 }
 

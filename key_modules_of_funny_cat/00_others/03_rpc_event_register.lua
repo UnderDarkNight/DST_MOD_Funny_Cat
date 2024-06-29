@@ -28,7 +28,7 @@
 
 -- ---------- RPC 上传 event 事件
 -- AddModRPCHandler("funny_cat_rpc_namespace", "pushevent.client2server", function(player_inst,inst,event_name,data_json) ----- Register on the server
---     -- user in client : inst.replica.fwd_in_pdt_func:PushEvent("event_name",data)
+--     -- user in client : inst.replica.funny_cat_func:PushEvent("event_name",data)
 --     -- 客户端回传 event 给 服务端,player_inst 为来源玩家客户端。
 --     if inst and inst.PushEvent and event_name then
 --         local data = nil

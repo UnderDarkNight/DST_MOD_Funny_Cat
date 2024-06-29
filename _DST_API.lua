@@ -297,6 +297,9 @@ TheWorld.Map = {
     -- GetEntitiesOnTileAtPoint
     ["GetTileXYAtPoint"] = function(self,x,y,z)
         return 0,0
+    end,
+    ["GetTileCoordsAtPoint"] = function(self,x,y,z)
+        return mid_tile_x,mid_tile_y
     end
 }
 TheWorld.ismastersim = false

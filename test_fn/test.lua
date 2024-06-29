@@ -577,14 +577,31 @@ local flg,error_code = pcall(function()
         -- ThePlayer.components.funny_cat_com_cross_archive_data:Set("cd_key","AAA6666")
         -- ThePlayer.components.funny_cat_com_cross_archive_data:Force_Client_Upload_Data()
         -- print( ThePlayer.components.funny_cat_com_cross_archive_data:Get("test") )
-        local offset_x = 5
-        local offset_y = 5
-        local offset_z = 5
-        SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x+offset_x,0,z+offset_z)
-        SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x-offset_x,0,z+offset_z)
-        SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x+offset_x,0,z-offset_z)
-        SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x-offset_x,0,z-offset_z)
+        -- local offset_x = 5
+        -- local offset_y = 5
+        -- local offset_z = 5
+        -- SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x+offset_x,0,z+offset_z)
+        -- SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x-offset_x,0,z+offset_z)
+        -- SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x+offset_x,0,z-offset_z)
+        -- SpawnPrefab("fc_marsh_tree").Transform:SetPosition(x-offset_x,0,z-offset_z)
 
+    ----------------------------------------------------------------------------------------------------------------
+    -- 地图调试
+        --- 洞穴里的虚空tile 为 1
+        ---  201 ~ 247 都是海洋
+        --- 浅海 tile  201
+        --- 中海 tile  203
+        --- 深海 tile  204
+        --- 其他  205 
+        -- for k, v in pairs(Ents) do
+        --     print(k,v)
+        -- end
+
+        -- SpawnPrefab("map_room_desert"):PushEvent("Set",{
+        --     pt = Vector3(x,y,z)
+        -- })
+        
+        local ret = require("worldgen_main")
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

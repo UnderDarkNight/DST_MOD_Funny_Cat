@@ -15,7 +15,7 @@ end
 local strings = {   
     --------------------------------------------------------------------
     --- 正在debug 测试的
-        ["fwd_in_pdt_skin_test_item"] = {
+        ["funny_cat_skin_test_item"] = {
             ["name"] = "皮肤测试物品",
             ["inspect_str"] = "inspect单纯的测试皮肤",
             ["recipe_desc"] = "测试描述666",

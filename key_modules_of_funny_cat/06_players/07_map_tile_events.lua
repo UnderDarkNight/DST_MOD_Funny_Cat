@@ -34,4 +34,11 @@ AddPlayerPostInit(function(inst)
         
     end)
 
+    if TUNING.FUNNY_CAT_DEBUGGING_MODE then
+        inst:DoTaskInTime(1,function()
+            inst.components.inventory:GiveItem(SpawnPrefab("orangestaff"))
+            inst.components.inventory:GiveItem(SpawnPrefab("goldenpitchfork"))
+        end)
+    end
+
 end)

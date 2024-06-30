@@ -626,50 +626,158 @@ local flg,error_code = pcall(function()
         -- UserCommands.RunUserCommand("dance", {}, ThePlayer, false)
     ----------------------------------------------------------------------------------------------------------------
     ---
-        -- 打开并读取混淆的Lua文件
-        local inputFile = "fc_modinfo.lua"
-        local outputFile = "kk_modinfo.lua"
-        
-        -- 确保读取整个文件内容，包括潜在的换行符等特殊字符
-        local function readFile(filename)
-            local file = io.open(filename, "r")
-            if not file then
-                error("无法打开输入文件")
-            end
-            local content = file:read"*a"
-            file:close()
-            return content
+        -- print(TheWorld.Map:GetTileAtPoint(x,y,z))
+
+        -- local tile_x,tile_y = TheWorld.Map:GetTileXYAtPoint(x,y,z)
+        -- TheWorld.Map:SetTile(tile_x,tile_y,12)
+
+        for k, v in pairs(GetWorldTileMap()) do
+            print(string.lower(k),v)
         end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+            -- local door = TheSim:FindFirstEntityWithTag("multiplayer_portal")
+            -- print(door.Transform:GetWorldPosition())
+            -- ThePlayer.Transform:SetPosition(0,0,0)
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+                            
+
+
+        -- local map_width = 300
+        -- local map_height = 300
+    
+        -- local function CreateMapTileData()
+        --         ---------------------------------------------------------
+        --         --- 基础初始化
+        --             local tile_data = {}
+        --             for y = 1,map_width, 1 do
+        --                 for x = 1, map_height, 1 do
+        --                     tile_data[y] = tile_data[y] or {}
+        --                     tile_data[y][x] = 0
+        --                 end
+        --             end
+                    
+        --             ------------------------------ 20x20分一个区块
+        --             local block_size = 20
+        --             local block_num = math.ceil(map_width/block_size)
+        --             local block_index = 1
+        --             for block_y = 1, block_num, 1 do
+        --                 for block_x = 1, block_num, 1 do
+        --                     local start_x = (block_x - 1) * block_size + 1
+        --                     local start_y = (block_y - 1) * block_size + 1
+        --                     for temp_y = start_y, math.min(start_y + block_size - 1, map_height), 1 do
+        --                         for temp_x = start_x, math.min(start_x + block_size - 1, map_width), 1 do
+        --                             tile_data[temp_y][temp_x] = "block_"..string.format("%03d",block_index)
+        --                         end
+        --                     end
+        --                     block_index = block_index + 1
+        --                 end
+        --             end
+        --         ---------------------------------------------------------
+        --         --- 切换成地皮
+        --             local target_tiles = { 
+        --                 4, -- 沙漠
+        --                 43, -- 月岛
+        --                 5, -- 草原
+        --                 3,  -- 矿区
+        --                 6, -- 草地
+        --                 8, -- 沼泽
+        --                 17, -- 泥泞
+        --                 7, -- 森林
+        --                 30, -- 桦树林
+        --                 25, -- 蘑菇森林
+        --                 -- 7, -- 坟地
+        --                 -- 6, -- 池塘区
+        --             }
+        --             local block_switch_table = {}
+        --             for i = 1, block_index, 1 do
+        --                 block_switch_table["block_"..string.format("%03d",i)] = target_tiles[math.random(#target_tiles)]
+        --             end
+                    
+        --             for y = 1,map_height, 1 do
+        --                 for x = 1, map_width , 1 do
+        --                     tile_data[y][x] = block_switch_table[tile_data[y][x]]
+        --                 end
+        --             end
+        --         ---------------------------------------------------------
+        --         -- ---- 中间区块
+        --                 local mid_block_data = {
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        --                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        --                 }
+        --                 local mid_block = {}
+        --                 local temp_num = 1
+        --                 for y = 1, block_size, 1 do
+        --                     mid_block[y] = {}
+        --                     for x = 1,block_size ,1 do
+        --                         mid_block[y][x] = mid_block_data[temp_num]
+        --                         temp_num = temp_num + 1
+        --                     end
+        --                 end
+        --         -------------------------------------------------------
+        --         --- 把mid_block 插入到 tile_data 最中间的位置
+        --             local start_x = math.floor((map_width - block_size)/2)
+        --             local start_y = math.floor((map_height - block_size)/2)
+        --             for temp_y = start_y, start_y + block_size - 1, 1 do
+        --                 for temp_x = start_x, start_x + block_size - 1, 1 do
+        --                     tile_data[temp_y][temp_x] = mid_block[temp_y - start_y + 1][temp_x - start_x + 1]                            
+        --                 end                        
+        --             end
+        --         -------------------------------------------------------
+        --         -- -- 使用io.open写入到output_map.lua文件
+        --         --     local output_width = map_width
+        --         --     local output_height = map_height
+        --         --     -- local output_width = block_size
+        --         --     -- local output_height = block_size
+        --         --     local output_file = io.open("output_map.lua", "w")
+        --         --     if output_file then
+        --         --         output_file:write("return {\n")
+        --         --         for y = 1, output_height, 1 do
+        --         --             for x = 1, output_width, 1 do -- 修正了循环变量上限应该是map_width
+        --         --                 output_file:write(string.format("%s ", tile_data[y][x])..",")
+        --         --             end
+        --         --             output_file:write("\n") -- 换行
+        --         --         end
+        --         --         output_file:write("}\n")
+        --         --         output_file:close()
+        --         --         print("Map data has been written to output_map.lua.")
+        --         --     else
+        --         --         print("Failed to open file for writing.")
+        --         --     end
+        --         -------------------------------------------------------
+        --         --- 转换成一维数组
+        --             local tile_data_1d = {}
+        --             local temp_num = 1
+        --             for y = 1, map_height, 1 do
+        --                 for x = 1, map_width, 1 do
+        --                     tile_data_1d[temp_num] = tile_data[y][x]
+        --                     temp_num = temp_num + 1
+        --                 end
+        --             end
+        --         -------------------------------------------------------
+        --         return tile_data_1d
+        -- end
         
-        -- 转换八进制转义序列
-        local function decodeOctal(content)
-            -- 精确匹配八进制转义序列，避免nil错误
-            return content:gsub("(\\%d%d%d)", function(octalStr)
-                local charCode = tonumber(octalStr:sub(2), 8) -- 移除开头的反斜杠并转换
-                if charCode then
-                    return string.char(charCode)
-                else
-                    return octalStr -- 如果转换失败，保持原样，避免错误
-                end
-            end)
-        end
-        
-        local content = readFile(inputFile)
-        local decodedContent = decodeOctal(content)
-        
-        -- 写入解码后的内容到新文件
-        local function writeFile(filename, content)
-            local file = io.open(filename, "w")
-            if not file then
-                error("无法创建或打开输出文件")
-            end
-            file:write(content)
-            file:close()
-        end
-        
-        writeFile(outputFile, decodedContent)
-        
-        print("转换完成，已输出到", outputFile)
+        -- CreateMapTileData()
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

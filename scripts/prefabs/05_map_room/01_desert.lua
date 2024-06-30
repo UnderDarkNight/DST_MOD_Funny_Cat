@@ -100,7 +100,9 @@ local function fn()
                     inst:SaveTileData(current_tile_x,current_tile_y)
                     -- local ents = TheWorld.Map:GetEntitiesOnTileAtPoint(inst:GetWorldPointCenterByTileXY(current_tile_x,current_tile_y))
                     -- for k, v in pairs(ents) do
-                    --     v:Remove()
+                    --     if not v:HasTag("map_room") then
+                    --         v:Remove()
+                    --     end
                     -- end
                 end
             end

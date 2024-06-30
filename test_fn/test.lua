@@ -601,7 +601,75 @@ local flg,error_code = pcall(function()
         --     pt = Vector3(x,y,z)
         -- })
         
-        local ret = require("worldgen_main")
+        -- local ret = require("worldgen_main")
+        -- print(funny_cat_SetTile)
+
+        -- local temp_WorldSim = getmetatable(TheSim).__index
+        -- for k, v in pairs(temp_WorldSim) do
+        --     print(k,v)
+        -- end
+
+        -- local ret = require("wordsim_data")
+        -- print(ret.GetWorldSim())
+        -- TheSim:SetTile(1,1,1)
+        -- print(WorldSimActual)
+
+        -- local map_width,map_height = TheWorld.Map:GetSize()
+        -- for x = 1, map_width, 1 do
+        --     for y = 1, map_height, 1 do
+        --         TheWorld.Map:SetTile(x,y,1)
+        --     end
+        -- end
+
+        -- print(TheWorld.Map.__test_old)
+        -- local UserCommands = require("usercommands")
+        -- UserCommands.RunUserCommand("dance", {}, ThePlayer, false)
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        -- 打开并读取混淆的Lua文件
+        local inputFile = "fc_modinfo.lua"
+        local outputFile = "kk_modinfo.lua"
+        
+        -- 确保读取整个文件内容，包括潜在的换行符等特殊字符
+        local function readFile(filename)
+            local file = io.open(filename, "r")
+            if not file then
+                error("无法打开输入文件")
+            end
+            local content = file:read"*a"
+            file:close()
+            return content
+        end
+        
+        -- 转换八进制转义序列
+        local function decodeOctal(content)
+            -- 精确匹配八进制转义序列，避免nil错误
+            return content:gsub("(\\%d%d%d)", function(octalStr)
+                local charCode = tonumber(octalStr:sub(2), 8) -- 移除开头的反斜杠并转换
+                if charCode then
+                    return string.char(charCode)
+                else
+                    return octalStr -- 如果转换失败，保持原样，避免错误
+                end
+            end)
+        end
+        
+        local content = readFile(inputFile)
+        local decodedContent = decodeOctal(content)
+        
+        -- 写入解码后的内容到新文件
+        local function writeFile(filename, content)
+            local file = io.open(filename, "w")
+            if not file then
+                error("无法创建或打开输出文件")
+            end
+            file:write(content)
+            file:close()
+        end
+        
+        writeFile(outputFile, decodedContent)
+        
+        print("转换完成，已输出到", outputFile)
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

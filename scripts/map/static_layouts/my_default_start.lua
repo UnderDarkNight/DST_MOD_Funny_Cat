@@ -72,7 +72,7 @@ local function CreateMapTileData()
                 -- 29,  -- 远古砖雕 GetTile:22
                 -- 30,  -- 不能使用
                 -- 31,  -- 未知岩石地皮（挖不起来） GetTile:37
-                -- 32,  -- 未知粉色地皮（挖不起来） GetTile:36
+                32,  -- 未知粉色地皮（挖不起来） GetTile:36   暴食模式地皮
 
                 34, -- 月岛地皮在创建的时候使用的id。并不是GetTile得到的43
 

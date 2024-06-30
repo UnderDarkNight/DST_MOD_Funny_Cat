@@ -626,14 +626,14 @@ local flg,error_code = pcall(function()
         -- UserCommands.RunUserCommand("dance", {}, ThePlayer, false)
     ----------------------------------------------------------------------------------------------------------------
     ---
-        -- print(TheWorld.Map:GetTileAtPoint(x,y,z))
+        print(TheWorld.Map:GetTileAtPoint(x,y,z))
 
         -- local tile_x,tile_y = TheWorld.Map:GetTileXYAtPoint(x,y,z)
         -- TheWorld.Map:SetTile(tile_x,tile_y,12)
 
-        for k, v in pairs(GetWorldTileMap()) do
-            print(string.lower(k),v)
-        end
+        -- for k, v in pairs(GetWorldTileMap()) do
+        --     print(string.lower(k),v)
+        -- end
     ----------------------------------------------------------------------------------------------------------------
     ---
             -- local door = TheSim:FindFirstEntityWithTag("multiplayer_portal")

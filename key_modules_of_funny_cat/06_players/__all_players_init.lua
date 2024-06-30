@@ -13,3 +13,5 @@ modimport("key_modules_of_funny_cat/06_players/05_character_blocker.lua") --- �
 modimport("key_modules_of_funny_cat/06_players/06_vip_sys.lua") --- VIP系统
 
 modimport("key_modules_of_funny_cat/06_players/07_map_tile_events.lua") --- 玩家地块事件
+
+modimport("key_modules_of_funny_cat/06_players/08_ocean_walk.lua") --- 水上行走

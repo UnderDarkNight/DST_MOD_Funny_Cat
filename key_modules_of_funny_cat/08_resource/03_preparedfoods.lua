@@ -49,7 +49,7 @@ local temp_table = {
 }
 
 
-TUNING.FUNNY_CAT_FOOD_PREFAB_RESOURCES = {}
+TUNING.FUNNY_CAT_FOOD_RESOURCES = {}
 ----------------------------------------------------------------------------------------------------------------
 ---
     local foods = require("preparedfoods")
@@ -85,7 +85,7 @@ TUNING.FUNNY_CAT_FOOD_PREFAB_RESOURCES = {}
             end,
         }
         temp_table[prefab] = ret_table
-        table.insert(TUNING.FUNNY_CAT_FOOD_PREFAB_RESOURCES,"fc_"..prefab)
+        table.insert(TUNING.FUNNY_CAT_FOOD_RESOURCES,prefab)
     end
 ----------------------------------------------------------------------------------------------------------------
 

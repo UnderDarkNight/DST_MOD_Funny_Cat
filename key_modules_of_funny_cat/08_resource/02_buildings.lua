@@ -244,6 +244,10 @@ local temp_table = {
         
     --------------------------------------------------------------------
 }
+
+TUNING.FUNNY_CAT_BUILDING_RESOURCES = TUNING.FUNNY_CAT_BUILDING_RESOURCES or {}
+
 for k, v in pairs(temp_table) do
+    table.insert(TUNING.FUNNY_CAT_BUILDING_RESOURCES,k)
     TUNING.FUNNY_CAT_RESOURCES[k] = v
 end

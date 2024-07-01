@@ -1797,36 +1797,7 @@ local temp_table = {
             end,
         },
     --------------------------------------------------------------------
-    -- 漂流瓶( messagebottle )
-        ["messagebottle"] = {
-            bank = "bottle",
-            build = "bottle",
-            -- anim = "idle",
-            loop = true,
-            icon_data = {
-            },            
-            -- map = "barnacle_plant.png",
-            common_postinit = function(inst)
-                -- MakeInventoryPhysics(inst)
-                MakeInventoryFloatable(inst, "small", -0.04, 1)
-            end,
-            master_postinit = function(inst)
 
-                
-                    local function play_water_anim(inst)
-                        if math.random() < 0.5 then
-                            inst.AnimState:PlayAnimation("idle_empty_water")
-                        else
-                            inst.AnimState:PlayAnimation("idle_water")
-                        end
-                        inst.components.floater:OnLandedServer()
-                    end
-                    inst:DoTaskInTime(0,play_water_anim)
-                
-
-            end,
-        },
-    --------------------------------------------------------------------
     -- 海带 （ bullkelp_plant ）
         ["bullkelp_plant"] = {
             bank = "bullkelp",
@@ -1950,6 +1921,9 @@ local temp_table = {
 
 }
 
+TUNING.FUNNY_CAT_NATURAL_RESOURCES = {}
+
 for k, v in pairs(temp_table) do
+    table.insert(TUNING.FUNNY_CAT_NATURAL_RESOURCES,k)
     TUNING.FUNNY_CAT_RESOURCES[k] = v
 end

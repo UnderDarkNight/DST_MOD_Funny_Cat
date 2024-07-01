@@ -781,14 +781,36 @@ local flg,error_code = pcall(function()
     ----------------------------------------------------------------------------------------------------------------
     --- 
 
-            SpawnPrefab("fc_marbletree"):PushEvent("Set",{
-                pt = Vector3(x,y,z),
-                type = math.random(4)
-            })
-            SpawnPrefab("fc_marbleshrub"):PushEvent("Set",{
-                pt = Vector3(x+5,y,z),
-                -- type = math.random(4)
-            })
+            -- SpawnPrefab("fc_marbletree"):PushEvent("Set",{
+            --     pt = Vector3(x,y,z),
+            --     type = math.random(4)
+            -- })
+            -- SpawnPrefab("fc_marbleshrub"):PushEvent("Set",{
+            --     pt = Vector3(x+5,y,z),
+            --     -- type = math.random(4)
+            -- })
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        -- local hats = {
+        --     "straw","top","beefalo","feather","bee","miner","spider","football",
+        --     "earmuffs","winter","bush","flower","walrus","slurtle","ruins","mole",
+        --     "wathgrithr","wathgrithr_improved","walter","ice","rain","catcoon","watermelon",
+        --     "eyebrella","red_mushroom","green_mushroom","blue_mushroom","hive","dragonhead",
+        --     "dragonbody","dragontail","desert","goggles","moonstorm_goggles","skeleton",
+        --     "kelp","merm","cookiecutter","batnose","nutrientsgoggles","plantregistry",
+        --     "balloon","alterguardian","eyemask","antlion","mask_doll","mask_dollbroken",
+        --     "mask_dollrepaired","mask_blacksmith","mask_mirror","mask_queen","mask_king","mask_tree",
+        --     "mask_fool","monkey_medium","monkey_small","polly_rogers","nightcap","woodcarved","dreadstone",
+        --     "lunarplant","voidcloth","wagpunk","moon_mushroom","scrap_monocle","scrap",
+        -- }
+        -- print("+++ max hats",#hats)
+        -- for i = 1, #hats, 1 do
+        --     ThePlayer:DoTaskInTime(i,function(inst)
+        --         local prefab = "fc_"..hats[i].."hat"
+        --         print("++++ ",i,prefab)
+        --         SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())
+        --     end)
+        -- end
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

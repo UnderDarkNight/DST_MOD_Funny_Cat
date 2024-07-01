@@ -31,7 +31,9 @@ AddPrefabPostInit(
         inst.AnimState.PlayAnimation = function(self,anim,...)
             -- print("PlayAnimation",anim)
             if replace_anim[anim] then
-                self:PlayAnimation("emoteXL_bonesaw")
+                -- self:PlayAnimation("emoteXL_bonesaw")
+                -- self:PushAnimation("idle_loop",true)
+                self:PlayAnimation("idle_wilson_beard")
                 self:PushAnimation("idle_loop",true)
                 return
             end

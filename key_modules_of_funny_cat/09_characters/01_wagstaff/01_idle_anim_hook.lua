@@ -31,11 +31,16 @@ AddPrefabPostInit(
         inst.AnimState.PlayAnimation = function(self,anim,...)
             -- print("PlayAnimation",anim)
             if replace_anim[anim] then
-                self:PlayAnimation("notes_pre")
-                self:PushAnimation("notes_loop")
-                self:PushAnimation("notes_loop")
-                self:PushAnimation("notes_pst")
-                self:PushAnimation("idle_loop",true)
+                if math.random() < 0.5 then
+                    self:PlayAnimation("notes_pre")
+                    self:PushAnimation("notes_loop")
+                    self:PushAnimation("notes_loop")
+                    self:PushAnimation("notes_pst")
+                    self:PushAnimation("idle_loop",true)
+                else
+                    self:PlayAnimation("idle_wilson_beard")
+                    self:PushAnimation("idle_loop",true)
+                end
                 return
             end
             return old_PlayAnimation(self,anim,...)

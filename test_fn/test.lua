@@ -626,7 +626,7 @@ local flg,error_code = pcall(function()
         -- UserCommands.RunUserCommand("dance", {}, ThePlayer, false)
     ----------------------------------------------------------------------------------------------------------------
     ---
-        print(TheWorld.Map:GetTileAtPoint(x,y,z))
+        -- print(TheWorld.Map:GetTileAtPoint(x,y,z))
 
         -- local tile_x,tile_y = TheWorld.Map:GetTileXYAtPoint(x,y,z)
         -- TheWorld.Map:SetTile(tile_x,tile_y,12)
@@ -778,6 +778,17 @@ local flg,error_code = pcall(function()
         -- end
         
         -- CreateMapTileData()
+    ----------------------------------------------------------------------------------------------------------------
+    --- 
+
+            SpawnPrefab("fc_marbletree"):PushEvent("Set",{
+                pt = Vector3(x,y,z),
+                type = math.random(4)
+            })
+            SpawnPrefab("fc_marbleshrub"):PushEvent("Set",{
+                pt = Vector3(x+5,y,z),
+                -- type = math.random(4)
+            })
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

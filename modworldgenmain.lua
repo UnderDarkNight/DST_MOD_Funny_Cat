@@ -1,4 +1,17 @@
 GLOBAL.setmetatable(env,{__index=function(t,k) return GLOBAL.rawget(GLOBAL,k) end})
+
+
+print("fake error +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+-- print("MAP_SIZE_BIG",GetModConfigData("MAP_SIZE_BIG"))
+local MAP_SIZE_BIG = GetModConfigData("MAP_SIZE_BIG")
+local StaticLayout_addr = "map/static_layouts/my_default_start_big"
+if not MAP_SIZE_BIG then
+	StaticLayout_addr = "map/static_layouts/my_default_start_small"
+end
+print("fake error +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+
+
 local Layouts =  require("map/layouts").Layouts
 local StaticLayout = require("map/static_layout")
 require("constants")
@@ -6,7 +19,7 @@ require("map/tasks")
 require("map/level") 
 
 --新加static_layout 注意这个里面必须有大门否则地图无法生成
-Layouts["MyStaticLayout"] = StaticLayout.Get("map/static_layouts/my_default_start",{
+Layouts["MyStaticLayout"] = StaticLayout.Get(StaticLayout_addr or "map/static_layouts/my_default_start",{
             start_mask = PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
             fill_mask = PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
             layout_position = LAYOUT_POSITION.CENTER,

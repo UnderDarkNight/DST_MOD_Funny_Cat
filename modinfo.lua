@@ -174,6 +174,20 @@ priority = 100000000000000  -- MOD加载优先级 影响某些功能的兼容性
   ---
       {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,},
       {
+        name = "MAP_SIZE_BIG",
+        label = IsChinese() and "地图尺寸" or "Map Size",
+        hover = IsChinese() and "地图尺寸" or "Map Size",
+        options = {
+          {description = "140X140", data = false},
+          {description = "300X300", data = true},
+        },
+        default = true,
+
+      },
+  ----------------------------------------------------------------------------------------------------------
+  ---
+      {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,},
+      {
         name = "EMOJI_HOT_KEY",
         label = IsChinese() and "表情快捷键" or "Emoji Hot Key",
         hover = IsChinese() and "表情快捷键" or "Emoji Hot Key",

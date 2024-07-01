@@ -27,6 +27,12 @@ local function CreatePrefab(origin_prefab_name,data_table)
         if data_table.anim then
             inst.AnimState:PlayAnimation(data_table.anim,data_table.loop)
         end
+        if data_table.light then
+            inst.entity:AddLight()
+        end
+        if data_table.sound then
+            inst.entity:AddSoundEmitter()
+        end
 
         inst.entity:SetPristine()
 
@@ -50,12 +56,16 @@ local function CreatePrefab(origin_prefab_name,data_table)
     end
 
     if data_table.create_postinit then
-        data_table.create_postinit()
+        pcall(data_table.create_postinit)
+        -- data_table.create_postinit()
     end
-
-    STRINGS.NAMES[string.upper("fc_"..origin_prefab_name)] = STRINGS.NAMES[string.upper(origin_prefab_name)]
-    STRINGS.CHARACTERS.GENERIC.DESCRIBE[string.upper("fc_"..origin_prefab_name)] = STRINGS.CHARACTERS.GENERIC.DESCRIBE[string.upper(origin_prefab_name)]
-    
+    if not data_table.skip_rename then
+        pcall(function()            
+            STRINGS.NAMES[string.upper("fc_"..origin_prefab_name)] = STRINGS.NAMES[string.upper(origin_prefab_name)]
+            STRINGS.CHARACTERS.GENERIC.DESCRIBE[string.upper("fc_"..origin_prefab_name)] = STRINGS.CHARACTERS.GENERIC.DESCRIBE[string.upper(origin_prefab_name)]
+        end)
+    end
+        
     return Prefab("fc_"..origin_prefab_name,fn)
 end
 

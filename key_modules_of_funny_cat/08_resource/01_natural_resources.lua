@@ -74,6 +74,7 @@ local temp_table = {
             icon_data = {
 
             },
+            light = true,            
             map = "lava_pond.png",
             common_postinit = function(inst)
                 MakePondPhysics(inst, 1.95)
@@ -81,7 +82,6 @@ local temp_table = {
                 inst.AnimState:SetLayer(LAYER_BACKGROUND)
                 inst.AnimState:SetSortOrder(3)
 
-                inst.entity:AddLight()
                 inst.Light:Enable(true)
                 inst.Light:SetRadius(1.5)
                 inst.Light:SetFalloff(0.66)
@@ -261,11 +261,11 @@ local temp_table = {
             loop = true,
             icon_data = {
 
-            },            
+            },
+            light = true,
             map = "hotspring.png",
             common_postinit = function(inst)
                 MakePondPhysics(inst, 1)
-                inst.entity:AddLight()
                 inst.Light:Enable(false)
                 inst.Light:SetRadius(TUNING.HOTSPRING_GLOW.RADIUS)
                 inst.Light:SetIntensity(TUNING.HOTSPRING_GLOW.INTENSITY)
@@ -950,6 +950,38 @@ local temp_table = {
                 local ret_name = names[math.random(#names)]
                 inst.AnimState:PlayAnimation(ret_name,true)
 
+                inst:AddComponent("playerprox")
+                inst.components.playerprox:SetDist(6, 8)
+                inst.components.playerprox:SetOnPlayerNear(function()
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if inst.butterfly == nil or not inst.butterfly:IsValid() then
+                        local new_inst = SpawnPrefab("butterfly")
+                        new_inst.Transform:SetPosition(x,y,z)
+                        inst.butterfly = new_inst
+                        new_inst:ListenForEvent("entitysleep",function()
+                            new_inst:Remove()
+                        end)
+                    end
+                end)
+                -- inst.components.playerprox:SetOnPlayerFar(onfar)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 花( flower )
+        ["flower_rose"] = {
+            bank = "flowers",
+            build = "flowers",
+            anim = "rose",
+            loop = true,
+            icon_data = {
+
+            },            
+            -- map = "berrybush_juicy.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetRayTestOnBB(true)
+                inst:AddTag("flower")
+            end,
+            master_postinit = function(inst)
                 inst:AddComponent("playerprox")
                 inst.components.playerprox:SetDist(6, 8)
                 inst.components.playerprox:SetOnPlayerNear(function()
@@ -1825,6 +1857,95 @@ local temp_table = {
 
             end,
         },
+    --------------------------------------------------------------------
+    -- 大理石树、大理石灌木  （ marbletree marbleshrub ）
+        ["marbletree"] = {
+            bank = "marble_trees",
+            build = "marble_trees",
+            anim = "full_1",
+            loop = true,
+            icon_data = {
+            },            
+            map = "marbletree.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, 0.1)
+                inst.MiniMapEntity:SetPriority(-1)
+                MakeSnowCoveredPristine(inst)
+                inst:SetPrefabName("marbletree")
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                function inst:SetType(the_type)
+                    if type(the_type) == "number" then
+                        local idle_anims = {"full_1","full_2","full_3","full_4"}
+                        the_type = math.clamp(the_type, 1, #idle_anims)
+
+                        local anim = idle_anims[the_type]
+                        inst.AnimState:PlayAnimation(anim, true)
+                    end
+                end
+                inst:ListenForEvent("Set",function(inst,_table)
+                    -- _table = _table or {
+                    --     pt = Vector3(0,0,0),
+                    --     type = 3,
+                    -- }
+                    inst.Transform:SetPosition(_table.pt.x,_table.pt.y,_table.pt.z)
+                    inst:SetType(_table.type)
+                    inst.Ready = true
+                end)
+
+            end,
+        },
+        ["marbleshrub"] = {
+            bank = "marbleshrub",
+            build = "marbleshrub",
+            anim = "idle_short",
+            loop = true,
+            icon_data = {
+            },            
+            map = "marbleshrub1.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, 0.1)
+                inst.MiniMapEntity:SetPriority(-1)
+                MakeSnowCoveredPristine(inst)
+                local function SetupShrubShape(inst, buildnum)
+                    inst.shapenumber = buildnum
+                    if inst.shapenumber ~= 1 then
+                        inst.AnimState:OverrideSymbol("marbleshrub_top1", "marbleshrub_build", "marbleshrub_top"..tostring(inst.shapenumber))
+                        inst.MiniMapEntity:SetIcon("marbleshrub"..tostring(inst.shapenumber)..".png")
+                    end
+                end
+                inst.SetupShrubShape = SetupShrubShape
+                inst:SetPrefabName("marbleshrub")
+
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                function inst:SetType(the_type)
+                    local NUM_BUILDS = 3
+                    inst:SetupShrubShape(math.random(NUM_BUILDS))
+                    local idle_anims = {"idle_short","idle_normal","idle_tall"}
+                    inst.AnimState:PlayAnimation(idle_anims[math.random(#idle_anims)], true)
+                end
+
+                inst:ListenForEvent("Set",function(inst,_table)
+                    _table = _table or {
+                        pt = Vector3(0,0,0),
+                        type = 3,
+                    }
+                    inst.Transform:SetPosition(_table.pt.x,_table.pt.y,_table.pt.z)
+                    inst:SetType(_table.type)
+                    inst.Ready = true
+                end)
+                inst:DoTaskInTime(0,function()
+                    if inst.Ready ~= true then
+                        inst:SetType()
+                    end
+                end)
+
+            end,
+        },
+
     --------------------------------------------------------------------
 
 }

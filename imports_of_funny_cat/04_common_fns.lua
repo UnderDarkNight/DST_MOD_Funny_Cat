@@ -43,6 +43,9 @@ TUNING.FUNNY_CAT_FN = {}
         if CMD_TABLE == nil then
             return
         end
+        if CMD_TABLE.pt then
+            CMD_TABLE.target = CMD_TABLE.pt
+        end
         local theMid = nil
         if CMD_TABLE.target == nil then
             theMid = Vector3( self.inst.Transform:GetWorldPosition() )

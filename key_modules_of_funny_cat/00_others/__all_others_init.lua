@@ -1,5 +1,7 @@
 
 
+modimport("key_modules_of_funny_cat/00_others/00_debugging_hook.lua") --- debugging
+
 modimport("key_modules_of_funny_cat/00_others/01_replica_register.lua") --- replica 注册器
 
 modimport("key_modules_of_funny_cat/00_others/02_pvp_hook.lua") --- pvp 强制关闭

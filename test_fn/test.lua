@@ -812,6 +812,18 @@ local flg,error_code = pcall(function()
         --     end)
         -- end
     ----------------------------------------------------------------------------------------------------------------
+    ---
+        -- local dumbbells = {"dumbbell","dumbbell_golden","dumbbell_marble","dumbbell_gem","dumbbell_heat","dumbbell_redgem","dumbbell_bluegem"}
+            
+        -- -- print("+++ max hats",#hats)
+        -- for i = 1, #dumbbells, 1 do
+        --     ThePlayer:DoTaskInTime(i,function(inst)
+        --         local prefab = "fc_"..dumbbells[i]
+        --         print("++++ ",i,prefab)
+        --         SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())
+        --     end)
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)
 

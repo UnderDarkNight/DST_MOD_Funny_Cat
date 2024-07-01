@@ -824,6 +824,87 @@ local flg,error_code = pcall(function()
         --     end)
         -- end
     ----------------------------------------------------------------------------------------------------------------
+    ----
+        -- local pillow_materials = {"petals","kelp","beefalowool","steelwool"}
+        -- local ret_prefab = {}
+        -- for k, temp in pairs(pillow_materials) do
+        --     table.insert(ret_prefab, "fc_handpillow_"..temp)
+        --     table.insert(ret_prefab, "fc_bodypillow_"..temp)
+        -- end
+        -- for i = 1, #ret_prefab, 1 do
+        --     ThePlayer:DoTaskInTime(i,function(inst)
+        --         local prefab = ret_prefab[i]
+        --         print("++++ ",i,prefab)
+        --         SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())
+        --     end)
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        -- local FLOATER_PROPERTIES =
+        -- {
+        --     ["purple"]  = {0.10, 0.80},
+        --     ["blue"]    = {0.10, 0.80},
+        --     ["red"]     = {0.10, 0.80},
+        --     ["orange"]  = {0.10, 0.82},
+        --     ["yellow"]  = {0.10, 0.85},
+        --     ["green"]   = {0.05, 0.75},
+        --     ["opal"]    = {0.10, 0.87},
+        -- }
+        -- local ret_prefab = {}
+        -- for colour, v in pairs(FLOATER_PROPERTIES) do
+        --     table.insert(ret_prefab, "fc_"..colour.."gem")
+        -- end
+        -- for i = 1, #ret_prefab, 1 do
+        --     ThePlayer:DoTaskInTime(i,function(inst)
+        --         local prefab = ret_prefab[i]
+        --         print("++++ ",i,prefab)
+        --         SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())                
+        --     end)
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        -- local staffs_with_color = {
+        --     ["icestaff"] = "blue",
+        --     ["firestaff"] = "red",
+        --     ["telestaff"] = "purple",
+        --     ["orangestaff"] = "orange",
+        --     ["greenstaff"] = "green",
+        --     ["yellowstaff"] = "yellow",
+        --     ["opalstaff"] = "opal",
+        -- }
+        -- local ret_prefab = {}
+        -- for prefab, v in pairs(staffs_with_color) do
+        --     table.insert(ret_prefab, "fc_"..prefab)
+        -- end
+        -- for i = 1, #ret_prefab, 1 do
+        --     ThePlayer:DoTaskInTime(i,function(inst)
+        --         local prefab = ret_prefab[i]
+        --         print("++++ ",i,prefab)
+        --         SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())                
+        --     end)
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    ---
+        local amulets_data = {
+            ["amulet"] = "redamulet",
+            ["blueamulet"] = "blueamulet",
+            ["purpleamulet"] = "purpleamulet",
+            ["orangeamulet"] = "orangeamulet",
+            ["greenamulet"] = "greenamulet",
+            ["yellowamulet"] = "yellowamulet",
+        }
+        local ret_prefab = {}
+        for prefab, v in pairs(amulets_data) do
+            table.insert(ret_prefab, "fc_"..prefab)
+        end
+        for i = 1, #ret_prefab, 1 do
+            ThePlayer:DoTaskInTime(i,function(inst)
+                local prefab = ret_prefab[i]
+                print("++++ ",i,prefab)
+                SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())                
+            end)
+        end
+    ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)
 

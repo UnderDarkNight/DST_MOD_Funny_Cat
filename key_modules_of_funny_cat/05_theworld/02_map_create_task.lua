@@ -18,11 +18,18 @@ AddPrefabPostInit("world",function(inst)
         inst:AddComponent("funny_cat_world_map_tile_sys")        
     end
     inst.components.funny_cat_world_map_tile_sys:AddPostInitFn(function()
-        -- inst:DoTaskInTime(0,function()
+        --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        --- 只运行一次。
+            if inst.components.funny_cat_world_map_tile_sys:Get("MapInited") then
+                print("+++++++++ main land task already done +++++++++++++++++")
+                return
+            end
+            inst.components.funny_cat_world_map_tile_sys:Set("MapInited",true)
         --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         --- debug 测试
             local start_time = os.clock()
             print("+++++++++ main land task start +++++++++++++++++")
+
         --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         --- 先处理绚丽之门
             -- local door = TheSim:FindFirstEntityWithTag("multiplayer_portal")
@@ -61,11 +68,11 @@ AddPrefabPostInit("world",function(inst)
 
         --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         --- debug 测试
+            
             print("+++++++++ main land task end  +++++++++++++++++")
             local end_time = os.clock()
             print(string.format(" +++ main land create task cost time  : %.4f", end_time - start_time) )
         --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        -- end)
     end)
 
 end)

@@ -1399,9 +1399,867 @@ local temp_table = {
             end,
         },
     --------------------------------------------------------------------
+    -- 绝望石盔甲 armordreadstone
+        ["armordreadstone"] = {
+            bank = "armor_dreadstone",
+            build = "armor_dreadstone",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local swap_data = { bank = "armor_dreadstone", anim = "anim" }
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 虚空长袍 armor_voidcloth
+        ["armor_voidcloth"] = {
+            bank = "armor_voidcloth",
+            build = "armor_voidcloth",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local SWAP_DATA = { bank = "armor_voidcloth", anim = "anim" }
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, SWAP_DATA)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- W.A.R.B.I.S盔甲 armorwagpunk
+        ["armorwagpunk"] = {
+            bank = "armor_wagpunk_01",
+            build = "armor_wagpunk_01",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local SWAP_DATA        = { bank = "armor_wagpunk_01", anim = "anim"   }
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, SWAP_DATA)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 草甲 armorgrass
+        ["armorgrass"] = {
+            bank = "armor_grass",
+            build = "armor_grass",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local swap_data = {bank = "armor_grass", anim = "anim"}
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 荆棘外壳 armor_bramble
+        ["armor_bramble"] = {
+            bank = "armor_bramble",
+            build = "armor_bramble",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 木甲 armorwood
+        ["armorwood"] = {
+            bank = "armor_wood",
+            build = "armor_wood",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local swap_data = {bank = "armor_wood", anim = "anim"}
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 铥矿甲 armorruins
+        ["armorruins"] = {
+            bank = "armor_ruins",
+            build = "armor_ruins",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local swap_data = {bank = "armor_ruins", anim = "anim"}
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 暗夜甲 armor_sanity
+        ["armor_sanity"] = {
+            bank = "armor_sanity",
+            build = "armor_sanity",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local swap_data = {bank = "armor_sanity", anim = "anim"}
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 大理石盔甲 armormarble
+        ["armormarble"] = {
+            bank = "armor_marble",
+            build = "armor_marble",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local swap_data = {bank = "armor_marble", anim = "anim"}
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 蜗牛壳护甲 armorsnurtleshell
+        ["armorsnurtleshell"] = {
+            bank = "armor_slurtleshell",
+            build = "armor_slurtleshell",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "med", 0.2, 0.70)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 龙鳞盔甲 armordragonfly
+        ["armordragonfly"] = {
+            bank = "torso_dragonfly",
+            build = "torso_dragonfly",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local swap_data = {bank = "torso_dragonfly", anim = "anim"}
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 骨头盔甲 armorskeleton
+        ["armorskeleton"] = {
+            bank = "armor_skeleton",
+            build = "armor_skeleton",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                local swap_data = {bank = "armor_skeleton", anim = "anim"}
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 充气背心 balloonvest
+        ["balloonvest"] = {
+            bank = "balloonvest",
+            build = "balloonvest",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+            },            
+            -- map = "birdtrap.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.1, 0.80)
+
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("idle",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 背包 backpack
+        ["backpack"] = {
+            bank = "backpack1",
+            build = "swap_backpack",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            map = "backpack.png",
+            common_postinit = function(inst)
+                local swap_data = {bank = "backpack1", anim = "anim"}
+                MakeInventoryFloatable(inst, "small", 0.2, nil, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 猪皮背包 piggyback
+        ["piggyback"] = {
+            bank = "piggyback",
+            build = "swap_piggyback",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            map = "piggyback.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.1, 0.85)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 坎普斯背包 krampus_sack
+        ["krampus_sack"] = {
+            bank = "backpack1",
+            build = "swap_krampus_sack",
+            anim = "anim",
+            loop = true,
+            icon_data = {
+            },            
+            map = "krampus_sack.png",
+            common_postinit = function(inst)
+                local swap_data = {bank = "backpack1", anim = "anim"}
+                MakeInventoryFloatable(inst, "med", 0.1, 0.65, nil, nil, swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim",true)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 保鲜背包 icepack   【未知问题，无法加载成功】
+        -- ["icepack"] = {
+        --     bank = "icepack",
+        --     build = "swap_icepack",
+        --     anim = "anim",
+        --     -- loop = true,
+        --     icon_data = {
+        --     },            
+        --     map = "icepack.png",
+        --     common_postinit = function(inst)
+        --         MakeInventoryFloatable(inst, "small", 0.15)
+        --     end,
+        --     master_postinit = function(inst)
+        --         local function play_water_anim(inst)
+        --             local x,y,z = inst.Transform:GetWorldPosition()
+        --             if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+        --                 inst.components.floater:OnLandedServer()
+        --             else
+        --                 inst.AnimState:PlayAnimation("anim")
+        --             end
+        --             print("fake error ",inst.prefab)
+        --         end
+        --         inst:DoTaskInTime(0,play_water_anim)
+        --     end,
+        -- },
+    --------------------------------------------------------------------
+    -- 独奏乐器 onemanband   
+        ["onemanband"] = {
+            bank = "onemanband",
+            build = "armor_onemanband",
+            anim = "anim",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 透气背心 trunkvest_summer   
+        ["trunkvest_summer"] = {
+            bank = "armor_trunkvest_summer",
+            build = "armor_trunkvest_summer",
+            anim = "anim",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.1, 0.8)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 透气背心 trunkvest_winter   
+        ["trunkvest_winter"] = {
+            bank = "armor_trunkvest_winter",
+            build = "armor_trunkvest_winter",
+            anim = "anim",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.1, 0.8)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 雨衣 raincoat   
+        ["raincoat"] = {
+            bank = "torso_rain",
+            build = "torso_rain",
+            anim = "anim",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.1, 0.78)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 犬牙背心 sweatervest   
+        ["sweatervest"] = {
+            bank = "armor_sweatervest",
+            build = "armor_sweatervest",
+            anim = "anim",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.1, 0.8)
+
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 熊皮背心 beargervest   
+        ["beargervest"] = {
+            bank = "torso_bearger",
+            build = "torso_bearger",
+            anim = "anim",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.2, 0.9)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 清凉夏装 reflectivevest   
+        ["reflectivevest"] = {
+            bank = "reflective_vest",
+            build = "torso_reflective",
+            anim = "anim",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", nil, 0.8)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 花衬衫 hawaiianshirt   
+        ["hawaiianshirt"] = {
+            bank = "hawaiian_shirt",
+            build = "torso_hawaiian",
+            anim = "anim",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.1, 0.77)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 饥饿腰带 armorslurper   
+        ["armorslurper"] = {
+            bank = "armor_slurper",
+            build = "armor_slurper",
+            anim = "anim",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.2, 0.80)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- -- 冰魔杖 icestaff   
+    --     ["icestaff"] = {
+    --         bank = "armor_slurper",
+    --         build = "armor_slurper",
+    --         anim = "anim",
+    --         -- loop = true,
+    --         icon_data = {
+    --         },            
+    --         -- map = "icepack.png",
+    --         common_postinit = function(inst)
+    --             MakeInventoryFloatable(inst, "small", 0.2, 0.80)
+    --         end,
+    --         master_postinit = function(inst)
+    --             local function play_water_anim(inst)
+    --                 local x,y,z = inst.Transform:GetWorldPosition()
+    --                 if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+    --                     inst.components.floater:OnLandedServer()
+    --                 else
+    --                     inst.AnimState:PlayAnimation("anim")
+    --                 end
+    --             end
+    --             inst:DoTaskInTime(0,play_water_anim)
+    --         end,
+    --     },
+    --------------------------------------------------------------------
 
 
 }
+----------------------------------------------------------------------------------------------------------------------------------------
+--- 项链
+    local amulets_data = {
+        ["amulet"] = "redamulet",
+        ["blueamulet"] = "blueamulet",
+        ["purpleamulet"] = "purpleamulet",
+        ["orangeamulet"] = "orangeamulet",
+        ["greenamulet"] = "greenamulet",
+        ["yellowamulet"] = "yellowamulet",
+    }
+    for prefab, anim in pairs(amulets_data) do
+        temp_table[prefab] = {
+            bank = "amulets",
+            build = "amulets",
+            anim = anim,
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "med", nil, 0.6)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation(anim)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        }
+    end
+----------------------------------------------------------------------------------------------------------------------------------------
+--- 法杖
+    local staffs_with_color = {
+        ["icestaff"] = "blue",
+        ["firestaff"] = "red",
+        ["telestaff"] = "purple",
+        ["orangestaff"] = "orange",
+        ["greenstaff"] = "green",
+        ["yellowstaff"] = "yellow",
+        ["opalstaff"] = "opal",
+    }
+    local staffs_with_floater = {
+        ["icestaff"] = function(inst)
+            inst.components.floater:SetScale({0.8, 0.4, 0.8})
+        end,
+        ["firestaff"] = function(inst)
+            local floater_swap_data =
+            {
+                sym_build = "swap_staffs",
+                sym_name = "swap_redstaff",
+                bank = "staffs",
+                anim = "redstaff"
+            }
+            inst.components.floater:SetBankSwapOnFloat(true, -9.5, floater_swap_data)
+            inst.components.floater:SetScale({0.85, 0.4, 0.85})
+        end,
+        ["telestaff"] = function(inst)
+            inst.components.floater:SetScale({0.9, 0.4, 0.9})
+        end,
+        ["orangestaff"] = nil,
+        ["greenstaff"] = nil,
+        ["yellowstaff"] = function(inst)
+            local floater_swap_data =
+            {
+                sym_build = "swap_staffs",
+                sym_name = "swap_yellowstaff",
+                bank = "staffs",
+                anim = "yellowstaff"
+            }
+            inst.components.floater:SetBankSwapOnFloat(true, -14, floater_swap_data)
+        end,
+        ["opalstaff"] = function(inst)
+            local floater_swap_data =
+            {
+                sym_build = "swap_staffs",
+                sym_name = "swap_opalstaff",
+                bank = "staffs",
+                anim = "opalstaff"
+            }
+            inst.components.floater:SetBankSwapOnFloat(true, -14, floater_swap_data)
+        end,
+    }
+
+    for prefab, colour in pairs(staffs_with_color) do
+        temp_table[prefab] = {
+            bank = "staffs",
+            build = "staffs",
+            anim = colour.."staff",
+            -- loop = true,
+            icon_data = {
+            },            
+            -- map = "icepack.png",
+            common_postinit = function(inst)
+                local floater_swap_data =
+                {
+                    sym_build = "swap_staffs",
+                    sym_name = "swap_"..colour.."staff",
+                    bank = "staffs",
+                    anim = colour.."staff"
+                }
+                MakeInventoryFloatable(inst, "med", 0.1, {0.9, 0.4, 0.9}, true, -13, floater_swap_data)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        if staffs_with_floater[prefab] then
+                            staffs_with_floater[prefab](inst)
+                        end
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation(colour.."staff")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        }
+    end
+----------------------------------------------------------------------------------------------------------------------------------------
+--- 枕头
+    local pillow_materials = {"petals","kelp","beefalowool","steelwool"}
+    for k,material in pairs(pillow_materials) do        
+        temp_table["handpillow_"..material] = {
+            bank = "yotr_pillows_hand",
+            build = "yotr_pillows_hand",
+            anim = material,
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", 0.1)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation(material)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        }
+        temp_table["bodypillow_"..material] = {
+            bank = "yotr_pillows_body",
+            build = "yotr_pillows_body",
+            anim = material,
+            common_postinit = function(inst)
+                inst.AnimState:SetLayer(LAYER_BACKGROUND)
+                inst.AnimState:SetSortOrder(3)        
+                MakeInventoryFloatable(inst, "large", 0.1, 0.75)
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation(material)
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        }
+    end
 ----------------------------------------------------------------------------------------------------------------------------------------
 --- 哑铃
     local dumbbells = {"dumbbell","dumbbell_golden","dumbbell_marble","dumbbell_gem","dumbbell_heat","dumbbell_redgem","dumbbell_bluegem"}
@@ -1466,6 +2324,40 @@ local temp_table = {
                         inst.components.floater:OnLandedServer()
                     else
                         inst.AnimState:PlayAnimation("anim")
+                    end
+                end
+                inst:DoTaskInTime(0,play_water_anim)
+            end,
+        }
+    end
+----------------------------------------------------------------------------------------------------------------------------------------
+--- 宝石
+    local FLOATER_PROPERTIES =
+    {
+        ["purple"]  = {0.10, 0.80},
+        ["blue"]    = {0.10, 0.80},
+        ["red"]     = {0.10, 0.80},
+        ["orange"]  = {0.10, 0.82},
+        ["yellow"]  = {0.10, 0.85},
+        ["green"]   = {0.05, 0.75},
+        ["opal"]    = {0.10, 0.87},
+    }
+    for colour, floater_data in pairs(FLOATER_PROPERTIES) do
+        temp_table[colour.."gem"] = {
+            bank = "gems",
+            build = "gems",
+            anim = colour.."gem_idle",
+            loop = true,
+            common_postinit = function(inst)
+                MakeInventoryFloatable(inst, "small", floater_data[1], floater_data[2])
+            end,
+            master_postinit = function(inst)
+                local function play_water_anim(inst)
+                    local x,y,z = inst.Transform:GetWorldPosition()
+                    if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                        inst.components.floater:OnLandedServer()
+                    else
+                        inst.AnimState:PlayAnimation(colour.."gem_idle",true)
                     end
                 end
                 inst:DoTaskInTime(0,play_water_anim)

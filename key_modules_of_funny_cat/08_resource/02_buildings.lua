@@ -1726,6 +1726,216 @@ local temp_table = {
             end,
         },
     --------------------------------------------------------------------
+    --- 帐篷 tent siestahut
+        ["tent"] = {
+            bank = "tent",
+            build = "tent",
+            anim = "idle",
+            loop = true,
+            map = "tent.png",
+            icon_data = {
+
+            },
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, 1)
+                MakeSnowCoveredPristine(inst)
+            end,
+            common_postinit = function(inst)                
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+            end,
+        },
+        ["siestahut"] = {
+            bank = "siesta_canopy",
+            build = "siesta_canopy",
+            anim = "idle",
+            loop = true,
+            map = "siestahut.png",
+            icon_data = {
+
+            },
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, 1)
+                MakeSnowCoveredPristine(inst)
+            end,
+            common_postinit = function(inst)                
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+            end,
+        },
+        
+    --------------------------------------------------------------------
+    -- 蜂箱 ( beebox )
+        ["beebox"] = {
+            bank = "bee_box",
+            build = "bee_box",
+            anim = "idle",
+            loop = true,
+            icon_data = {
+
+            },            
+            map = "beehive.png",
+            common_postinit = function(inst)
+                MakeObstaclePhysics(inst, .5)
+                MakeSnowCoveredPristine(inst)
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                inst.bees = {}
+                local MAX_BEES = 6
+                inst.OnEntityWake = function()
+                    inst:DoTaskInTime(0,function()
+                                local x,y,z = inst.Transform:GetWorldPosition()
+                                local new_table = {}
+                                for k, v in pairs(inst.bees) do
+                                    if v and v:IsValid() then
+                                        table.insert(new_table,v)
+                                    end
+                                end
+                                inst.bees = new_table
+                                local need_spawn_num = MAX_BEES - #inst.bees
+                                if need_spawn_num > 0 then
+                                    for i = 1, need_spawn_num, 1 do
+                                        local bee = SpawnPrefab(math.random()<0.1 and "killerbee" or "bee")
+                                        bee.Transform:SetPosition(x,y,z)
+                                        table.insert(inst.bees,bee)
+                                        bee:ListenForEvent("entitysleep",function()
+                                            bee.Transform:SetPosition(x,y,z)
+                                        end)
+                                        inst:ListenForEvent("onremove",function()
+                                            bee:Remove()
+                                        end)
+                                    end
+                                end
+                    end)
+                end
+                inst.OnEntitySleep = function()
+                   local x,y,z = inst.Transform:GetWorldPosition()
+                   for k, v in pairs(inst.bees) do
+                        if v and v:IsValid() and v:IsAsleep() then
+                            v.Transform:SetPosition(x,y,z)
+                        end
+                   end
+                end
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 烹饪锅 cookpot archive_cookpot
+        ["cookpot"] = {
+            bank = "cook_pot",
+            build = "cook_pot",
+            anim = "idle_empty",
+            icon_data = {
+            },
+            map = "cookpot.png",
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, .5)
+                MakeSnowCoveredPristine(inst)
+            end,
+            common_postinit = function(inst)                
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                inst:DoTaskInTime(0,function()
+                    if math.random() < 0.3 then
+                        inst.AnimState:PlayAnimation("cooking_loop", true)
+                    end
+                end)
+            end,
+        },
+        ["archive_cookpot"] = {
+            bank = "cook_pot",
+            build = "cookpot_archive",
+            anim = "idle_empty",
+            icon_data = {
+            },
+            map = "cookpot_archive.png",
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, .5)
+                MakeSnowCoveredPristine(inst)
+            end,
+            common_postinit = function(inst)                
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                inst:DoTaskInTime(0,function()
+                    if math.random() < 0.3 then
+                        inst.AnimState:PlayAnimation("cooking_loop", true)
+                    end
+                end)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 格罗姆雕像 statueglommer
+        ["statueglommer"] = {
+            bank = "glommer_statue",
+            build = "glommer_statue",
+            anim = "full",
+            icon_data = {
+            },
+            map = "statueglommer.png",
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, .75)
+                inst.MiniMapEntity:SetPriority(5)
+            end,
+            common_postinit = function(inst)                
+            end,
+            master_postinit = function(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 老麦雕像 statuemaxwell
+        ["statuemaxwell"] = {
+            bank = "statue_maxwell",
+            build = "statue_maxwell_build",
+            anim = "idle_full",
+            icon_data = {
+            },
+            map = "statue.png",
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, .66)
+            end,
+            common_postinit = function(inst)                
+            end,
+            master_postinit = function(inst)
+                inst:DoTaskInTime(0,function()
+                    if math.random() < 0.5 then
+                        inst.AnimState:AddOverrideBuild("statue_maxwell_vine_build")
+                    end
+                end)
+            end,
+        },
+    --------------------------------------------------------------------
+    -- 大理石雕像 statue_marble
+        ["statue_marble"] = {
+            bank = "statue_small",
+            build = "statue_small",
+            anim = "full",
+            icon_data = {
+            },
+            map = "statue_small.png",
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, 0.66)
+                inst.AnimState:OverrideSymbol("swap_statue", "statue_small_type1_build", "swap_statue")
+            end,
+            common_postinit = function(inst)                
+            end,
+            master_postinit = function(inst)
+                local function setstatuetype(inst, typeid)
+                    typeid = typeid or math.random(4)
+                    if typeid ~= inst.typeid then
+                        inst.typeid = typeid
+                        inst.AnimState:OverrideSymbol("swap_statue", "statue_small_type"..tostring(typeid).."_build", "swap_statue")
+                    end
+                end
+                inst:DoTaskInTime(0,function()
+                    setstatuetype(inst)
+                end)
+            end,
+        },
+    --------------------------------------------------------------------
 }
 
 TUNING.FUNNY_CAT_BUILDING_RESOURCES = TUNING.FUNNY_CAT_BUILDING_RESOURCES or {}

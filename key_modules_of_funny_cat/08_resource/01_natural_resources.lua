@@ -732,6 +732,9 @@ local temp_table = {
                                         bee:ListenForEvent("entitysleep",function()
                                             bee.Transform:SetPosition(x,y,z)
                                         end)
+                                        inst:ListenForEvent("onremove",function()
+                                            bee:Remove()
+                                        end)
                                     end
                                 end
                     end)
@@ -783,6 +786,9 @@ local temp_table = {
                                         table.insert(inst.bees,bee)
                                         bee:ListenForEvent("entitysleep",function()
                                             bee.Transform:SetPosition(x,y,z)
+                                        end)
+                                        inst:ListenForEvent("onremove",function()
+                                            bee:Remove()
                                         end)
                                     end
                                 end
@@ -1801,7 +1807,6 @@ local temp_table = {
             end,
         },
     --------------------------------------------------------------------
-
     -- 海带 （ bullkelp_plant ）
         ["bullkelp_plant"] = {
             bank = "bullkelp",

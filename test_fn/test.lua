@@ -885,25 +885,45 @@ local flg,error_code = pcall(function()
         -- end
     ----------------------------------------------------------------------------------------------------------------
     ---
-        local amulets_data = {
-            ["amulet"] = "redamulet",
-            ["blueamulet"] = "blueamulet",
-            ["purpleamulet"] = "purpleamulet",
-            ["orangeamulet"] = "orangeamulet",
-            ["greenamulet"] = "greenamulet",
-            ["yellowamulet"] = "yellowamulet",
-        }
-        local ret_prefab = {}
-        for prefab, v in pairs(amulets_data) do
-            table.insert(ret_prefab, "fc_"..prefab)
-        end
-        for i = 1, #ret_prefab, 1 do
-            ThePlayer:DoTaskInTime(i,function(inst)
-                local prefab = ret_prefab[i]
-                print("++++ ",i,prefab)
-                SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())                
-            end)
-        end
+        -- local amulets_data = {
+        --     ["amulet"] = "redamulet",
+        --     ["blueamulet"] = "blueamulet",
+        --     ["purpleamulet"] = "purpleamulet",
+        --     ["orangeamulet"] = "orangeamulet",
+        --     ["greenamulet"] = "greenamulet",
+        --     ["yellowamulet"] = "yellowamulet",
+        -- }
+        -- local ret_prefab = {}
+        -- for prefab, v in pairs(amulets_data) do
+        --     table.insert(ret_prefab, "fc_"..prefab)
+        -- end
+        -- for i = 1, #ret_prefab, 1 do
+        --     ThePlayer:DoTaskInTime(i,function(inst)
+        --         local prefab = ret_prefab[i]
+        --         print("++++ ",i,prefab)
+        --         SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())                
+        --     end)
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
+    --- 
+            -- ThePlayer.Transform:SetPosition(x,0,z)
+
+
+            -- local inst = SpawnPrefab("fc_researchlab")
+            -- inst.Transform:SetPosition(x,y,z)
+            -- print("check 1",inst.components.playerprox:IsPlayerClose())
+            -- ThePlayer.Transform:SetPosition(x,1000,z)
+            -- print("check 2",inst.components.playerprox:IsPlayerClose())
+
+            -- if ThePlayer.__test_inst == nil then
+            --     ThePlayer.__test_inst = SpawnPrefab("fc_researchlab")
+            --     ThePlayer.__test_inst.Transform:SetPosition(x,y,z)                
+            -- end
+            -- TheCamera:SetTarget(ThePlayer.__test_inst)
+            -- ThePlayer.Transform:SetPosition(x,1000,z)
+            TheCamera:SetTarget(ThePlayer)
+            ThePlayer.Transform:SetPosition(x,0,z)
+
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

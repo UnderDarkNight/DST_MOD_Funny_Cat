@@ -1814,17 +1814,29 @@ local temp_table = {
     --------------------------------------------------------------------
     -- 保鲜背包 icepack   【未知问题，无法加载成功】
         -- ["icepack"] = {
-        --     bank = "icepack",
-        --     build = "swap_icepack",
-        --     anim = "anim",
-        --     -- loop = true,
         --     icon_data = {
-        --     },            
-        --     map = "icepack.png",
-        --     common_postinit = function(inst)
+        --     },
+        --     fn = function()
+        --         local inst = CreateEntity()
+
+        --         inst.entity:AddTransform()
+        --         inst.entity:AddAnimState()
+        --         inst.entity:AddSoundEmitter()
+        --         inst.entity:AddMiniMapEntity()
+        --         inst.entity:AddNetwork()
+        --         inst.MiniMapEntity:SetIcon("icepack.png")
+
+        --         inst.AnimState:SetBank("icepack")
+        --         inst.AnimState:SetBuild("swap_icepack")
+        --         inst.AnimState:PlayAnimation("anim")
+
         --         MakeInventoryFloatable(inst, "small", 0.15)
-        --     end,
-        --     master_postinit = function(inst)
+        --         inst.entity:SetPristine()
+
+        --         if not TheWorld.ismastersim then
+        --             return inst
+        --         end
+ 
         --         local function play_water_anim(inst)
         --             local x,y,z = inst.Transform:GetWorldPosition()
         --             if TheWorld.Map:IsOceanAtPoint(x,y,z) then
@@ -1832,10 +1844,16 @@ local temp_table = {
         --             else
         --                 inst.AnimState:PlayAnimation("anim")
         --             end
-        --             print("fake error ",inst.prefab)
         --         end
         --         inst:DoTaskInTime(0,play_water_anim)
+        --         return inst
         --     end,
+        --     assets =
+        --     {
+        --         Asset("ANIM", "anim/backpack.zip"),
+        --         Asset("ANIM", "anim/swap_icepack.zip"),
+        --         Asset("ANIM", "anim/ui_backpack_2x4.zip"),
+        --     }
         -- },
     --------------------------------------------------------------------
     -- 独奏乐器 onemanband   
@@ -2064,31 +2082,8 @@ local temp_table = {
             end,
         },
     --------------------------------------------------------------------
-    -- -- 冰魔杖 icestaff   
-    --     ["icestaff"] = {
-    --         bank = "armor_slurper",
-    --         build = "armor_slurper",
-    --         anim = "anim",
-    --         -- loop = true,
-    --         icon_data = {
-    --         },            
-    --         -- map = "icepack.png",
-    --         common_postinit = function(inst)
-    --             MakeInventoryFloatable(inst, "small", 0.2, 0.80)
-    --         end,
-    --         master_postinit = function(inst)
-    --             local function play_water_anim(inst)
-    --                 local x,y,z = inst.Transform:GetWorldPosition()
-    --                 if TheWorld.Map:IsOceanAtPoint(x,y,z) then
-    --                     inst.components.floater:OnLandedServer()
-    --                 else
-    --                     inst.AnimState:PlayAnimation("anim")
-    --                 end
-    --             end
-    --             inst:DoTaskInTime(0,play_water_anim)
-    --         end,
-    --     },
-    --------------------------------------------------------------------
+
+    
 
 
 }

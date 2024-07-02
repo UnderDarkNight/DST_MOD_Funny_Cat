@@ -1,13 +1,12 @@
 
-
 local RESOURCE_TABLE = TUNING.FUNNY_CAT_RESOURCES
 
 local function CreatePrefab(origin_prefab_name,data_table)
-
+    local assets = {}
     data_table.origin_prefab = origin_prefab_name
     data_table.prefab = "fc_"..origin_prefab_name
 
-    local function fn()
+    local fn = data_table.fn or function()
         local inst = CreateEntity()
 
         inst.entity:AddTransform()
@@ -32,6 +31,10 @@ local function CreatePrefab(origin_prefab_name,data_table)
         end
         if data_table.sound then
             inst.entity:AddSoundEmitter()
+        end
+        
+        if data_table.before_Pristine_init then
+            data_table.before_Pristine_init(inst)
         end
 
         inst.entity:SetPristine()
@@ -59,14 +62,20 @@ local function CreatePrefab(origin_prefab_name,data_table)
         pcall(data_table.create_postinit)
         -- data_table.create_postinit()
     end
-    if not data_table.skip_rename then
-        pcall(function()            
-            STRINGS.NAMES[string.upper("fc_"..origin_prefab_name)] = STRINGS.NAMES[string.upper(origin_prefab_name)]
-            STRINGS.CHARACTERS.GENERIC.DESCRIBE[string.upper("fc_"..origin_prefab_name)] = STRINGS.CHARACTERS.GENERIC.DESCRIBE[string.upper(origin_prefab_name)]
-        end)
+
+    if data_table.assets then
+        for _,temp_asset in pairs(data_table.assets) do
+            table.insert(assets, temp_asset)
+        end
     end
+
+         
+    STRINGS.NAMES[string.upper("fc_"..origin_prefab_name)] = STRINGS.NAMES[string.upper(origin_prefab_name)]
+    STRINGS.CHARACTERS.GENERIC.DESCRIBE[string.upper("fc_"..origin_prefab_name)] = STRINGS.CHARACTERS.GENERIC.DESCRIBE[string.upper(origin_prefab_name)]
+
+
         
-    return Prefab("fc_"..origin_prefab_name,fn)
+    return Prefab("fc_"..origin_prefab_name,fn,assets)
 end
 
 local ret_prefabs = {}

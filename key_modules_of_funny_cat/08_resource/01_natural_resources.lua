@@ -1922,6 +1922,32 @@ local temp_table = {
         },
 
     --------------------------------------------------------------------
+    --- 龙虾窝 wobster_den
+        ["wobster_den"] = {
+            bank = "lobster_den",
+            build = "lobster_den_build",
+            anim = "full",
+            loop = true,
+            icon_data = {
+            },            
+            map = "wobster_den.png",
+            common_postinit = function(inst)
+                inst:SetPhysicsRadiusOverride(2.35)
+
+                MakeWaterObstaclePhysics(inst, 0.80, 2, 0.75)
+                MakeInventoryFloatable(inst, "med", 0.1, {1.1, 0.9, 1.1})
+                inst.components.floater.bob_percent = 0
+            end,
+            master_postinit = function(inst)
+                local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+                inst:DoTaskInTime(land_time, function(inst)
+                    inst.components.floater:OnLandedServer()
+                end)
+
+            end,
+        },
+
+    --------------------------------------------------------------------
 
 }
 

@@ -1135,6 +1135,597 @@ local temp_table = {
             end,
         },
     --------------------------------------------------------------------
+    --- 疯狂科学家实验室 madscience_lab
+        ["madscience_lab"] = {
+            bank = "madscience_lab",
+            build = "madscience_lab",
+            anim = "idle",
+            icon_data = {
+
+            },
+            light = true,
+            map = "madscience_lab.png",
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, .5)
+                inst.AnimState:SetFinalOffset(1)
+                MakeSnowCoveredPristine(inst)
+                inst.Light:Enable(false)
+                inst.Light:SetRadius(2)
+                inst.Light:SetFalloff(1.5)
+                inst.Light:SetIntensity(.5)
+                inst.Light:SetColour(250/255,180/255,50/255)
+            end,
+            common_postinit = function(inst)                
+            end,
+            master_postinit = function(inst)
+                inst:AddComponent("playerprox")
+                inst.components.playerprox:SetDist(4, 5)
+                inst.components.playerprox:SetOnPlayerNear(function()
+                    local create_fx_with_state = function(state)
+                        if inst.fx then
+                            inst.fx:Remove()
+                        end
+                        local fx = SpawnPrefab("madscience_lab_fire")
+                        fx.entity:SetParent(inst.entity)
+                        fx.entity:AddFollower()
+                        fx.Follower:FollowSymbol(inst.GUID, "fire_guide", 0, 0, 0)
+                        inst.fx = fx
+                        if state == 1 or state == 2 then
+                            inst.fx.AnimState:PlayAnimation("fire1",true)
+                        elseif state == 3 then
+                            inst.fx.AnimState:PlayAnimation("fire3_pre")
+                            inst.fx.AnimState:PushAnimation("fire3",true) 
+                        end
+                        inst.Light:Enable(true)
+                    end
+                    local temp_num = math.random(1000)/1000
+                    if temp_num < 0.4 then
+                        inst.AnimState:PlayAnimation("cooking_loop1", true)
+                        create_fx_with_state(1)
+                    elseif temp_num < 0.8 then
+                        inst.AnimState:PlayAnimation("cooking_loop2", true)
+                        create_fx_with_state(2)
+                    else
+                        inst.AnimState:PlayAnimation("cooking_loop3_pre")
+                        inst.AnimState:PushAnimation("cooking_loop3", true)
+                        create_fx_with_state(3)                        
+                    end
+                end)
+                inst.components.playerprox:SetOnPlayerFar(function()
+                    inst.AnimState:PushAnimation("idle", false)
+                    if inst.fx then
+                        inst.fx:Remove()
+                        inst.fx = nil
+                    end
+                    inst.Light:Enable(false)
+                end)
+                MakeSnowCovered(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    --- 钓具容器 tacklestation
+        ["tacklestation"] = {
+            bank = "tackle_station",
+            build = "tackle_station",
+            anim = "idle",
+            icon_data = {
+
+            },
+            map = "tacklestation.png",
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, .4)
+                inst.MiniMapEntity:SetPriority(5)
+
+                MakeSnowCoveredPristine(inst)
+            end,
+            common_postinit = function(inst)                
+            end,
+            master_postinit = function(inst)
+                inst:AddComponent("playerprox")
+                inst.components.playerprox:SetDist(4, 5)
+                inst.components.playerprox:SetOnPlayerNear(function()
+                    inst.AnimState:PlayAnimation("proximity_loop",true)
+                end)
+                inst.components.playerprox:SetOnPlayerFar(function()
+                    inst.AnimState:PlayAnimation("idle", false)
+                end)
+                MakeSnowCovered(inst)
+            end,
+        },
+    --------------------------------------------------------------------
+    --- 远古伪科学站 ancient_altar    ancient_altar_broken
+        ["ancient_altar"] = {
+
+            icon_data = {
+
+            },
+            fn = function()
+                ------------------------------------------------------------------------------
+                    local anim = "idle_full"
+                ------------------------------------------------------------------------------
+                --  light
+                    local MAX_LIGHT_ON_FRAME = 15
+                    local MAX_LIGHT_OFF_FRAME = 30
+
+                    local function OnUpdateLight(inst, dframes)
+                        local frame = inst._lightframe:value() + dframes
+                        if frame >= inst._lightmaxframe then
+                            inst._lightframe:set_local(inst._lightmaxframe)
+                            inst._lighttask:Cancel()
+                            inst._lighttask = nil
+                        else
+                            inst._lightframe:set_local(frame)
+                        end
+
+                        local k = frame / inst._lightmaxframe
+
+                        if inst._islighton:value() then
+                            inst.Light:SetRadius(3 * k)
+                        else
+                            inst.Light:SetRadius(3 * (1 - k))
+                        end
+
+                        if TheWorld.ismastersim then
+                            inst.Light:Enable(inst._islighton:value() or frame < inst._lightmaxframe)
+                            if not inst._islighton:value() then
+                                inst.SoundEmitter:KillSound("idlesound")
+                            end
+                        end
+                    end
+
+                    local function OnLightDirty(inst)
+                        if inst._lighttask == nil then
+                            inst._lighttask = inst:DoPeriodicTask(FRAMES, OnUpdateLight, nil, 1)
+                        end
+                        inst._lightmaxframe = inst._islighton:value() and MAX_LIGHT_ON_FRAME or MAX_LIGHT_OFF_FRAME
+                        OnUpdateLight(inst, 0)
+                    end
+                ------------------------------------------------------------------------------
+                ---
+                    local function complete_onturnon(inst)
+                        if inst.AnimState:IsCurrentAnimation("proximity_loop") then
+                            --NOTE: push again even if already playing, in case an idle was also pushed
+                            inst.AnimState:PushAnimation("proximity_loop", true)
+                        else
+                            inst.AnimState:PlayAnimation("proximity_loop", true)
+                        end
+                        if not inst.SoundEmitter:PlayingSound("idlesound") then
+                            inst.SoundEmitter:PlaySound("dontstarve/common/ancienttable_LP", "idlesound")
+                        end
+                        if not inst._islighton:value() then
+                            inst._islighton:set(true)
+                            inst._lightframe:set(math.floor((1 - inst._lightframe:value() / MAX_LIGHT_OFF_FRAME) * MAX_LIGHT_ON_FRAME + .5))
+                            OnLightDirty(inst)
+                        end
+                    end
+                    
+                    local function complete_onturnoff(inst)
+                        inst.AnimState:PushAnimation("idle_full")
+                        if inst._islighton:value() then
+                            inst._islighton:set(false)
+                            inst._lightframe:set(math.floor((1 - inst._lightframe:value() / MAX_LIGHT_ON_FRAME) * MAX_LIGHT_OFF_FRAME + .5))
+                            OnLightDirty(inst)
+                        end
+                    end
+                ------------------------------------------------------------------------------
+                local inst = CreateEntity()
+                inst.entity:AddTransform()
+                inst.entity:AddAnimState()
+                inst.entity:AddMiniMapEntity()
+                inst.entity:AddSoundEmitter()
+                inst.entity:AddLight()
+                inst.entity:AddNetwork()
+                MakeObstaclePhysics(inst, 0.8, 1.2)
+                inst.MiniMapEntity:SetPriority(5)
+                inst.MiniMapEntity:SetIcon("tab_crafting_table.png")
+                inst.AnimState:SetBank("crafting_table")
+                inst.AnimState:SetBuild("crafting_table")
+                inst.AnimState:PlayAnimation(anim)
+                inst.Light:Enable(false)
+                inst.Light:SetRadius(0)
+                inst.Light:SetFalloff(1)
+                inst.Light:SetIntensity(.5)
+                inst.Light:SetColour(1, 1, 1)
+                inst.Light:EnableClientModulation(true)
+
+                inst:AddTag("altar")
+                inst:AddTag("structure")
+                inst:AddTag("stone")
+
+                --prototyper (from prototyper component) added to pristine state for optimization
+                inst:AddTag("prototyper")
+
+                inst:SetPrefabNameOverride("ancient_altar")
+
+                inst._lightframe = net_smallbyte(inst.GUID, "ancient_altar._lightframe", "lightdirty")
+                inst._islighton = net_bool(inst.GUID, "ancient_altar._islighton", "lightdirty")
+                inst._lightmaxframe = MAX_LIGHT_OFF_FRAME
+                inst._lightframe:set(inst._lightmaxframe)
+                inst._lighttask = nil
+
+                inst.entity:SetPristine()
+
+                if not TheWorld.ismastersim then
+                    inst:ListenForEvent("lightdirty", OnLightDirty)
+
+                    return inst
+                end
+
+                inst:AddComponent("inspectable")
+                ------------------------------------------------------------------------------
+                ---
+                    inst:AddComponent("playerprox")
+                    inst.components.playerprox:SetDist(4, 5)
+                    inst.components.playerprox:SetOnPlayerNear(function()
+                        -- inst.AnimState:PlayAnimation("proximity_loop",true)
+                        complete_onturnon(inst)
+                    end)
+                    inst.components.playerprox:SetOnPlayerFar(function()
+                        -- inst.AnimState:PlayAnimation("idle_broken", false)
+                        complete_onturnoff(inst)
+                    end)
+                ------------------------------------------------------------------------------
+
+
+                return inst
+
+            end,
+            
+        },
+        ["ancient_altar_broken"] = {
+
+            icon_data = {
+
+            },
+            fn = function()
+                ------------------------------------------------------------------------------
+                    local anim = "idle_broken"
+                ------------------------------------------------------------------------------
+                --  light
+                    local MAX_LIGHT_ON_FRAME = 15
+                    local MAX_LIGHT_OFF_FRAME = 30
+
+                    local function OnUpdateLight(inst, dframes)
+                        local frame = inst._lightframe:value() + dframes
+                        if frame >= inst._lightmaxframe then
+                            inst._lightframe:set_local(inst._lightmaxframe)
+                            inst._lighttask:Cancel()
+                            inst._lighttask = nil
+                        else
+                            inst._lightframe:set_local(frame)
+                        end
+
+                        local k = frame / inst._lightmaxframe
+
+                        if inst._islighton:value() then
+                            inst.Light:SetRadius(3 * k)
+                        else
+                            inst.Light:SetRadius(3 * (1 - k))
+                        end
+
+                        if TheWorld.ismastersim then
+                            inst.Light:Enable(inst._islighton:value() or frame < inst._lightmaxframe)
+                            if not inst._islighton:value() then
+                                inst.SoundEmitter:KillSound("idlesound")
+                            end
+                        end
+                    end
+
+                    local function OnLightDirty(inst)
+                        if inst._lighttask == nil then
+                            inst._lighttask = inst:DoPeriodicTask(FRAMES, OnUpdateLight, nil, 1)
+                        end
+                        inst._lightmaxframe = inst._islighton:value() and MAX_LIGHT_ON_FRAME or MAX_LIGHT_OFF_FRAME
+                        OnUpdateLight(inst, 0)
+                    end
+                ------------------------------------------------------------------------------
+                ---
+                    local function broken_onturnon(inst)
+                        if not inst.SoundEmitter:PlayingSound("idlesound") then
+                            inst.SoundEmitter:PlaySound("dontstarve/common/ancienttable_LP", "idlesound")
+                        end
+                        if not inst._islighton:value() then
+                            inst._islighton:set(true)
+                            inst._lightframe:set(math.floor((1 - inst._lightframe:value() / MAX_LIGHT_OFF_FRAME) * MAX_LIGHT_ON_FRAME + .5))
+                            OnLightDirty(inst)
+                        end
+                    end
+                    
+                    local function broken_onturnoff(inst)
+                        if inst._islighton:value() then
+                            inst._islighton:set(false)
+                            inst._lightframe:set(math.floor((1 - inst._lightframe:value() / MAX_LIGHT_ON_FRAME) * MAX_LIGHT_OFF_FRAME + .5))
+                            OnLightDirty(inst)
+                        end
+                    end
+                ------------------------------------------------------------------------------
+                local inst = CreateEntity()
+                inst.entity:AddTransform()
+                inst.entity:AddAnimState()
+                inst.entity:AddMiniMapEntity()
+                inst.entity:AddSoundEmitter()
+                inst.entity:AddLight()
+                inst.entity:AddNetwork()
+                MakeObstaclePhysics(inst, 0.8, 1.2)
+                inst.MiniMapEntity:SetPriority(5)
+                inst.MiniMapEntity:SetIcon("tab_crafting_table.png")
+                inst.AnimState:SetBank("crafting_table")
+                inst.AnimState:SetBuild("crafting_table")
+                inst.AnimState:PlayAnimation(anim)
+                inst.Light:Enable(false)
+                inst.Light:SetRadius(0)
+                inst.Light:SetFalloff(1)
+                inst.Light:SetIntensity(.5)
+                inst.Light:SetColour(1, 1, 1)
+                inst.Light:EnableClientModulation(true)
+
+                inst:AddTag("altar")
+                inst:AddTag("structure")
+                inst:AddTag("stone")
+
+                --prototyper (from prototyper component) added to pristine state for optimization
+                inst:AddTag("prototyper")
+
+                inst:SetPrefabNameOverride("ancient_altar")
+
+                inst._lightframe = net_smallbyte(inst.GUID, "ancient_altar._lightframe", "lightdirty")
+                inst._islighton = net_bool(inst.GUID, "ancient_altar._islighton", "lightdirty")
+                inst._lightmaxframe = MAX_LIGHT_OFF_FRAME
+                inst._lightframe:set(inst._lightmaxframe)
+                inst._lighttask = nil
+
+                inst.entity:SetPristine()
+
+                if not TheWorld.ismastersim then
+                    inst:ListenForEvent("lightdirty", OnLightDirty)
+
+                    return inst
+                end
+
+                inst:AddComponent("inspectable")
+                ------------------------------------------------------------------------------
+                ---
+                    inst:AddComponent("playerprox")
+                    inst.components.playerprox:SetDist(4, 5)
+                    inst.components.playerprox:SetOnPlayerNear(function()
+                        -- inst.AnimState:PlayAnimation("proximity_loop",true)
+                        broken_onturnon(inst)
+                    end)
+                    inst.components.playerprox:SetOnPlayerFar(function()
+                        -- inst.AnimState:PlayAnimation("idle_broken", false)
+                        broken_onturnoff(inst)
+                    end)
+                ------------------------------------------------------------------------------
+
+
+                return inst
+
+            end,
+            
+        },
+    --------------------------------------------------------------------
+    --- 舔岩块 saltlick
+        ["saltlick"] ={
+            bank = "salt_lick",
+            build = "salt_lick",
+            anim = "idle1",
+            map = "saltlick.png",
+            icon_data = {
+
+            },
+            before_pristine_init = function(inst)
+                MakeObstaclePhysics(inst, .4)
+                MakeSnowCoveredPristine(inst)
+            end,
+            common_postinit = function(inst)
+                
+            end,
+            master_postinit = function(inst)
+                MakeSnowCovered(inst)
+                inst:DoTaskInTime(0,function()
+                    inst.AnimState:PlayAnimation("idle"..tostring(math.random(6)))
+                end)
+            end,
+        },
+    --------------------------------------------------------------------
+    --- 营火 campfire
+        ["campfire"] ={
+            icon_data = {
+
+            },
+            fn = function()
+                local inst = CreateEntity()
+                inst.entity:AddTransform()
+                inst.entity:AddAnimState()
+                inst.entity:AddSoundEmitter()
+                inst.entity:AddNetwork()
+                MakeObstaclePhysics(inst, .2)
+                inst.AnimState:SetBank("campfire")
+                inst.AnimState:SetBuild("campfire")
+                inst.AnimState:PlayAnimation("idle", false)
+                inst.entity:SetPristine()
+                if not TheWorld.ismastersim then
+                    return inst
+                end
+
+                inst:AddComponent("inspectable")
+                -----------------------------------------------
+                --- 
+                    inst:ListenForEvent("Set",function(_,level)
+                        if inst.fx == nil then
+                            local fx = SpawnPrefab("campfirefire")
+                            inst.fx = fx
+                            inst:ListenForEvent("onremove",function()
+                                fx:Remove() 
+                            end)
+                            inst:AddChild(fx)
+                            fx.entity:AddFollower()
+                            fx.Follower:FollowSymbol(inst.GUID, "firefx", 0, 0, 0)
+                        end
+                        inst.fx.components.firefx:SetLevel(level)
+                    end)
+                -----------------------------------------------
+                --
+                    inst:DoTaskInTime(0,function()
+                        inst:PushEvent("Set",math.random(4))
+                    end)
+                -----------------------------------------------
+                return inst
+            end,
+        },
+    --------------------------------------------------------------------
+    --- 火坑 campfire
+        ["firepit"] ={
+            icon_data = {
+
+            },
+            fn = function()
+                local inst = CreateEntity()
+                inst.entity:AddTransform()
+                inst.entity:AddAnimState()
+                inst.entity:AddSoundEmitter()
+                inst.entity:AddMiniMapEntity()
+                inst.entity:AddNetwork()
+
+                inst.MiniMapEntity:SetIcon("firepit.png")
+                inst.MiniMapEntity:SetPriority(1)
+                MakeObstaclePhysics(inst, .3)
+                inst.AnimState:SetBank("firepit")
+                inst.AnimState:SetBuild("firepit")
+                inst.AnimState:PlayAnimation("idle", false)
+                inst.entity:SetPristine()
+                if not TheWorld.ismastersim then
+                    return inst
+                end
+
+                inst:AddComponent("inspectable")
+                -----------------------------------------------
+                --- 
+                    inst:ListenForEvent("Set",function(_,level)
+                        if inst.fx == nil then
+                            local fx = SpawnPrefab("campfirefire")
+                            inst.fx = fx
+                            inst:ListenForEvent("onremove",function()
+                                fx:Remove() 
+                            end)
+                            inst:AddChild(fx)
+                            fx.entity:AddFollower()
+                            fx.Follower:FollowSymbol(inst.GUID, "firefx", 0, 25, 0, true)
+                        end
+                        inst.fx.components.firefx:SetLevel(level)
+                    end)
+                -----------------------------------------------
+                --
+                    inst:DoTaskInTime(0,function()
+                        inst:PushEvent("Set",math.random(4))
+                    end)
+                -----------------------------------------------
+                return inst
+            end,
+        },
+    --------------------------------------------------------------------
+    --- 吸热营火 coldfire
+        ["coldfire"] ={
+            icon_data = {
+
+            },
+            fn = function()
+                local inst = CreateEntity()
+                inst.entity:AddTransform()
+                inst.entity:AddAnimState()
+                inst.entity:AddSoundEmitter()
+                inst.entity:AddMiniMapEntity()
+                inst.entity:AddNetwork()
+
+                inst.MiniMapEntity:SetIcon("coldfire.png")
+                inst.MiniMapEntity:SetPriority(1)
+            
+                inst.AnimState:SetBank("coldfire")
+                inst.AnimState:SetBuild("coldfire")
+                inst.AnimState:PlayAnimation("idle_loop", false)
+
+                inst.entity:SetPristine()
+                if not TheWorld.ismastersim then
+                    return inst
+                end
+
+                inst:AddComponent("inspectable")
+                -----------------------------------------------
+                --- 
+                    inst:ListenForEvent("Set",function(_,level)
+                        if inst.fx == nil then
+                            local fx = SpawnPrefab("coldfirefire")
+                            inst.fx = fx
+                            inst:ListenForEvent("onremove",function()
+                                fx:Remove() 
+                            end)
+                            inst:AddChild(fx)
+                            fx.entity:AddFollower()
+                            fx.Follower:FollowSymbol(inst.GUID, "firefx", 0, 25, 0, true)
+                        end
+                        inst.fx.components.firefx:SetLevel(level)
+                    end)
+                -----------------------------------------------
+                --
+                    inst:DoTaskInTime(0,function()
+                        inst:PushEvent("Set",math.random(6))
+                    end)
+                -----------------------------------------------
+                return inst
+            end,
+        },
+    --------------------------------------------------------------------
+    --- 吸热火坑 coldfirepit
+        ["coldfirepit"] ={
+            icon_data = {
+
+            },
+            fn = function()
+                local inst = CreateEntity()
+                inst.entity:AddTransform()
+                inst.entity:AddAnimState()
+                inst.entity:AddSoundEmitter()
+                inst.entity:AddMiniMapEntity()
+                inst.entity:AddNetwork()
+
+                inst.MiniMapEntity:SetIcon("coldfirepit.png")
+                inst.MiniMapEntity:SetPriority(1)            
+                inst.AnimState:SetBank("coldfirepit")
+                inst.AnimState:SetBuild("coldfirepit")
+                inst.AnimState:PlayAnimation("idle", false)
+                MakeObstaclePhysics(inst, .3)
+
+                inst.entity:SetPristine()
+                if not TheWorld.ismastersim then
+                    return inst
+                end
+
+                inst:AddComponent("inspectable")
+                -----------------------------------------------
+                --- 
+                    inst:ListenForEvent("Set",function(_,level)
+                        if inst.fx == nil then
+                            local fx = SpawnPrefab("coldfirefire")
+                            inst.fx = fx
+                            inst:ListenForEvent("onremove",function()
+                                fx:Remove() 
+                            end)
+                            inst:AddChild(fx)
+                            fx.entity:AddFollower()
+                            fx.Follower:FollowSymbol(inst.GUID, "firefx", 0, 75, 0, true)
+                        end
+                        inst.fx.components.firefx:SetLevel(level)
+                    end)
+                -----------------------------------------------
+                --
+                    inst:DoTaskInTime(0,function()
+                        inst:PushEvent("Set",math.random(6))
+                    end)
+                -----------------------------------------------
+                return inst
+            end,
+        },
+    --------------------------------------------------------------------
 }
 
 TUNING.FUNNY_CAT_BUILDING_RESOURCES = TUNING.FUNNY_CAT_BUILDING_RESOURCES or {}

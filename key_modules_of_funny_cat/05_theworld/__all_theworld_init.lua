@@ -6,3 +6,6 @@ modimport("key_modules_of_funny_cat/05_theworld/01_world_common_com_setup.lua")
 
 modimport("key_modules_of_funny_cat/05_theworld/02_map_create_task.lua")
 --- 地图创建task
+
+modimport("key_modules_of_funny_cat/05_theworld/03_01_room_rocky.lua")
+--- ROOM ROCKY 岩石

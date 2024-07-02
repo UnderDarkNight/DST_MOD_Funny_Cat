@@ -12,18 +12,7 @@ local PIECES =
 
     {name="deerclops",		moonevent=false,    gymweight=4},
     {name="bearger",		moonevent=false,    gymweight=4},
-    {name="moosegoose",		moonevent=false,    gymweight=4,
-        common_postinit = function(inst)
-            inst._altname = net_bool(inst.GUID, "chesspiece_moosegoose._altname")
-            inst.displaynamefn = function(inst)
-                return inst._altname:value() and STRINGS.NAMES[string.upper(inst.prefab).."_ALT"] or nil
-            end
-        end,
-        master_postinit = function(inst)
-            inst:DoPeriodicTask(5, MooseGooseRandomizeName)
-            MooseGooseRandomizeName(inst)
-        end,
-    },
+    {name="moosegoose",		moonevent=false,    gymweight=4,  },
     {name="dragonfly",		     moonevent=false,    gymweight=4},
     {name="clayhound",		     moonevent=false,    gymweight=3},
     {name="claywarg",		     moonevent=false,    gymweight=3},

@@ -12,6 +12,7 @@ TUNING.FUNNY_CAT_RESOURCES = TUNING.FUNNY_CAT_RESOURCES or {}
 -- end)
 
 local function common_prefab_post_init_fn(inst)
+    inst:AddTag("funny_cat_resource")
     if TheNet:IsDedicated() then
         ----------------------------------------------------------------------------------
         --- server side

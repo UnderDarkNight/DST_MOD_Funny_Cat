@@ -42,13 +42,13 @@ local function CreateMapTileData()
                 -- 7, -- 坟地
                 -- 6, -- 池塘区
                 -- 1, --- 不能使用
-                2, -- 卵石地皮   GetWorldTileMap().ROAD
-                3, -- 矿区 GetWorldTileMap().ROCKY
-                4, -- 沙漠 GetWorldTileMap().DIRT
-                5, -- 草原 GetWorldTileMap().SAVANNA
-                6, -- 草地 GetWorldTileMap().GRASS
-                7, -- 森林 GetWorldTileMap().FOREST
-                8, -- 沼泽 GetWorldTileMap().MARSH
+                -- 2, -- 卵石地皮   GetWorldTileMap().ROAD
+                3, -- 矿区 GetWorldTileMap().ROCKY GetTile:3
+                4, -- 沙漠 GetWorldTileMap().DIRT  GetTile:4
+                5, -- 草原 GetWorldTileMap().SAVANNA  GetTile:5
+                6, -- 草地 GetWorldTileMap().GRASS GetTile:6
+                7, -- 森林 GetWorldTileMap().FOREST GetTile:7
+                8, -- 沼泽 GetWorldTileMap().MARSH GetTile:8
                 -- 9,   -- 木地板 GetTile:10
                 -- 10,  -- 地毯  GetTile:11
                 -- 11,  --- 棋盘 GetTile:12
@@ -57,7 +57,7 @@ local function CreateMapTileData()
                 -- 14,  --未知偏蓝草地（挖不起来）
                 -- 15,  --未知偏蓝草地（挖不起来）
                 -- 16,  --未知图形地毯（挖不起来）
-                17,     -- 泥泞 GetWorldTileMap().MUD
+                17,     -- 泥泞 GetWorldTileMap().MUD  GetTile:17
                 -- 18,  -- 不能使用
                 -- 19,  -- 不能使用
                 -- 20,  -- 不能使用

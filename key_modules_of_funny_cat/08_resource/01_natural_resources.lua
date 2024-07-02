@@ -1953,6 +1953,24 @@ local temp_table = {
         },
 
     --------------------------------------------------------------------
+    --- 野生胡萝卜 carrot_planted
+        ["carrot_planted"] = {
+            bank = "carrot",
+            build = "carrot",
+            anim = "planted",
+            icon_data = {
+
+            },
+            -- map = "pighouse.png",
+            common_postinit = function(inst)
+                inst.AnimState:SetRayTestOnBB(true)
+            end,
+            master_postinit = function(inst)
+                
+            end,
+
+        },
+    --------------------------------------------------------------------
 
 }
 

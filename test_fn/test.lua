@@ -905,6 +905,22 @@ local flg,error_code = pcall(function()
         --     end)
         -- end
     ----------------------------------------------------------------------------------------------------------------
+    --- 雕像调试
+        local origin_prefabs = TUNING.FUNNY_CAT_CHESSPIECES_RESOURCES
+
+        local ret_prefab = {}
+        for k, temp_prefab in pairs(origin_prefabs) do
+            -- print(k,v)
+            table.insert(ret_prefab,"fc_"..temp_prefab)
+        end
+        for i = 1, #ret_prefab, 1 do
+            ThePlayer:DoTaskInTime(i*0.5,function(inst)
+                local prefab = ret_prefab[i]
+                print("++++ ",i,prefab)
+                SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())                
+            end)
+        end
+    ----------------------------------------------------------------------------------------------------------------
     --- 
             -- ThePlayer.Transform:SetPosition(x,0,z)
 
@@ -921,8 +937,8 @@ local flg,error_code = pcall(function()
             -- end
             -- TheCamera:SetTarget(ThePlayer.__test_inst)
             -- ThePlayer.Transform:SetPosition(x,1000,z)
-            TheCamera:SetTarget(ThePlayer)
-            ThePlayer.Transform:SetPosition(x,0,z)
+            -- TheCamera:SetTarget(ThePlayer)
+            -- ThePlayer.Transform:SetPosition(x,0,z)
 
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")

@@ -921,6 +921,22 @@ local flg,error_code = pcall(function()
         --     end)
         -- end
     ----------------------------------------------------------------------------------------------------------------
+    --- 鱼类调试
+        local ret_prefab = {}
+        
+        local all_fish_data = require("prefabs/oceanfishdef").fish
+        for origin_fish_name, fish_def in pairs(all_fish_data) do
+            table.insert(ret_prefab,"fc_"..origin_fish_name.."_inv")    
+        end
+
+        for i = 1, #ret_prefab, 1 do
+            ThePlayer:DoTaskInTime(i*0.5,function(inst)
+                local prefab = ret_prefab[i]
+                print("++++ ",i,prefab)
+                SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())                
+            end)
+        end
+    ----------------------------------------------------------------------------------------------------------------
     --- 
             -- ThePlayer.Transform:SetPosition(x,0,z)
 
@@ -942,13 +958,14 @@ local flg,error_code = pcall(function()
 
     ----------------------------------------------------------------------------------------------------------------
     ---
-        for tempInst, v in pairs(TheWorld.MAP_ROOM_INDICATORS) do
-            print("++++ ",tempInst,v)
-            if tempInst and v == "tag_1" then
-                ThePlayer.Transform:SetPosition(tempInst.Transform:GetWorldPosition())
-                break
-            end
-        end
+        -- for tempInst, v in pairs(TheWorld.MAP_ROOM_INDICATORS) do
+        --     print("++++ ",tempInst,v)
+        --     if tempInst and v == "tag_1" then
+        --         ThePlayer.Transform:SetPosition(tempInst.Transform:GetWorldPosition())
+        --         break
+        --     end
+        -- end
+    ----------------------------------------------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

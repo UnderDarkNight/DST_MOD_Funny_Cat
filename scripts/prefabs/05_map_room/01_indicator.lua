@@ -153,7 +153,10 @@ local function fn()
             end
         ------------------------------------------------------------------------------------------------------------------------------------
         --- 回调给TheWorld触发
-            TheWorld:PushEvent("map_room_indicator_inited",inst)
+            if not inst.components.funny_cat_data:Get("inited_flag") then
+                TheWorld:PushEvent("map_room_indicator_inited",inst)
+                inst.components.funny_cat_data:Set("inited_flag",true)
+            end
         ------------------------------------------------------------------------------------------------------------------------------------
     end)
 

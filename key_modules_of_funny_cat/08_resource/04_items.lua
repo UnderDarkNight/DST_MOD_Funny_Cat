@@ -2360,6 +2360,74 @@ local temp_table = {
         }
     end
 ----------------------------------------------------------------------------------------------------------------------------------------
+--- 鱼类
+    local all_fish_data = require("prefabs/oceanfishdef").fish
+    for origin_fish_name, fish_def in pairs(all_fish_data) do
+        temp_table[origin_fish_name.."_inv"] = {
+            -- bank = fish_def.bank,
+            -- build = fish_def.build,
+            icon_data = {
+            }, 
+            fn = function()                
+                local inst = CreateEntity()
+                inst.entity:AddTransform()
+                inst.entity:AddAnimState()
+                inst.entity:AddSoundEmitter()
+                if fish_def.light ~= nil then
+                    inst.entity:AddLight()
+                    inst.Light:SetRadius(fish_def.light.r)
+                    inst.Light:SetFalloff(fish_def.light.f)
+                    inst.Light:SetIntensity(fish_def.light.i)
+                    inst.Light:SetColour(unpack(fish_def.light.c))
+                end
+                if fish_def.dynamic_shadow then
+                    inst.entity:AddDynamicShadow()
+                end
+                inst.entity:AddNetwork()
+                inst.Transform:SetTwoFaced()
+                inst.AnimState:SetBank(fish_def.bank)
+                inst.AnimState:SetBuild(fish_def.build)
+                inst.AnimState:PlayAnimation("flop_pst")
+                if fish_def.dynamic_shadow then
+                    inst.DynamicShadow:SetSize(fish_def.dynamic_shadow[1], fish_def.dynamic_shadow[2])
+                end
+                inst:SetPrefabNameOverride(fish_def.prefab)
+                inst.entity:SetPristine()
+                if not TheWorld.ismastersim then
+                    return inst
+                end
+                inst:AddComponent("inspectable")
+                --------------------------------------------------------------------
+                --- 
+                    inst:DoTaskInTime(0,function()
+                        local x,y,z = inst.Transform:GetWorldPosition()
+                        if TheWorld.Map:IsOceanAtPoint(x,y,z) then
+                            -- inst.Transform:SetFourFaced()
+                            inst.AnimState:PlayAnimation("idle_loop",true)
+                            inst.Transform:SetRotation(math.random(-180,180))
+                        else
+                            inst:ListenForEvent("flop_start",function()
+                                inst.Transform:SetRotation(math.random(-180,180))
+                                inst.AnimState:PlayAnimation("flop_pre")
+                                local flop_num = math.random(2,5)
+                                for i = 1, flop_num, 1 do
+                                    inst.AnimState:PushAnimation("flop_loop")
+                                end
+                                inst.AnimState:PushAnimation("flop_pst")
+                                inst:DoTaskInTime(math.random(50)/10,function()
+                                    inst:PushEvent("flop_start")
+                                end)                                
+                            end)
+                            inst:PushEvent("flop_start")
+                        end
+                    end)
+                --------------------------------------------------------------------
+                return inst
+            end,
+        }
+    end
+
+----------------------------------------------------------------------------------------------------------------------------------------
 
 TUNING.FUNNY_CAT_ITEM_RESOURCES = TUNING.FUNNY_CAT_ITEM_RESOURCES or {}
 for k, v in pairs(temp_table) do

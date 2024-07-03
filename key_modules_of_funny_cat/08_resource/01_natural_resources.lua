@@ -161,7 +161,7 @@ local temp_table = {
             icon_data = {
 
             },            
-            map = "lava_pond.png",
+            map = "marsh_bush.png",
             common_postinit = function(inst)
                 inst.MiniMapEntity:SetPriority(-1)
             end,
@@ -1651,13 +1651,15 @@ local temp_table = {
             end,
             master_postinit = function(inst)
                 inst:DoTaskInTime(0,function()
-                    local x,y,z = inst.Transform:GetWorldPosition()
-                    local offst_x,offst_y,offst_z = (TheCamera:GetDownVec()*.5):Get()
-                    local fx = SpawnPrefab("mound")
-                    fx.Transform:SetPosition(x+offst_x,y+offst_y,z+offst_z)
-                    inst:ListenForEvent("onremove",function()
-                        fx:Remove()
-                    end)
+                    if math.random() < 0.5 then                        
+                        local x,y,z = inst.Transform:GetWorldPosition()
+                        local offst_x,offst_y,offst_z = (TheCamera:GetDownVec()*.5):Get()
+                        local fx = SpawnPrefab("mound")
+                        fx.Transform:SetPosition(x+offst_x,y+offst_y,z+offst_z)
+                        inst:ListenForEvent("onremove",function()
+                            fx:Remove()
+                        end)
+                    end
                 end)
                 inst.components.inspectable:SetDescription(STRINGS.EPITAPHS[math.random(#STRINGS.EPITAPHS)])
             end,

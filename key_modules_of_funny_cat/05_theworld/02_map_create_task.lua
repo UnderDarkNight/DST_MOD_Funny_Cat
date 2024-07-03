@@ -55,8 +55,8 @@
         local TILE_TYPE_INDEX = {
             ["ROCKY"] = 3,          --- 矿区
             ["DIRT"] = 4,           --- 沙漠
-            ["SAVANNA"] = 5,        --- 绿草原
-            ["GRASS"] = 6,          --- 黄草地
+            ["SAVANNA"] = 6,        --- 绿草原
+            ["GRASS"] = 5,          --- 黄草地
             ["FOREST"] = 7,         --- 森林
             ["MARSH"] = 8,          --- 沼泽
             ["MUD"] = 17,           --- 泥泞

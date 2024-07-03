@@ -90,7 +90,7 @@ local function fn()
         function inst:PlaceInRandom(target)
             for i = 1, 1000, 1 do
                 local target_pt = self:GetRandomPointInThisRoom()
-                if TheWorld.Map:CanDeployAtPoint(target_pt,target) then
+                if TheWorld.Map:CanDeployAtPoint(target_pt,target) or self:GetType() == "OCEAN" then
                     target.Transform:SetPosition(target_pt.x,0,target_pt.z)
                     return true
                 end

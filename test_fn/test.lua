@@ -626,7 +626,7 @@ local flg,error_code = pcall(function()
         -- UserCommands.RunUserCommand("dance", {}, ThePlayer, false)
     ----------------------------------------------------------------------------------------------------------------
     ---
-        -- print(TheWorld.Map:GetTileAtPoint(x,y,z))
+        print(TheWorld.Map:GetTileAtPoint(x,y,z))
 
         -- local tile_x,tile_y = TheWorld.Map:GetTileXYAtPoint(x,y,z)
         -- TheWorld.Map:SetTile(tile_x,tile_y,12)
@@ -922,20 +922,20 @@ local flg,error_code = pcall(function()
         -- end
     ----------------------------------------------------------------------------------------------------------------
     --- 鱼类调试
-        local ret_prefab = {}
+        -- local ret_prefab = {}
         
-        local all_fish_data = require("prefabs/oceanfishdef").fish
-        for origin_fish_name, fish_def in pairs(all_fish_data) do
-            table.insert(ret_prefab,"fc_"..origin_fish_name.."_inv")    
-        end
+        -- local all_fish_data = require("prefabs/oceanfishdef").fish
+        -- for origin_fish_name, fish_def in pairs(all_fish_data) do
+        --     table.insert(ret_prefab,"fc_"..origin_fish_name.."_inv")    
+        -- end
 
-        for i = 1, #ret_prefab, 1 do
-            ThePlayer:DoTaskInTime(i*0.5,function(inst)
-                local prefab = ret_prefab[i]
-                print("++++ ",i,prefab)
-                SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())                
-            end)
-        end
+        -- for i = 1, #ret_prefab, 1 do
+        --     ThePlayer:DoTaskInTime(i*0.5,function(inst)
+        --         local prefab = ret_prefab[i]
+        --         print("++++ ",i,prefab)
+        --         SpawnPrefab(prefab).Transform:SetPosition(inst.Transform:GetWorldPosition())                
+        --     end)
+        -- end
     ----------------------------------------------------------------------------------------------------------------
     --- 
             -- ThePlayer.Transform:SetPosition(x,0,z)

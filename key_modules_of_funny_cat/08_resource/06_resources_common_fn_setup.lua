@@ -33,6 +33,37 @@ local function common_prefab_post_init_fn(inst)
             end)
         ----------------------------------------------------------------------------------
     end
+
+
+    if not TheWorld.ismastersim then
+        return
+    end
+
+    inst:ListenForEvent("SetPosition",function(inst,pt)
+        if type(pt) == "table" and pt.x and pt.y and pt.z then
+            inst.Transform:SetPosition(pt.x,pt.y,pt.z)
+        end
+    end)
+    ---- 封装回调
+    inst:ListenForEvent("SetPositionByCallback",function(inst,_table)
+        -- _table = _table or {
+        --     pt = Vector3(0,0,0),
+        --     callback = {},
+        -- }
+        if type(_table) ~= "table" then
+            return
+        end
+        local pt = _table.pt
+        if type(pt) == "table" and pt.x and pt.y and pt.z then
+            inst.Transform:SetPosition(pt.x,pt.y,pt.z)
+        end
+
+        if type(_table.callback) == "table" then
+            table.insert(_table.callback,inst)
+        end
+
+    end)
+
 end
 
 for origin_prefab, v in pairs(TUNING.FUNNY_CAT_RESOURCES) do

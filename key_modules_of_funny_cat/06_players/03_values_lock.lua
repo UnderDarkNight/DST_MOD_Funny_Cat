@@ -61,5 +61,10 @@ AddPlayerPostInit(function(inst)
             end
         end
     ----------------------------------------------------------------------------------------------
+    -- 屏蔽查理
+        if inst.components.grue then
+            inst.components.grue:AddImmunity("funny_cat")
+        end
+    ----------------------------------------------------------------------------------------------
 
 end)

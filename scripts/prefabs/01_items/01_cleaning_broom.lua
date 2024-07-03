@@ -5,8 +5,9 @@
 
 ]]--
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-----
-    local SEARCHING_RADIUS = 6
+---- 参数表
+    local SEARCHING_RADIUS = TUNING.FUNNY_CAT_CONFIG.CLEANING_BROOM_RANGE or 6
+    local WALK_SPEED_MULT = TUNING.FUNNY_CAT_CONFIG.CLEANING_BROOM_RUN_SPEED_MULTIPLIER or 1
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----
     local assets =
@@ -25,6 +26,9 @@
         end
         owner.AnimState:Show("ARM_carry")
         owner.AnimState:Hide("ARM_normal")
+
+        owner.components.locomotor:SetExternalSpeedMultiplier(inst,string.upper(inst.prefab),WALK_SPEED_MULT)
+        
     end
 
     local function onunequip(inst, owner)
@@ -34,6 +38,7 @@
         if skin_build ~= nil then
             owner:PushEvent("unequipskinneditem", inst:GetSkinName())
         end
+        owner.components.locomotor:RemoveExternalSpeedMultiplier(inst,string.upper(inst.prefab))
     end
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --- 安装右键交互
@@ -108,7 +113,10 @@
                         inst:ListenForEvent("onremove",function()
                             fx:Remove()
                         end)
-                        fx:PushEvent("Set",{range = SEARCHING_RADIUS})
+                        fx:PushEvent("Set",{
+                            range = SEARCHING_RADIUS,
+                            color = Vector3(255,0,0),
+                        })
 
                         fx:DoPeriodicTask(0.1,function()
                             if not inst.replica.equippable:IsEquipped() then
@@ -189,7 +197,7 @@
         inst:AddComponent("equippable")
         inst.components.equippable:SetOnEquip(onequip)
         inst.components.equippable:SetOnUnequip(onunequip)
-
+        -- inst.components.equippable.walkspeedmult = WALK_SPEED_MULT
 
 
         MakeHauntableLaunchAndIgnite(inst)

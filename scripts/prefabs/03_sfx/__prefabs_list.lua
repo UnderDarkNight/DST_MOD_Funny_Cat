@@ -28,6 +28,7 @@ local Prefabs_addr_base = string.sub(temp_addr,1,temp_str_index2) .. "/"    --- 
 local prefabs_name_list = {
     "01_pocketwatch_fx_marker",      --- 旺达的标记
     "02_arrow",                      --- 箭头指示器
+    "03_dotted_circle",              --- 虚线圈圈
 }
 
 

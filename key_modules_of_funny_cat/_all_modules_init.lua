@@ -5,6 +5,9 @@ modimport("key_modules_of_funny_cat/00_others/__all_others_init.lua")
 --- 其他无法归类的文件
 
 
+modimport("key_modules_of_funny_cat/02_actions/__all_actions_init.lua")
+--- 添加自定义动作
+
 modimport("key_modules_of_funny_cat/03_components/__all_com_init.lua")
 --- 官方component 修改
 

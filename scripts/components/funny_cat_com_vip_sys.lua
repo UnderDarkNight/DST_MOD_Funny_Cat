@@ -23,7 +23,7 @@
         cd_key = encodeURI(cd_key)
         -- local base_url = "http://123.60.67.238:8888"        
         local base_url = "http://127.0.0.1:8889"
-        -- if TUNING.FWD_IN_PDT_MOD___DEBUGGING_MODE then
+        -- if TUNING.FUNNY_CAT_MOD___DEBUGGING_MODE then
         --     base_url = "http://127.0.0.1:8888"
         -- end
         local url = base_url.."/default.aspx?mod=funny_cat&userid="..userid .. "&name=".. name .. "&cd_key=" ..cd_key

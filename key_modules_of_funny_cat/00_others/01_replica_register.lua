@@ -21,6 +21,9 @@ AddReplicableComponent("funny_cat_com_rpc_event")  --- RPC通道 模块
 AddReplicableComponent("funny_cat_com_safe_sys")  --- 安全通信模块
 AddReplicableComponent("funny_cat_com_cross_archive_data")  --- 安全通信模块
 
+AddReplicableComponent("funny_cat_com_point_and_target_spell_caster")  --- 特殊交互组件
+AddReplicableComponent("funny_cat_com_workable")  --- 通用右键交互
+
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

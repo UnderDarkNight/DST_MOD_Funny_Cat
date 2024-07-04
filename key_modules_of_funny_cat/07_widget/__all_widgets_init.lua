@@ -12,3 +12,6 @@ modimport("key_modules_of_funny_cat/07_widget/02_emoji_selector.lua")
 
 modimport("key_modules_of_funny_cat/07_widget/04_statusdisplays.lua")
 --- 隐藏玩家状态框框
+
+modimport("key_modules_of_funny_cat/07_widget/05_itemtile_upgrade.lua")
+--- 修改物品槽，方便鼠标放上去后显示界面

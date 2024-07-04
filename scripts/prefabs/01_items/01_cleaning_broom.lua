@@ -171,6 +171,20 @@
         end
     end
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---- mouse over event setup
+    local function mouse_over_event_setup(inst)
+        if TheNet:IsDedicated() then
+            return
+        end
+
+        inst:ListenForEvent("ItemTileOnGainFocus",function()
+            print("++++ info ItemTileOnGainFocus",inst)
+        end)
+        inst:ListenForEvent("ItemTileOnLoseFocus",function()
+            print("++++ info ItemTileOnLoseFocus",inst)
+        end)
+    end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---
     local function fn()
         local inst = CreateEntity()
@@ -188,6 +202,7 @@
 
         inst:AddTag("nopunch")
         inst:AddTag("veryquickcast")
+        inst:AddTag("funny_cat_item_cleaning_broom")
 
         local swap_data = {sym_build = "swap_reskin_tool", bank = "reskin_tool"}
         MakeInventoryFloatable(inst, "med", 0.05, {1.0, 0.4, 1.0}, true, -20, swap_data)
@@ -197,6 +212,7 @@
         ----
             righ_click_setup(inst)
             spell_cast_com_setup(inst)
+            mouse_over_event_setup(inst)
         ---------------------------------------------------------------------------
         if not TheWorld.ismastersim then
             return inst

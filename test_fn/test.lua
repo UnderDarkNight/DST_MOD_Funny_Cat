@@ -967,8 +967,12 @@ local flg,error_code = pcall(function()
         -- end
     ----------------------------------------------------------------------------------------------------------------
     ---
-        local beard_inst = ThePlayer.components.inventory:GetEquippedItem(EQUIPSLOTS.BEARD)
-        print("++++ ",beard_inst,beard_inst:HasTag("funny_cat_other_beard_container"))
+        -- local beard_inst = ThePlayer.components.inventory:GetEquippedItem(EQUIPSLOTS.BEARD)
+        -- print("++++ ",beard_inst,beard_inst:HasTag("funny_cat_other_beard_container"))
+    ----------------------------------------------------------------------------------------------------------------
+    --- 
+            local inst = TheSim:FindFirstEntityWithTag("funny_cat_item_cleaning_broom")
+            inst:Remove()
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

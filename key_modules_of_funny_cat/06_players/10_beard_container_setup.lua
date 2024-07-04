@@ -60,6 +60,9 @@
         -------------------------------------------------------------------------------------
     end
     AddPlayerPostInit(function(inst)
+        if not TheWorld.ismastersim then
+            return
+        end
         inst:DoTaskInTime(0,function()
             if inst.prefab == "wilson" then
                 local beard_callbacks = inst.components.beard.callbacks
@@ -162,7 +165,7 @@
                 cd_task = nil
                 warning_flag = false
             end)
-            print("+++ card_slot_hot_key_press",slot_num)
+            -- print("+++ card_slot_hot_key_press",slot_num)
             inst:PushEvent("card_slot_hot_key_press",slot_num)
             inst.components.funny_cat_com_safe_sys:PushEvent("funny_cat_event.whisper",{
                 m_colour = {0/255,255/255,0/255},

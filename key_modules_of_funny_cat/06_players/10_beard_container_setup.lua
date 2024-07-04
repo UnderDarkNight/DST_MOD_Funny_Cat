@@ -144,25 +144,29 @@
         end
 
         local cd_task = nil
+        local warning_flag = false
         inst:ListenForEvent("card_slot_hot_key_press_client",function(inst,slot_num)
             if cd_task then
                 inst.components.funny_cat_com_safe_sys:PushEvent("card_slot_hot_key_press_fail_sound")
-                inst.components.funny_cat_com_safe_sys:PushEvent("funny_cat_event.whisper",{
-                    m_colour = {255/255,255/255,255/255},
-                    message = "请不要过快连续使用卡槽快捷键",
-                    icondata = "profileflair_treasurechest_monster",
-                })
+                if not warning_flag then
+                    warning_flag = true
+                    inst.components.funny_cat_com_safe_sys:PushEvent("funny_cat_event.whisper",{
+                        m_colour = {255/255,255/255,255/255},
+                        message = TUNING.FUNNY_CAT_FN:GetStrings("beard_container_hotkey","failed") or "XXXX",
+                        icondata = "profileflair_treasurechest_monster",
+                    })
+                end
                 return
             end
-
             cd_task = inst:DoTaskInTime(3,function()
                 cd_task = nil
+                warning_flag = false
             end)
             print("+++ card_slot_hot_key_press",slot_num)
             inst:PushEvent("card_slot_hot_key_press",slot_num)
             inst.components.funny_cat_com_safe_sys:PushEvent("funny_cat_event.whisper",{
                 m_colour = {0/255,255/255,0/255},
-                message = "激活卡槽 "..tostring(slot_num),
+                message = ( TUNING.FUNNY_CAT_FN:GetStrings("beard_container_hotkey","succeed") or "卡槽 ")..tostring(slot_num),
                 icondata = "profileflair_treasurechest_monster",
             })
         end)

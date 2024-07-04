@@ -29,6 +29,10 @@ local strings = {
             ["server_mods_checker_announce"] = "检测到服务器存在󰀭躲猫猫󰀭以外的MOD，游戏将可能会出现奇怪的机制",
             ["anti_cheating_anomaly"] = "󰀭躲猫猫󰀭反作弊系统在【{name}】的客户端出现异常",
         },
+        ["beard_container_hotkey"] = {
+            ["succeed"] = "激活卡槽 ",
+            ["failed"] = "请不要过快连续使用卡槽快捷键",
+        },
     --------------------------------------------------------------------
     --- 01_items
         ["funny_cat_item_cleaning_broom"] = {

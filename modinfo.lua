@@ -236,14 +236,34 @@ priority = 100000000000000  -- MOD加载优先级 影响某些功能的兼容性
   ---
       {name = "AAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,},
       {
+        name = "CARD_HOT_KEY_1",
+        label = IsChinese() and "卡槽快捷键1" or "Card Slot Hot Key 1",
+        hover = IsChinese() and "卡槽快捷键1" or "Card Slot Hot Key 1",
+        options = keys_option,
+        default = "KEY_J",
+      },
+      {
+        name = "CARD_HOT_KEY_2",
+        label = IsChinese() and "卡槽快捷键2" or "Card Slot Hot Key 2",
+        hover = IsChinese() and "卡槽快捷键2" or "Card Slot Hot Key 2",
+        options = keys_option,
+        default = "KEY_K",
+      },
+      {
+        name = "CARD_HOT_KEY_3",
+        label = IsChinese() and "卡槽快捷键3" or "Card Slot Hot Key 3",
+        hover = IsChinese() and "卡槽快捷键3" or "Card Slot Hot Key 3",
+        options = keys_option,
+        default = "KEY_L",
+      },
+      {
         name = "EMOJI_HOT_KEY",
         label = IsChinese() and "表情快捷键" or "Emoji Hot Key",
         hover = IsChinese() and "表情快捷键" or "Emoji Hot Key",
         options = keys_option,
-        default = "KEY_K",
+        default = "KEY_N",
 
       },
-
   ----------------------------------------------------------------------------------------------------------
   --- 
       {name = "AAAAAB",label = "",hover = "",options ={{description = "", data = true}},default = true,},

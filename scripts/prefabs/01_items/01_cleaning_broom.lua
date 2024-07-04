@@ -101,7 +101,7 @@
     local function spell_cast_com_setup(inst)
         inst:ListenForEvent("OnEntityReplicated.funny_cat_com_point_and_target_spell_caster",function(inst,replica_com)
             if replica_com then
-                replica_com:SetDistance(15)
+                replica_com:SetDistance(SEARCHING_RADIUS*1.2)
                 replica_com:SetText("funny_cat_item_cleaning_broom","")
                 replica_com:SetTestFn(function(inst,doer,target,pt,right_click)
                     if not right_click then
@@ -140,6 +140,17 @@
             end
         end)
         if TheWorld.ismastersim then
+            local function SpawnFxInPoint(inst,pt)
+                local fx_prefab = "explode_reskin"
+                local skin_fx = SKIN_FX_PREFAB[inst:GetSkinName()]
+                if skin_fx ~= nil and skin_fx[1] ~= nil then
+                    fx_prefab = skin_fx[1]
+                end
+                local fx = SpawnPrefab(fx_prefab)
+                if fx then
+                    fx.Transform:SetPosition(pt.x,0,pt.z)                    
+                end
+            end
             inst:AddComponent("funny_cat_com_point_and_target_spell_caster")
             inst.components.funny_cat_com_point_and_target_spell_caster:SetSpellFn(function(inst,doer,target,pt)                
                 -- print("funny_cat_item_cleaning_broom",target,pt)
@@ -152,7 +163,9 @@
                 local ents = TheSim:FindEntities(ret_pt.x,0,ret_pt.z,SEARCHING_RADIUS,{"funny_cat_resource"})
                 for k, v in pairs(ents) do
                     v:PushEvent("CleanByPlayer",doer)
+                        -- SpawnFxInPoint(inst,Vector3(v.Transform:GetWorldPosition()))
                 end
+                SpawnFxInPoint(inst,ret_pt)
                 return true
             end)
         end

@@ -28,6 +28,10 @@ local temp_assets = {
 
 	---------------------------------------------------------------------------
 	---
+		Asset("ANIM", "anim/funny_cat_other_beard_container.zip"),
+
+	---------------------------------------------------------------------------
+	--- 表情包按钮
 		Asset("IMAGE", "images/widgets/gesture_bg.tex"),
 		Asset("ATLAS", "images/widgets/gesture_bg.xml"),
 	---------------------------------------------------------------------------

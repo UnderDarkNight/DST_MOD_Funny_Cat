@@ -17,3 +17,7 @@ modimport("key_modules_of_funny_cat/06_players/07_map_tile_events.lua") --- 玩�
 modimport("key_modules_of_funny_cat/06_players/08_ocean_walk.lua") --- 水上行走
 
 modimport("key_modules_of_funny_cat/06_players/09_discane_api_upgrade.lua") --- 距离API升级
+
+modimport("key_modules_of_funny_cat/06_players/10_beard_container_setup.lua") --- 胡子容器
+
+modimport("key_modules_of_funny_cat/06_players/11_skeleton_prefab_hook.lua") --- 骷髅

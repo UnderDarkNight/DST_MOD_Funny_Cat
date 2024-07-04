@@ -1072,7 +1072,7 @@ local temp_table = {
             master_postinit = function(inst)
                 inst:DoTaskInTime(0,function()                    
                         inst.plant_ents = {}
-                        local MAX_PANTS_NUM = math.random(3,7)
+                        local MAX_PANTS_NUM = math.random(2,5)
                         local points = TUNING.FUNNY_CAT_FN:GetSurroundPoints({
                             target = inst,
                             range = 1.95,
@@ -1158,7 +1158,7 @@ local temp_table = {
             master_postinit = function(inst)
                 inst:DoTaskInTime(0,function()                    
                         inst.plant_ents = {}
-                        local MAX_PANTS_NUM = math.random(3,7)
+                        local MAX_PANTS_NUM = math.random(2,5)
                         local points = TUNING.FUNNY_CAT_FN:GetSurroundPoints({
                             target = inst,
                             range = 1.95,
@@ -1244,7 +1244,7 @@ local temp_table = {
             master_postinit = function(inst)
                 inst:DoTaskInTime(0,function()                    
                         inst.plant_ents = {}
-                        local MAX_PANTS_NUM = math.random(3,7)
+                        local MAX_PANTS_NUM = math.random(2,5)
                         local points = TUNING.FUNNY_CAT_FN:GetSurroundPoints({
                             target = inst,
                             range = 1.95,

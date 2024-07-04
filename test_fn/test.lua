@@ -966,6 +966,9 @@ local flg,error_code = pcall(function()
         --     end
         -- end
     ----------------------------------------------------------------------------------------------------------------
+    ---
+        local beard_inst = ThePlayer.components.inventory:GetEquippedItem(EQUIPSLOTS.BEARD)
+        print("++++ ",beard_inst,beard_inst:HasTag("funny_cat_other_beard_container"))
     ----------------------------------------------------------------------------------------------------------------
     print("WARNING:PCALL END   +++++++++++++++++++++++++++++++++++++++++++++++++")
 end)

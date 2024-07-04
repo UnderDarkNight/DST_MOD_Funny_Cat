@@ -11,3 +11,5 @@ modimport("key_modules_of_funny_cat/00_others/03_rpc_event_register.lua") --- �
 modimport("key_modules_of_funny_cat/00_others/04_safe_sys_rpc.lua") --- 安全检查信道。
 
 modimport("key_modules_of_funny_cat/00_others/05_offical_skin_setup.lua") --- 官方皮肤赋予给自己做的物品
+
+modimport("key_modules_of_funny_cat/00_others/06_hook_thesim.lua") --- hook thesim

@@ -14,4 +14,8 @@ TUNING.FUNNY_CAT_CONFIG.MAP_SIZE_BIG = GetModConfigData("MAP_SIZE_BIG") -- 地�
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 TUNING.FUNNY_CAT_CONFIG.ALLOW_SERVER_MODS = GetModConfigData("ALLOW_SERVER_MODS") -- 允许服务器MOD
 
+TUNING.FUNNY_CAT_CONFIG.CARD_HOT_KEY_1 = GetModConfigData("CARD_HOT_KEY_1")  -- 卡槽快捷键1
+TUNING.FUNNY_CAT_CONFIG.CARD_HOT_KEY_2 = GetModConfigData("CARD_HOT_KEY_2")  -- 卡槽快捷键2
+TUNING.FUNNY_CAT_CONFIG.CARD_HOT_KEY_3 = GetModConfigData("CARD_HOT_KEY_3")  -- 卡槽快捷键3
+
 TUNING.FUNNY_CAT_CONFIG.EMOJI_HOT_KEY = GetModConfigData("EMOJI_HOT_KEY")  -- 表情包快捷键
